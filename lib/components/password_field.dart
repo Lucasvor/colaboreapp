@@ -5,16 +5,20 @@ import 'text_field_container.dart';
 
 class PasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
+  final String password;
+
   const PasswordField({
     Key key,
     this.onChanged,
+    this.password,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    bool showPass = true;
     return TextFieldContainer(
       child: TextField(
-        obscureText: true,
+        obscureText: showPass,
         onChanged: onChanged,
         decoration: InputDecoration(
           hintText: "Senha",
@@ -22,10 +26,14 @@ class PasswordField extends StatelessWidget {
             Icons.lock,
             color: kPrimaryColorGreen,
           ),
-          suffixIcon: Icon(
-            Icons.visibility,
-            color: kPrimaryColorGreen,
-          ),
+          suffixIcon: IconButton(
+              icon: Icon(Icons.visibility),
+              color: kPrimaryColorGreen,
+              onPressed: () => {
+                    showPass = !showPass,
+                    print(showPass),
+                  }),
+
           //border: InputBorder.none
         ),
       ),

@@ -23,7 +23,7 @@ class Body extends StatelessWidget {
           Positioned(
             top: size.height * 0.05,
             child: SvgPicture.asset(
-              "assets/images/Planet.svg",
+              "assets/images/earth.svg",
               width: size.width * 0.5,
               color: kBackgroundColor,
             ),

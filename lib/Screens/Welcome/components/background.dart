@@ -20,7 +20,7 @@ class Background extends StatelessWidget {
         children: <Widget>[
           Positioned(
             child: SvgPicture.asset(
-              "assets/images/Planet.svg",
+              "assets/images/earth.svg",
               width: size.width * 0.5,
               color: kBackgroundColor,
             ),
