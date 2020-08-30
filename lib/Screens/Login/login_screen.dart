@@ -45,37 +45,6 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(5),
-              child: BlocListener<LoginBloc, LoginState>(
-                listener: (context, state) {
-                  if (state is LoginSucessState) {
-                    navigateToHomeScreen(context, state.user);
-                  }
-                },
-                child: BlocBuilder<LoginBloc, LoginState>(
-                  builder: (context, state) {
-                    if (state is LoginInitial) {
-                      return Container(
-                        child: Text('Sucesso'),
-                      );
-                    } else if (state is LoginLoadingState) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (state is LoginFailureState) {
-                      return SnackBar(content: Text(state.message));
-                    } else if (state is LoginSucessState) {
-                      cpfCntrlr.text = '';
-                      passCntrlr.text = '';
-                      return Container(
-                        child: Text('Sucesso'),
-                      );
-                    }
-                  },
-                ),
-              ),
-            ),
             Positioned(
               top: size.height * 0.05,
               child: SvgPicture.asset(
