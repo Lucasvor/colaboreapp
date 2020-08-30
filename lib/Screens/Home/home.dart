@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'components/background.dart';
 
 class HomeParent extends StatelessWidget {
-  final FirebaseUser user;
+  final User user;
   final UserRepository userRepository;
 
   const HomeParent({Key key, this.user, this.userRepository}) : super(key: key);
@@ -23,7 +23,7 @@ class HomeParent extends StatelessWidget {
 }
 
 class Home extends StatelessWidget {
-  FirebaseUser user;
+  User user;
   HomeBloc homeBloc;
   UserRepository userRepository;
 

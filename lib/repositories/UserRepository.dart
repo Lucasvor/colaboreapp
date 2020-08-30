@@ -2,11 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 
 class UserRepository {
-  FirebaseAuth firebaseAuth;
+  final FirebaseAuth firebaseAuth;
 
-  UserRepository() {
-    this.firebaseAuth = FirebaseAuth.instance;
-  }
+  UserRepository({FirebaseAuth firebaseAuth})
+      : this.firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   Future<User> createUser(String cpf, String senha) async {
     try {

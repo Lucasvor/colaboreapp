@@ -100,7 +100,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  void navigateToHomeScreen(BuildContext context, FirebaseUser user) {
+  void navigateToHomeScreen(BuildContext context, User user) {
     Navigator.of(context).push(MaterialPageRoute(builder: (context) {
       return HomeParent(user: user, userRepository: userRepository);
     }));
