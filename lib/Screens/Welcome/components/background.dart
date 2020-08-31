@@ -28,7 +28,7 @@ class Background extends StatelessWidget {
           Positioned(
             bottom: (size.height / 2 * .55),
             child: Text(
-              "Pois o Mundo precisa de você",
+              "Pois o mundo precisa de você",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Raleway',

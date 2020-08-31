@@ -6,11 +6,13 @@ import 'text_field_container.dart';
 class PasswordField extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final String password;
+  final TextEditingController textEditingController;
 
   const PasswordField({
     Key key,
     this.onChanged,
     this.password,
+    this.textEditingController,
   }) : super(key: key);
 
   @override
@@ -18,6 +20,7 @@ class PasswordField extends StatelessWidget {
     bool showPass = true;
     return TextFieldContainer(
       child: TextField(
+        controller: textEditingController,
         obscureText: showPass,
         onChanged: onChanged,
         decoration: InputDecoration(
