@@ -9,17 +9,20 @@ abstract class AuthState extends Equatable {
 
 class AuthInitial extends AuthState {}
 
-// ignore: must_be_immutable
-class AuthenticatedState extends AuthState {
-  User user;
+class AuthSplashState extends AuthState {}
 
-  AuthenticatedState({@required this.user});
+// ignore: must_be_immutable
+class AuthSucessState extends AuthState {
+  User user;
+  AuthSucessState({@required this.user});
+  @override
+  List<Object> get props => [];
 }
 
-class UnAuthenticatedState extends AuthState {}
+class UnAuthState extends AuthState {}
 
-class AuthenticatedErrorState extends AuthState {
+class AuthErrorState extends AuthState {
   final String mensagem;
 
-  AuthenticatedErrorState(this.mensagem);
+  AuthErrorState(this.mensagem);
 }

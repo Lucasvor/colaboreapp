@@ -19,17 +19,47 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     AuthEvent event,
   ) async* {
     try {
-      if (event is AppStartedEvent) {
-        var isSignedIn = await userRepository.isSignedIn();
-        if (isSignedIn) {
-          var user = await userRepository.getCurrentUser();
-          yield AuthenticatedState(user: user);
-        } else {
-          yield UnAuthenticatedState();
-        }
+      if (event is AuthSplash) {
+        yield* _mapAuthSplashToState();
+      } else if (event is AuthStarted) {
+        yield* _mapAuthStartedToState();
+      } else if (event is AuthLoggedIn) {
+        yield* _mapAuthLoggedInToState();
+      } else if (event is AuthLoggedOut) {
+        yield* _mapAuthLoggedOutToState();
       }
     } on PlatformException catch (e) {
-      yield AuthenticatedErrorState(e.message);
+      yield AuthErrorState(e.message);
+    }
+  }
+
+// ! Splash Auth
+  Stream<AuthState> _mapAuthSplashToState() async* {
+    yield AuthSplashState();
+    await Future.delayed(Duration(seconds: 6));
+    yield* _mapAuthStartedToState();
+  }
+
+// ! Saida Auth
+
+  Stream<AuthState> _mapAuthLoggedOutToState() async* {
+    yield UnAuthState();
+    userRepository.singOut();
+  }
+
+// ! Login Auth
+  Stream<AuthState> _mapAuthLoggedInToState() async* {
+    yield AuthSucessState(user: await userRepository.getCurrentUser());
+  }
+
+// ! Autenticação
+  Stream<AuthState> _mapAuthStartedToState() async* {
+    final isSignedIn = await userRepository.isSignedIn();
+    if (isSignedIn) {
+      final user = await userRepository.getCurrentUser();
+      yield AuthSucessState(user: user);
+    } else {
+      yield UnAuthState();
     }
   }
 }
