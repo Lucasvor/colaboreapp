@@ -178,7 +178,7 @@ class _CadastroState extends State<CadastroForm> {
                           onPressed: _mostraSenha,
                         ),
                       ),
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       autovalidate: true,
                     ),
                     SizedBox(

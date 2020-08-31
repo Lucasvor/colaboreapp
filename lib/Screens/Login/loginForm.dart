@@ -164,7 +164,7 @@ class _LoginState extends State<LoginForm> {
                             onPressed: _mostraSenha,
                           ),
                         ),
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         autovalidate: true,
                       ),
                       SizedBox(
