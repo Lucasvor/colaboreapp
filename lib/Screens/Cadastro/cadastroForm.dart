@@ -1,10 +1,8 @@
-import 'package:colaboreapp/Screens/Home/home.dart';
 import 'package:colaboreapp/bloc/Cadastro/cadastro_bloc.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/main.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
