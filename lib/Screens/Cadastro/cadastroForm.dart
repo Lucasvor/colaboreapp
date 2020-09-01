@@ -23,6 +23,7 @@ class _CadastroState extends State<CadastroForm> {
   final TextEditingController cpfController =
       new MaskedTextController(mask: '000.000.000-00');
   final TextEditingController senhaController = TextEditingController();
+  final TextEditingController confirmaSenhaController = TextEditingController();
 
   bool mostraSenha = true;
 
@@ -168,6 +169,8 @@ class _CadastroState extends State<CadastroForm> {
                       decoration: InputDecoration(
                         icon: Icon(Icons.lock, color: kPrimaryColorGreen),
                         labelText: "Senha",
+                        contentPadding:
+                            const EdgeInsets.symmetric(vertical: 20),
                         suffixIcon: IconButton(
                           icon: Icon(
                             Icons.visibility,
@@ -176,6 +179,25 @@ class _CadastroState extends State<CadastroForm> {
                           onPressed: _mostraSenha,
                         ),
                       ),
+                      keyboardType: TextInputType.text,
+                      autovalidate: true,
+                    ),
+                    TextFormField(
+                      controller: confirmaSenhaController,
+                      validator: (_) {
+                        if (senhaController != confirmaSenhaController) {
+                          state.isConfirmaSenhaValid = false;
+                        }
+                        return !state.isConfirmaSenhaValid
+                            ? 'Senha não confere!'
+                            : null;
+                      },
+                      obscureText: mostraSenha,
+                      decoration: InputDecoration(
+                          icon: Icon(Icons.lock, color: kPrimaryColorGreen),
+                          labelText: "Confirmar Senha",
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 20)),
                       keyboardType: TextInputType.text,
                       autovalidate: true,
                     ),
@@ -189,7 +211,8 @@ class _CadastroState extends State<CadastroForm> {
                           _cadastroBloc.add(CadastroSubmitted(
                               nome: nomeController.text,
                               cpf: cpfController.text,
-                              senha: senhaController.text));
+                              senha: senhaController.text,
+                              confirmaSenha: confirmaSenhaController.text));
                         }
                       },
                     ),

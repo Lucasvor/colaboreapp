@@ -7,11 +7,13 @@ class CadastroState {
   final bool isSucess;
   final bool isFailure;
   final String message;
+  bool isConfirmaSenhaValid;
 
   CadastroState(
       {this.message,
       this.isCpfValid,
       this.isSenhaValid,
+      this.isConfirmaSenhaValid,
       this.isSubmitting,
       this.isSucess,
       this.isFailure});
