@@ -28,8 +28,9 @@ class CadastroSubmitted extends CadastroEvent {
   final String cpf;
   final String senha;
   final String nome;
+  final String confirmaSenha;
 
-  CadastroSubmitted({this.cpf, this.senha, this.nome});
+  CadastroSubmitted({this.cpf, this.senha, this.nome, this.confirmaSenha});
 
   @override
   List<Object> get props => [];
