@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:colaboreapp/Model/usuario.dart';
+import 'package:colaboreapp/repositories/FirestoreUserRepository.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:colaboreapp/utils/validators.dart';
 import 'package:equatable/equatable.dart';
@@ -39,9 +41,11 @@ class CadastroBloc extends Bloc<CadastroEvent, CadastroState> {
     yield CadastroState.loading();
 
     try {
-      var user = await userRepository.createUser(
-          cpf.replaceAll(".", "").replaceAll("-", ""), senha, nome);
-
+      cpf = cpf.replaceAll(".", "").replaceAll("-", "");
+      await userRepository.createUser(cpf, senha, nome);
+      var firestore = FirestoreUserRepository();
+      await firestore
+          .addNewUsuario(Usuario(senha: senha, cpf: cpf, nome: nome));
       yield CadastroState.sucess();
     } on Exception catch (e) {
       print(e.toString());
