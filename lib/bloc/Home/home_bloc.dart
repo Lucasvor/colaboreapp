@@ -9,7 +9,7 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   UserRepository userRepository;
-  HomeBloc(this.userRepository) : super(HomeInitial());
+  HomeBloc({this.userRepository}) : super(HomeInitial());
 
   @override
   Stream<HomeState> mapEventToState(

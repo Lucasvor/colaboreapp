@@ -14,11 +14,8 @@ class Cadastro extends StatelessWidget {
     return Scaffold(
       body: BlocProvider<CadastroBloc>(
         create: (context) => CadastroBloc(userRepository),
-        child: BlocProvider(
-          create: (context) => CadastroBloc(userRepository),
-          child: CadastroForm(
-            userRepository: userRepository,
-          ),
+        child: CadastroForm(
+          userRepository: userRepository,
         ),
       ),
     );
