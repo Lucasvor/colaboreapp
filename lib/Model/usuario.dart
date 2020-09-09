@@ -38,5 +38,6 @@ class Usuario extends Equatable {
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>
       _$UsuarioFromJson(json);
+
   Map<String, dynamic> toJson() => _$UsuarioToJson(this);
 }
