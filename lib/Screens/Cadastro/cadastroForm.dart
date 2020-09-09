@@ -54,6 +54,10 @@ class _CadastroState extends State<CadastroForm> {
     senhaController.addListener(() {
       _cadastroBloc.add(CadastroSenhaChanged(senhaController.text));
     });
+    confirmaSenhaController.addListener(() {
+      _cadastroBloc
+          .add(CadastroConfirmaSenhaChanged(confirmaSenhaController.text));
+    });
   }
 
   @override
@@ -120,6 +124,19 @@ class _CadastroState extends State<CadastroForm> {
                 padding: EdgeInsets.all(25),
                 child: Column(
                   children: <Widget>[
+                    RichText(
+                      text: TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: 'Informações Pessoais',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 35,
+                                  fontFamily: 'Avenir')),
+                        ],
+                      ),
+                    ),
                     TextFormField(
                       controller: nomeController,
                       validator: null,
@@ -185,9 +202,6 @@ class _CadastroState extends State<CadastroForm> {
                     TextFormField(
                       controller: confirmaSenhaController,
                       validator: (_) {
-                        if (senhaController != confirmaSenhaController) {
-                          state.isConfirmaSenhaValid = false;
-                        }
                         return !state.isConfirmaSenhaValid
                             ? 'Senha não confere!'
                             : null;

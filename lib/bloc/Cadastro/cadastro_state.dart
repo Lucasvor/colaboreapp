@@ -6,8 +6,8 @@ class CadastroState {
   final bool isSubmitting;
   final bool isSucess;
   final bool isFailure;
+  final bool isConfirmaSenhaValid;
   final String message;
-  bool isConfirmaSenhaValid;
 
   CadastroState(
       {this.message,
@@ -24,6 +24,7 @@ class CadastroState {
     return CadastroState(
         isCpfValid: true,
         isSenhaValid: true,
+        isConfirmaSenhaValid: false,
         isSubmitting: false,
         isSucess: false,
         isFailure: false);
@@ -33,6 +34,7 @@ class CadastroState {
     return CadastroState(
         isCpfValid: true,
         isSenhaValid: true,
+        isConfirmaSenhaValid: true,
         isSubmitting: true,
         isSucess: false,
         isFailure: false);
@@ -43,6 +45,7 @@ class CadastroState {
         message: message,
         isCpfValid: true,
         isSenhaValid: true,
+        isConfirmaSenhaValid: true,
         isSubmitting: false,
         isSucess: false,
         isFailure: true);
@@ -51,18 +54,18 @@ class CadastroState {
     return CadastroState(
         isCpfValid: true,
         isSenhaValid: true,
+        isConfirmaSenhaValid: true,
         isSubmitting: false,
         isSucess: true,
         isFailure: false);
   }
 
-  CadastroState update({
-    bool isCpfValid,
-    bool isSenhaValid,
-  }) {
+  CadastroState update(
+      {bool isCpfValid, bool isSenhaValid, bool isConfirmaSenhaValid}) {
     return copyWith(
         isCpfValid: isCpfValid,
         isSenhaValid: isSenhaValid,
+        isConfirmaSenhaValid: isConfirmaSenhaValid,
         isSubmitting: false,
         isSucess: false,
         isFailure: false);
@@ -74,10 +77,12 @@ class CadastroState {
     bool isSubmitting,
     bool isSucess,
     bool isFailure,
+    bool isConfirmaSenhaValid,
   }) {
     return CadastroState(
         isCpfValid: isCpfValid ?? this.isCpfValid,
         isSenhaValid: isSenhaValid ?? this.isSenhaValid,
+        isConfirmaSenhaValid: isConfirmaSenhaValid ?? this.isConfirmaSenhaValid,
         isSubmitting: isSubmitting ?? this.isSubmitting,
         isSucess: isSucess ?? this.isSucess,
         isFailure: isFailure ?? this.isFailure);

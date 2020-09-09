@@ -16,6 +16,14 @@ class CadastroCpfChanged extends CadastroEvent {
   List<Object> get props => [];
 }
 
+class CadastroConfirmaSenhaChanged extends CadastroEvent {
+  final String confirmaSenha;
+
+  CadastroConfirmaSenhaChanged(this.confirmaSenha);
+  @override
+  List<Object> get props => [];
+}
+
 class CadastroSenhaChanged extends CadastroEvent {
   final String senha;
 
