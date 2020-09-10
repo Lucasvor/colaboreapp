@@ -42,6 +42,8 @@ class _HomeFormState extends State<HomeForm> {
 
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     //
+
+    containerOngs.build(context);
     _homeBloc.add(LoadingOngs());
     super.initState();
   }
@@ -88,7 +90,7 @@ class _HomeFormState extends State<HomeForm> {
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.black12,
+                          color: Colors.green[200],
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -136,30 +138,31 @@ class _HomeFormState extends State<HomeForm> {
                       padding: EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: Colors.black12,
+                          color: Colors.green[200],
                         ),
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      height: size.height * 0.5,
-                      width: size.width,
-                      child: Stack(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Center(
-                            child: CachedNetworkImage(
-                              imageUrl: item.imageUrl,
-                              placeholder: (context, url) =>
-                                  new CircularProgressIndicator(),
-                              errorWidget: (context, url, error) =>
-                                  new Icon(Icons.error),
-                              fit: BoxFit.fill,
-                            ),
+                          CachedNetworkImage(
+                            height: size.height * 0.15,
+                            imageUrl: item.imageUrl,
+                            placeholder: (context, url) =>
+                                new CircularProgressIndicator(),
+                            errorWidget: (context, url, error) =>
+                                new Icon(Icons.error),
+                            fit: BoxFit.contain,
                           ),
                           Container(
                             alignment: Alignment.bottomCenter,
                             child: Text(
                               item.nome,
                               textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(
+                                  color: Colors.black38,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           // child: SvgPicture.asset(
@@ -180,84 +183,117 @@ class _HomeFormState extends State<HomeForm> {
           return Container(
             width: double.infinity,
             height: size.height,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SvgPicture.asset(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          _homeBloc.add(LoadingOngs());
+                        },
+                        child: SvgPicture.asset(
                           "assets/images/earth.svg",
                           width: size.width * 0.1,
                           color: kBackgroundColor,
                         ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: size.height * 0.03,
+                  ),
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                            text: 'Olá,\n',
+                            style: TextStyle(fontSize: 20, color: Colors.black),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: '  ' + '${widget.usuario.displayName}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 26),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SvgPicture.asset(
+                          "assets/images/doacao.svg",
+                          height: size.height * 0.06,
+                        ),
                       ],
                     ),
-                    SizedBox(
-                      height: size.height * 0.05,
-                    ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Olá, ${widget.usuario.displayName}',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500, fontSize: 21),
-                          ),
-                        ],
-                      ),
-                    ),
-                    containerOngs,
-                    Container(
-                      height: size.height * 0.3,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              height: size.height * 0.2,
-                              margin: EdgeInsets.all(5),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: FlatButton(
-                                  onPressed: () {},
-                                  color: kPrimaryColorGreen,
-                                  child: Text(
-                                    'Doações',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+                  ),
+                  containerOngs,
+                  Container(
+                    height: size.height * 0.2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            height: size.height * 0.2,
+                            margin: EdgeInsets.all(5),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: FlatButton(
+                                onPressed: () {},
+                                color: kPrimaryColorGreen,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    SvgPicture.asset(
+                                      "assets/images/charity.svg",
+                                      height: size.height * 0.1,
+                                    ),
+                                    Text(
+                                      'Doações',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                          Expanded(
-                            child: Container(
-                              height: size.height * 0.2,
-                              margin: EdgeInsets.all(5),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: FlatButton(
-                                  onPressed: () {},
-                                  color: kPrimaryColorGreen,
-                                  child: Text(
-                                    'Descubra',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            height: size.height * 0.2,
+                            margin: EdgeInsets.all(5),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: FlatButton(
+                                onPressed: () {},
+                                color: kPrimaryColorGreen,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    SvgPicture.asset(
+                                      "assets/images/search.svg",
+                                      height: size.height * 0.1,
+                                    ),
+                                    Text(
+                                      'Descubra',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           );
