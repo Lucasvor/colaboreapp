@@ -7,8 +7,9 @@ part 'ong.g.dart';
 class Ong extends Equatable {
   final String nome;
   final String imageUrl;
+  final String info;
 
-  Ong({this.nome, this.imageUrl});
+  Ong({this.info, this.nome, this.imageUrl});
 
   @override
   // TODO: implement props

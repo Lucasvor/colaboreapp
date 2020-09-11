@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:colaboreapp/Screens/PerfilOng/perfilOng.dart';
 import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
@@ -131,45 +132,59 @@ class _HomeFormState extends State<HomeForm> {
               ),
               items: state.ongs
                   .map(
-                    (item) => Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 20,
-                      ),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.green[200],
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          CachedNetworkImage(
-                            height: size.height * 0.15,
-                            imageUrl: item.imageUrl,
-                            placeholder: (context, url) =>
-                                new CircularProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                new Icon(Icons.error),
-                            fit: BoxFit.contain,
-                          ),
-                          Container(
-                            alignment: Alignment.bottomCenter,
-                            child: Text(
-                              item.nome,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black38,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold),
+                    (item) => InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => PerfilOng(
+                              ong: item,
                             ),
                           ),
-                          // child: SvgPicture.asset(
-                          //   "assets/images/earth.svg",
-                          //   color: kBackgroundColor,
-                          // ),
-                        ],
+                        );
+                      },
+                      child: Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: 20,
+                        ),
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.green[200],
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Hero(
+                              tag: '${item.nome}',
+                              child: CachedNetworkImage(
+                                height: size.height * 0.15,
+                                imageUrl: item.imageUrl,
+                                placeholder: (context, url) =>
+                                    new CircularProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    new Icon(Icons.error),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.bottomCenter,
+                              child: Text(
+                                item.nome,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black38,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            // child: SvgPicture.asset(
+                            //   "assets/images/earth.svg",
+                            //   color: kBackgroundColor,
+                            // ),
+                          ],
+                        ),
                       ),
                     ),
                   )
@@ -188,21 +203,21 @@ class _HomeFormState extends State<HomeForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          _homeBloc.add(LoadingOngs());
-                        },
-                        child: SvgPicture.asset(
-                          "assets/images/earth.svg",
-                          width: size.width * 0.1,
-                          color: kBackgroundColor,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   children: [
+                  //     GestureDetector(
+                  //       onTap: () {
+                  //         _homeBloc.add(LoadingOngs());
+                  //       },
+                  //       child: SvgPicture.asset(
+                  //         "assets/images/earth.svg",
+                  //         width: size.width * 0.1,
+                  //         color: kBackgroundColor,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   SizedBox(
                     height: size.height * 0.03,
                   ),
@@ -223,9 +238,14 @@ class _HomeFormState extends State<HomeForm> {
                             ],
                           ),
                         ),
-                        SvgPicture.asset(
-                          "assets/images/doacao.svg",
-                          height: size.height * 0.06,
+                        GestureDetector(
+                          onTap: () {
+                            _homeBloc.add(LoadingOngs());
+                          },
+                          child: SvgPicture.asset(
+                            "assets/images/doacao.svg",
+                            height: size.height * 0.06,
+                          ),
                         ),
                       ],
                     ),

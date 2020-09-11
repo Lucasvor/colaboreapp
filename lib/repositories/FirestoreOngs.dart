@@ -8,7 +8,10 @@ class FirestoreOngs {
     var qshot = await ongsCollection.get();
 
     return qshot.docs
-        .map((e) => Ong(nome: e.data()['nome'], imageUrl: e.data()['imageUrl']))
+        .map((e) => Ong(
+            nome: e.data()['nome'],
+            imageUrl: e.data()['imageUrl'],
+            info: e.data()['info']))
         .toList();
   }
 }

@@ -8,6 +8,7 @@ part of 'ong.dart';
 
 Ong _$OngFromJson(Map<String, dynamic> json) {
   return Ong(
+    info: json['info'] as String,
     nome: json['nome'] as String,
     imageUrl: json['imageUrl'] as String,
   );
@@ -16,4 +17,5 @@ Ong _$OngFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$OngToJson(Ong instance) => <String, dynamic>{
       'nome': instance.nome,
       'imageUrl': instance.imageUrl,
+      'info': instance.info,
     };
