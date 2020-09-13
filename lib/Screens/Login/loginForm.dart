@@ -180,7 +180,7 @@ class _LoginState extends State<LoginForm> {
                         height: size.height * 0.1,
                       ),
                       RoundedButton(
-                        text: "CONTINUAR",
+                        text: "ENTRAR",
                         press: () {
                           if (isButtonEnabled(state))
                             _loginBloc.add(LoginWithCredentialsPressed(
