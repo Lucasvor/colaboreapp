@@ -1,6 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'usuario.g.dart';
+
+@JsonSerializable(explicitToJson: true)
 class Usuario extends Equatable {
   final String nome;
   final String email;
@@ -21,4 +25,19 @@ class Usuario extends Equatable {
   @override
   // TODO: implement props
   List<Object> get props => [nome, email, senha, cpf, dataNascimento, telefone];
+
+  Usuario toEntity() {
+    return Usuario(
+        cpf: cpf,
+        email: email,
+        senha: senha,
+        nome: nome,
+        telefone: telefone,
+        dataNascimento: dataNascimento);
+  }
+
+  factory Usuario.fromJson(Map<String, dynamic> json) =>
+      _$UsuarioFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UsuarioToJson(this);
 }

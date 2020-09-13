@@ -8,3 +8,8 @@ abstract class HomeEvent extends Equatable {
 }
 
 class LogOutButtonPressedEvent extends HomeEvent {}
+
+class LoadingOngs extends HomeEvent {
+  @override
+  List<Object> get props => [];
+}
