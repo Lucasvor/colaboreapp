@@ -6,8 +6,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Cadastro extends StatelessWidget {
   final UserRepository userRepository;
+  final UserRepository ongRepository;
 
-  const Cadastro({Key key, this.userRepository}) : super(key: key);
+  const Cadastro({Key key, this.userRepository, this.ongRepository})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
