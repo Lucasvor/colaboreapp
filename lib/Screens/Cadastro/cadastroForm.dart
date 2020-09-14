@@ -13,7 +13,9 @@ import 'cadastro.dart';
 class CadastroForm extends StatefulWidget {
   final UserRepository userRepository;
 
-  const CadastroForm({Key key, this.userRepository}) : super(key: key);
+  const CadastroForm(
+      {Key key, this.userRepository, UserRepository ongRepository})
+      : super(key: key);
 
   @override
   _CadastroState createState() => _CadastroState();

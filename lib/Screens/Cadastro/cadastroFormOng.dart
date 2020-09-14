@@ -2,23 +2,23 @@ import 'package:colaboreapp/bloc/Cadastro/cadastro_bloc.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/main.dart';
-import 'package:colaboreapp/repositories/UserRepository.dart';
+import 'package:colaboreapp/repositories/OngRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 import '../../constants.dart';
 
-class CadastroForm extends StatefulWidget {
-  final UserRepository userRepository;
+class CadastroFormOng extends StatefulWidget {
+  final OngRepository ongRepository;
 
-  const CadastroForm({Key key, this.userRepository}) : super(key: key);
+  const CadastroFormOng({Key key, this.ongRepository}) : super(key: key);
 
   @override
   _CadastroState createState() => _CadastroState();
 }
 
-class _CadastroState extends State<CadastroForm> {
+class _CadastroState extends State<CadastroFormOng> {
   final TextEditingController nomeFantasiaController = TextEditingController();
   final TextEditingController cnpjController =
       new MaskedTextController(mask: '000.000.000-00');
@@ -57,20 +57,21 @@ class _CadastroState extends State<CadastroForm> {
     super.initState();
     _cadastroBloc = BlocProvider.of<CadastroBloc>(context);
     nomeFantasiaController.addListener(() {
-      _cadastroBloc.add(CadastroCpfChanged(nomeFantasiaController.text));
+      _cadastroBloc
+          .add(CadastroNomeFantasiaChanged(nomeFantasiaController.text));
     });
     cnpjController.addListener(() {
-      _cadastroBloc.add(CadastroSenhaChanged(cnpjController.text));
+      _cadastroBloc.add(CadastroCnpjChanged(cnpjController.text));
     });
     telController.addListener(() {
-      _cadastroBloc.add(CadastroConfirmaSenhaChanged(telController.text));
+      _cadastroBloc.add(CadastroTelChanged(telController.text));
     });
     dataRegistroController.addListener(() {
       _cadastroBloc
-          .add(CadastroConfirmaSenhaChanged(dataRegistroController.text));
+          .add(CadastroDataRegistroChanged(dataRegistroController.text));
     });
     categoriaController.addListener(() {
-      _cadastroBloc.add(CadastroConfirmaSenhaChanged(categoriaController.text));
+      _cadastroBloc.add(CadastroCategoriaChanged(categoriaController.text));
     });
   }
 
@@ -141,58 +142,86 @@ class _CadastroState extends State<CadastroForm> {
                 padding: EdgeInsets.all(25),
                 child: Column(
                   children: <Widget>[
-                    RichText(
-                      text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: <TextSpan>[
-                          TextSpan(
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          IconButton(
+                            onPressed: () {
+                              setState(() {});
+                            },
+                            icon: Icon(Icons.arrow_back),
+                          ),
+                        ]),
+                    SizedBox(
+                      height: size.height * 0.01,
+                    ),
+                    Row(children: <Widget>[
+                      RichText(
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: <TextSpan>[
+                            TextSpan(
                               text: 'Informações sobre a ONG',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24,
-                                  fontFamily: 'Avenir')),
-                        ],
+                                  fontFamily: 'Avenir'),
+                            ),
+                          ],
+                        ),
                       ),
+                    ]),
+                    SizedBox(
+                      height: size.height * 0.03,
                     ),
                     TextFormField(
                       controller: nomeFantasiaController,
                       validator: null,
                       decoration: InputDecoration(
-                        icon: Icon(Icons.person, color: kPrimaryColorGreen),
+                        contentPadding: EdgeInsets.symmetric(vertical: 0),
                         labelText: "Nome Fantasia",
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            Icons.close,
-                            color: kPrimaryColorGreen,
-                          ),
-                          onPressed: () {
-                            nomeFantasiaController.text = '';
-                          },
-                        ),
+                        suffixIcon: nomeFantasiaController.text.length > 0
+                            ? IconButton(
+                                icon: Icon(
+                                  Icons.close,
+                                  color: kPrimaryColorGreen,
+                                ),
+                                onPressed: () {
+                                  nomeFantasiaController.text = '';
+                                },
+                              )
+                            : null,
                       ),
                       keyboardType: TextInputType.name,
                       autovalidate: true,
                     ),
+                    SizedBox(
+                      height: size.height * 0.04,
+                    ),
                     TextFormField(
                       controller: cnpjController,
                       validator: (_) {
-                        return !state.isCpfValid ? 'CNPJ inválido' : null;
+                        return !state.isCpfValid ? 'CNPJ Inválido' : null;
                       },
                       decoration: InputDecoration(
-                        icon: Icon(Icons.person, color: kPrimaryColorGreen),
                         labelText: "CNPJ",
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            Icons.close,
-                            color: kPrimaryColorGreen,
-                          ),
-                          onPressed: () {
-                            cnpjController.text = '';
-                          },
-                        ),
+                        suffixIcon: cnpjController.text.length > 0
+                            ? IconButton(
+                                icon: Icon(
+                                  Icons.close,
+                                  color: kPrimaryColorGreen,
+                                ),
+                                onPressed: () {
+                                  cnpjController.text = '';
+                                },
+                              )
+                            : null,
                       ),
                       keyboardType: TextInputType.number,
                       autovalidate: true,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.04,
                     ),
                     TextFormField(
                       controller: telController,
@@ -201,34 +230,76 @@ class _CadastroState extends State<CadastroForm> {
                       },
                       decoration: InputDecoration(
                         labelText: "Telefone",
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            Icons.close,
-                            color: kPrimaryColorGreen,
-                          ),
-                          onPressed: () {
-                            telController.text = '';
-                          },
-                        ),
+                        suffixIcon: telController.text.length > 0
+                            ? IconButton(
+                                icon: Icon(
+                                  Icons.close,
+                                  color: kPrimaryColorGreen,
+                                ),
+                                onPressed: () {
+                                  telController.text = '';
+                                },
+                              )
+                            : null,
                       ),
                       keyboardType: TextInputType.number,
                       autovalidate: true,
                     ),
                     SizedBox(
-                      height: size.height * 0.02,
+                      height: size.height * 0.04,
+                    ),
+                    TextFormField(
+                      controller: dataRegistroController,
+                      validator: (_) {
+                        return !state.isCpfValid ? 'Data inválida' : null;
+                      },
+                      decoration: InputDecoration(
+                        labelText: "Data de Registro",
+                        suffixIcon: dataRegistroController.text.length > 0
+                            ? IconButton(
+                                icon: Icon(
+                                  Icons.close,
+                                  color: kPrimaryColorGreen,
+                                ),
+                                onPressed: () {
+                                  dataRegistroController.text = '';
+                                },
+                              )
+                            : null,
+                      ),
+                      keyboardType: TextInputType.number,
+                      autovalidate: true,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.04,
+                    ),
+                    TextFormField(
+                      controller: categoriaController,
+                      validator: (_) {
+                        return !state.isCpfValid ? 'Categoria Inválida' : null;
+                      },
+                      decoration: InputDecoration(
+                          labelText: "Categoria",
+                          suffixIcon: categoriaController.text.length > 0
+                              ? IconButton(
+                                  icon: Icon(
+                                    Icons.close,
+                                    color: kPrimaryColorGreen,
+                                  ),
+                                  onPressed: () {
+                                    categoriaController.text = '';
+                                  },
+                                )
+                              : null),
+                      keyboardType: TextInputType.number,
+                      autovalidate: true,
+                    ),
+                    SizedBox(
+                      height: size.height * 0.20,
                     ),
                     RoundedButton(
-                      text: "Cadastrar",
-                      press: () {
-                        if (isButtonEnabled(state)) {
-                          _cadastroBloc.add(CadastroSubmitted(
-                              nomeFantasiaOng: nomeFantasiaController.text,
-                              cnpjOng: cnpjController.text,
-                              telOng: telController.text,
-                              dataRegistroOng: dataRegistroController.text,
-                              categoriaOng: categoriaController.text));
-                        }
-                      },
+                      text: "Continuar",
+                      press: () {},
                     ),
                   ],
                 ),
