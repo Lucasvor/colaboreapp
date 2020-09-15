@@ -17,9 +17,11 @@ class HomeState {
   final bool isFailure;
   final String message;
   final List<Ong> ongs;
+  final Usuario usuario;
 
   HomeState(
       {this.ongs,
+      this.usuario,
       this.message,
       this.isSucess,
       this.isLoadingOngs,
@@ -38,8 +40,13 @@ class HomeState {
         isFailure: true,
         isSucess: false);
   }
-  factory HomeState.sucess({List<Ong> ongs}) {
+  factory HomeState.sucess({List<Ong> ongs, Usuario usuario}) {
     return HomeState(
-        isFailure: false, isLoadingOngs: false, isSucess: true, ongs: ongs);
+      isFailure: false,
+      isLoadingOngs: false,
+      isSucess: true,
+      ongs: ongs,
+      usuario: usuario,
+    );
   }
 }

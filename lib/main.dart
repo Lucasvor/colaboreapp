@@ -67,7 +67,10 @@ class _MyAppState extends State<MyApp> {
           }
           if (state is AuthSucessState) {
             //widget._userRepository.singOut();
-            return Home(usuario: state.user);
+            return Home(
+              usuario: state.user,
+              userRepository: widget._userRepository,
+            );
           }
           if (state is AuthSplashState) {
             return Splash();

@@ -10,6 +10,7 @@ class Usuario extends Equatable {
   final String email;
   final String senha;
   final String cpf;
+  final String face;
   final DateTime dataNascimento;
   final String telefone;
   const Usuario({
@@ -19,21 +20,25 @@ class Usuario extends Equatable {
     @required this.cpf,
     this.dataNascimento,
     this.telefone,
+    this.face,
   });
 
   static const empty = Usuario(cpf: '', senha: '');
   @override
   // TODO: implement props
-  List<Object> get props => [nome, email, senha, cpf, dataNascimento, telefone];
+  List<Object> get props =>
+      [nome, email, senha, cpf, dataNascimento, telefone, face];
 
   Usuario toEntity() {
     return Usuario(
-        cpf: cpf,
-        email: email,
-        senha: senha,
-        nome: nome,
-        telefone: telefone,
-        dataNascimento: dataNascimento);
+      cpf: cpf,
+      email: email,
+      senha: senha,
+      nome: nome,
+      telefone: telefone,
+      dataNascimento: dataNascimento,
+      face: face,
+    );
   }
 
   factory Usuario.fromJson(Map<String, dynamic> json) =>

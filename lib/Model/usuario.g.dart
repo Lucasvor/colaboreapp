@@ -16,6 +16,7 @@ Usuario _$UsuarioFromJson(Map<String, dynamic> json) {
         ? null
         : DateTime.parse(json['dataNascimento'] as String),
     telefone: json['telefone'] as String,
+    face: json['face'] as String,
   );
 }
 
@@ -24,6 +25,7 @@ Map<String, dynamic> _$UsuarioToJson(Usuario instance) => <String, dynamic>{
       'email': instance.email,
       'senha': instance.senha,
       'cpf': instance.cpf,
+      'face': instance.face,
       'dataNascimento': instance.dataNascimento?.toIso8601String(),
       'telefone': instance.telefone,
     };

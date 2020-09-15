@@ -28,6 +28,7 @@ class _HomeFormState extends State<HomeForm> {
   List<String> listOngs = new List();
   Container containerOngs = Container();
   HomeBloc _homeBloc;
+  SvgPicture svgPicture;
 
   @override
   void initState() {
@@ -43,7 +44,7 @@ class _HomeFormState extends State<HomeForm> {
 
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     //
-
+    svgPicture = null;
     containerOngs.build(context);
     _homeBloc.add(LoadingOngs());
     super.initState();
@@ -71,6 +72,10 @@ class _HomeFormState extends State<HomeForm> {
                 backgroundColor: HexColor("91C7A6"),
               ),
             );
+          svgPicture = SvgPicture.asset(
+            'assets/images/face0.svg',
+            height: size.height * 0.06,
+          );
 
           ///Carregando ONggs
           containerOngs = Container(
@@ -120,6 +125,11 @@ class _HomeFormState extends State<HomeForm> {
         }
         if (state.isSucess) {
           Scaffold.of(context)..removeCurrentSnackBar();
+
+          svgPicture = SvgPicture.asset(
+            'assets/images/' + '${state.usuario.face}' + '.svg',
+            height: size.height * 0.06,
+          );
 
           containerOngs = Container(
             height: size.height * 0.5,
@@ -242,10 +252,7 @@ class _HomeFormState extends State<HomeForm> {
                           onTap: () {
                             _homeBloc.add(LoadingOngs());
                           },
-                          child: SvgPicture.asset(
-                            "assets/images/doacao.svg",
-                            height: size.height * 0.06,
-                          ),
+                          child: svgPicture,
                         ),
                       ],
                     ),

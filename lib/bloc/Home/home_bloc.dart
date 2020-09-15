@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:colaboreapp/Model/ong.dart';
+import 'package:colaboreapp/Model/usuario.dart';
 import 'package:colaboreapp/repositories/FirestoreOngs.dart';
+import 'package:colaboreapp/repositories/FirestoreUserRepository.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/services.dart';
@@ -36,10 +38,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     yield HomeState.loading();
     try {
       var ongsFirestore = FirestoreOngs();
+      var userFirestore = FirestoreUserRepository();
 
       var ongs = await ongsFirestore.allOngs();
-
-      yield HomeState.sucess(ongs: ongs);
+      var currentUser = await userRepository.getCurrentUser();
+      var usuario = await userFirestore.GetUser(
+          currentUser.email.replaceAll('@colaboreapp.com', ''));
+      yield HomeState.sucess(ongs: ongs, usuario: usuario);
     } on Exception catch (e) {
       HomeState.failure(message: e.toString().replaceAll('Exception', ''));
     }
