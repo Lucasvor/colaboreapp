@@ -147,7 +147,7 @@ class _CadastroState extends State<CadastroFormOng> {
                         children: <Widget>[
                           IconButton(
                             onPressed: () {
-                              setState(() {});
+                              Navigator.of(context).pop();
                             },
                             icon: Icon(Icons.arrow_back),
                           ),

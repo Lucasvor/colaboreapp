@@ -10,16 +10,16 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 import '../../constants.dart';
 import 'cadastro.dart';
 
-class CadastroForm extends StatefulWidget {
+class CadastroFormSenha extends StatefulWidget {
   final UserRepository userRepository;
 
-  const CadastroForm({Key key, this.userRepository}) : super(key: key);
+  const CadastroFormSenha({Key key, this.userRepository}) : super(key: key);
 
   @override
   _CadastroState createState() => _CadastroState();
 }
 
-class _CadastroState extends State<CadastroForm> {
+class _CadastroState extends State<CadastroFormSenha> {
   final TextEditingController senhaController = TextEditingController();
   final TextEditingController confirmaSenhaController = TextEditingController();
 
@@ -191,11 +191,12 @@ class _CadastroState extends State<CadastroForm> {
                     RoundedButton(
                       text: "Finalizar",
                       press: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (_) {
-                          return Cadastro(
-                            userRepository: widget.userRepository,
-                          );
-                        }));
+                        // if (isButtonEnabled(state)) {
+                        //   _cadastroBloc.add(CadastroSubmitted(
+                        //       nome: nomeController.text,
+                        //       cpf: cpfController.text,
+                        //       senha: senhaController.text));
+                        // }
                       },
                     ),
                   ],
