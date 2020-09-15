@@ -9,12 +9,16 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 import '../../constants.dart';
 import 'cadastro.dart';
+import 'cadastroFormSenha.dart';
 
 class CadastroForm extends StatefulWidget {
   final UserRepository userRepository;
 
   const CadastroForm(
-      {Key key, this.userRepository, UserRepository ongRepository})
+      {Key key,
+      this.userRepository,
+      UserRepository ongRepository,
+      bool selecionaCadastro})
       : super(key: key);
 
   @override
@@ -129,7 +133,7 @@ class _CadastroState extends State<CadastroForm> {
                         children: <Widget>[
                           IconButton(
                             onPressed: () {
-                              setState(() {});
+                              Navigator.of(context).pop();
                             },
                             icon: Icon(Icons.arrow_back),
                           ),
@@ -282,11 +286,14 @@ class _CadastroState extends State<CadastroForm> {
                     RoundedButton(
                       text: "Continuar",
                       press: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (_) {
-                          return Cadastro(
-                            userRepository: widget.userRepository,
-                          );
-                        }));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) {
+                              return CadastroFormSenha();
+                            },
+                          ),
+                        );
                       },
                     ),
                   ],

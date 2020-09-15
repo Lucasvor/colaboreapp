@@ -3,6 +3,7 @@ import 'package:colaboreapp/Screens/Cadastro/cadastroForm.dart';
 import 'package:colaboreapp/Screens/Cadastro/cadastroFormOng.dart';
 import 'package:colaboreapp/bloc/Login/login_bloc.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
+import 'package:colaboreapp/components/CustomDialog.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
@@ -197,12 +198,16 @@ class _LoginState extends State<LoginForm> {
                           padding: EdgeInsets.symmetric(
                               vertical: 20, horizontal: 40),
                           onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (_) {
-                              return Cadastro(
-                                selecionaCadastro: false,
-                              );
-                            }));
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => CustomDialog(),
+                            );
+                            // Navigator.push(context,
+                            //     MaterialPageRoute(builder: (_) {
+                            //   return Cadastro(
+                            //     selecionaCadastro: false,
+                            //   );
+                            // }));
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
