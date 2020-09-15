@@ -1,14 +1,22 @@
 import 'package:colaboreapp/Screens/Cadastro/cadastroForm.dart';
 import 'package:colaboreapp/bloc/Cadastro/cadastro_bloc.dart';
+import 'package:colaboreapp/repositories/OngRepository.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Cadastro extends StatelessWidget {
-  final UserRepository userRepository;
-  final UserRepository ongRepository;
+import 'cadastroFormOng.dart';
 
-  const Cadastro({Key key, this.userRepository, this.ongRepository})
+class Cadastro extends StatelessWidget {
+  final bool selecionaCadastro;
+  final UserRepository userRepository;
+  final OngRepository ongRepository;
+
+  const Cadastro(
+      {Key key,
+      this.userRepository,
+      this.ongRepository,
+      this.selecionaCadastro})
       : super(key: key);
 
   @override
@@ -16,9 +24,13 @@ class Cadastro extends StatelessWidget {
     return Scaffold(
       body: BlocProvider<CadastroBloc>(
         create: (context) => CadastroBloc(userRepository),
-        child: CadastroForm(
-          userRepository: userRepository,
-        ),
+        child: selecionaCadastro
+            ? CadastroForm(
+                userRepository: userRepository,
+              )
+            : CadastroFormOng(
+                ongRepository: ongRepository,
+              ),
       ),
     );
   }

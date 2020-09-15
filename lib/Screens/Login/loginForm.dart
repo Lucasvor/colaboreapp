@@ -1,5 +1,6 @@
 import 'package:colaboreapp/Screens/Cadastro/cadastro.dart';
 import 'package:colaboreapp/Screens/Cadastro/cadastroForm.dart';
+import 'package:colaboreapp/Screens/Cadastro/cadastroFormOng.dart';
 import 'package:colaboreapp/bloc/Login/login_bloc.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
@@ -199,7 +200,7 @@ class _LoginState extends State<LoginForm> {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (_) {
                               return Cadastro(
-                                userRepository: widget.userRepository,
+                                selecionaCadastro: false,
                               );
                             }));
                           },

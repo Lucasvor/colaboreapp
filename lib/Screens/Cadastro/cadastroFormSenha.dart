@@ -20,25 +20,14 @@ class CadastroForm extends StatefulWidget {
 }
 
 class _CadastroState extends State<CadastroForm> {
-  final TextEditingController nomeController = TextEditingController();
   final TextEditingController senhaController = TextEditingController();
   final TextEditingController confirmaSenhaController = TextEditingController();
-  final TextEditingController cpfController =
-      new MaskedTextController(mask: '000.000.000-00');
-  final TextEditingController telController =
-      new MaskedTextController(mask: '(00) 00000-0000');
-  final TextEditingController birthController =
-      new MaskedTextController(mask: '00/00/0000');
-  final TextEditingController emailController = TextEditingController();
 
   bool mostraSenha = true;
 
   bool get isPopulated =>
-      nomeController.text.isNotEmpty &&
-      cpfController.text.isNotEmpty &&
-      telController.text.isNotEmpty &&
-      birthController.text.isNotEmpty &&
-      emailController.text.isNotEmpty;
+      senhaController.text.isNotEmpty &&
+      confirmaSenhaController.text.isNotEmpty;
 
   bool isButtonEnabled(CadastroState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
@@ -56,14 +45,19 @@ class _CadastroState extends State<CadastroForm> {
   void initState() {
     super.initState();
     _cadastroBloc = BlocProvider.of<CadastroBloc>(context);
-    cpfController.addListener(() {
-      _cadastroBloc.add(CadastroCpfChanged(cpfController.text));
+    senhaController.addListener(() {
+      _cadastroBloc.add(CadastroSenhaChanged(senhaController.text));
+    });
+    confirmaSenhaController.addListener(() {
+      _cadastroBloc
+          .add(CadastroConfirmaSenhaChanged(confirmaSenhaController.text));
     });
   }
 
   @override
   void dispose() {
-    cpfController.dispose();
+    senhaController.dispose();
+
     super.dispose();
   }
 
@@ -143,7 +137,7 @@ class _CadastroState extends State<CadastroForm> {
                           style: DefaultTextStyle.of(context).style,
                           children: <TextSpan>[
                             TextSpan(
-                              text: 'Informações Pessoais',
+                              text: 'Crie a sua senha para usar no APP',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24,

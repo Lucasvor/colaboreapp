@@ -7,6 +7,40 @@ abstract class CadastroEvent extends Equatable {
   List<Object> get props => [];
 }
 
+//cadastroFormOng
+
+class CadastroNomeFantasiaChanged extends CadastroEvent {
+  final String nomeFantasia;
+
+  CadastroNomeFantasiaChanged(this.nomeFantasia);
+  @override
+  List<Object> get props => [];
+}
+
+class CadastroCnpjChanged extends CadastroEvent {
+  final String cnpj;
+
+  CadastroCnpjChanged(this.cnpj);
+  @override
+  List<Object> get props => [];
+}
+
+class CadastroDataRegistroChanged extends CadastroEvent {
+  final String dataRegistro;
+
+  CadastroDataRegistroChanged(this.dataRegistro);
+  @override
+  List<Object> get props => [];
+}
+
+class CadastroCategoriaChanged extends CadastroEvent {
+  final String categoria;
+
+  CadastroCategoriaChanged(this.categoria);
+  @override
+  List<Object> get props => [];
+}
+
 class CadastroCpfChanged extends CadastroEvent {
   final String cpf;
 
@@ -16,18 +50,28 @@ class CadastroCpfChanged extends CadastroEvent {
   List<Object> get props => [];
 }
 
-class CadastroConfirmaSenhaChanged extends CadastroEvent {
-  final String confirmaSenha;
+class CadastroTelChanged extends CadastroEvent {
+  final String telefone;
 
-  CadastroConfirmaSenhaChanged(this.confirmaSenha);
+  CadastroTelChanged(this.telefone);
   @override
   List<Object> get props => [];
 }
+
+//cadastroFromSenha
 
 class CadastroSenhaChanged extends CadastroEvent {
   final String senha;
 
   CadastroSenhaChanged(this.senha);
+  @override
+  List<Object> get props => [];
+}
+
+class CadastroConfirmaSenhaChanged extends CadastroEvent {
+  final String confirmaSenha;
+
+  CadastroConfirmaSenhaChanged(this.confirmaSenha);
   @override
   List<Object> get props => [];
 }
