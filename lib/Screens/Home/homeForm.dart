@@ -44,7 +44,8 @@ class _HomeFormState extends State<HomeForm> {
 
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     //
-    svgPicture = null;
+    svgPicture =
+        svgPicture = SvgPicture.asset('assets/images/face0.svg', height: 25);
     containerOngs.build(context);
     _homeBloc.add(LoadingOngs());
     super.initState();
