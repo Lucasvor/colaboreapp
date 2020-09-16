@@ -251,7 +251,8 @@ class _HomeFormState extends State<HomeForm> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            _homeBloc.add(LoadingOngs());
+                            widget.userRepository.singOut();
+                            //_homeBloc.add(LoadingOngs());
                           },
                           child: svgPicture,
                         ),

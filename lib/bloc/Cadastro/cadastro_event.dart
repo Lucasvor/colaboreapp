@@ -50,6 +50,24 @@ class CadastroCpfChanged extends CadastroEvent {
   List<Object> get props => [];
 }
 
+class CadastroEmailChanged extends CadastroEvent {
+  final String email;
+
+  CadastroEmailChanged(this.email);
+
+  @override
+  List<Object> get props => [];
+}
+
+class CadastroDateChanged extends CadastroEvent {
+  final String date;
+
+  CadastroDateChanged(this.date);
+
+  @override
+  List<Object> get props => [];
+}
+
 class CadastroTelChanged extends CadastroEvent {
   final String telefone;
 
@@ -68,30 +86,22 @@ class CadastroSenhaChanged extends CadastroEvent {
   List<Object> get props => [];
 }
 
-class CadastroConfirmaSenhaChanged extends CadastroEvent {
-  final String confirmaSenha;
-
-  CadastroConfirmaSenhaChanged(this.confirmaSenha);
-  @override
-  List<Object> get props => [];
-}
-
 class CadastroSubmitted extends CadastroEvent {
   final String cpf;
   final String senha;
   final String nome;
-  final String confirmaSenha;
+  final String telefone;
+  final String dataNascimento;
+  final String email;
 
-  CadastroSubmitted(
-      {this.cpf,
-      this.senha,
-      this.nome,
-      this.confirmaSenha,
-      categoriaOng,
-      dataRegistroOng,
-      telOng,
-      String cnpjOng,
-      String nomeFantasiaOng});
+  CadastroSubmitted({
+    this.cpf,
+    this.senha,
+    this.nome,
+    this.telefone,
+    this.dataNascimento,
+    this.email,
+  });
 
   @override
   List<Object> get props => [];

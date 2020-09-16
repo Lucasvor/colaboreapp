@@ -15,7 +15,7 @@ class FirestoreUserRepository {
     return Usuario(
       cpf: res.data()['cpf'],
       senha: res.data()['senha'],
-      dataNascimento: res.data()['dataNascimento'],
+      dataNascimento: DateTime.parse(res.data()['dataNascimento']),
       nome: res.data()['nome'],
       email: res.data()['email'],
       telefone: res.data()['telefone'],

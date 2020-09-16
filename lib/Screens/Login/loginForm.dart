@@ -1,6 +1,3 @@
-import 'package:colaboreapp/Screens/Cadastro/cadastro.dart';
-import 'package:colaboreapp/Screens/Cadastro/cadastroForm.dart';
-import 'package:colaboreapp/Screens/Cadastro/cadastroFormOng.dart';
 import 'package:colaboreapp/bloc/Login/login_bloc.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/components/CustomDialog.dart';
@@ -200,7 +197,9 @@ class _LoginState extends State<LoginForm> {
                           onPressed: () {
                             showDialog(
                               context: context,
-                              builder: (BuildContext context) => CustomDialog(),
+                              builder: (BuildContext context) => CustomDialog(
+                                userRepository: widget.userRepository,
+                              ),
                             );
                             // Navigator.push(context,
                             //     MaterialPageRoute(builder: (_) {

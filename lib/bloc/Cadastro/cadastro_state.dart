@@ -4,27 +4,33 @@ class CadastroState {
   final bool isCpfValid;
   final bool isSenhaValid;
   final bool isSubmitting;
+  final bool isTelValid;
+  final bool isDataNascimentoValid;
+  final bool isEmailValid;
   final bool isSucess;
   final bool isFailure;
-  final bool isConfirmaSenhaValid;
   final String message;
 
-  CadastroState(
-      {this.message,
-      this.isCpfValid,
-      this.isSenhaValid,
-      this.isConfirmaSenhaValid,
-      this.isSubmitting,
-      this.isSucess,
-      this.isFailure});
-
+  CadastroState({
+    this.message,
+    this.isCpfValid,
+    this.isSenhaValid,
+    this.isSubmitting,
+    this.isSucess,
+    this.isFailure,
+    this.isTelValid,
+    this.isDataNascimentoValid,
+    this.isEmailValid,
+  });
   bool get isFormValid => isCpfValid && isSenhaValid;
 
   factory CadastroState.initial() {
     return CadastroState(
         isCpfValid: true,
         isSenhaValid: true,
-        isConfirmaSenhaValid: false,
+        isDataNascimentoValid: true,
+        isEmailValid: true,
+        isTelValid: true,
         isSubmitting: false,
         isSucess: false,
         isFailure: false);
@@ -34,7 +40,9 @@ class CadastroState {
     return CadastroState(
         isCpfValid: true,
         isSenhaValid: true,
-        isConfirmaSenhaValid: true,
+        isDataNascimentoValid: true,
+        isEmailValid: true,
+        isTelValid: true,
         isSubmitting: true,
         isSucess: false,
         isFailure: false);
@@ -45,7 +53,9 @@ class CadastroState {
         message: message,
         isCpfValid: true,
         isSenhaValid: true,
-        isConfirmaSenhaValid: true,
+        isDataNascimentoValid: true,
+        isEmailValid: true,
+        isTelValid: true,
         isSubmitting: false,
         isSucess: false,
         isFailure: true);
@@ -54,18 +64,27 @@ class CadastroState {
     return CadastroState(
         isCpfValid: true,
         isSenhaValid: true,
-        isConfirmaSenhaValid: true,
+        isDataNascimentoValid: true,
+        isEmailValid: true,
+        isTelValid: true,
         isSubmitting: false,
         isSucess: true,
         isFailure: false);
   }
 
   CadastroState update(
-      {bool isCpfValid, bool isSenhaValid, bool isConfirmaSenhaValid}) {
+      {bool isCpfValid,
+      bool isSenhaValid,
+      bool isConfirmaSenhaValid,
+      bool isDataNascimentoValid,
+      bool isEmailValid,
+      bool isTelValid}) {
     return copyWith(
         isCpfValid: isCpfValid,
         isSenhaValid: isSenhaValid,
-        isConfirmaSenhaValid: isConfirmaSenhaValid,
+        isDataNascimentoValid: isDataNascimentoValid,
+        isEmailValid: isEmailValid,
+        isTelValid: isTelValid,
         isSubmitting: false,
         isSucess: false,
         isFailure: false);
@@ -75,14 +94,19 @@ class CadastroState {
     bool isCpfValid,
     bool isSenhaValid,
     bool isSubmitting,
+    bool isDataNascimentoValid,
+    bool isEmailValid,
+    bool isTelValid,
     bool isSucess,
     bool isFailure,
-    bool isConfirmaSenhaValid,
   }) {
     return CadastroState(
         isCpfValid: isCpfValid ?? this.isCpfValid,
         isSenhaValid: isSenhaValid ?? this.isSenhaValid,
-        isConfirmaSenhaValid: isConfirmaSenhaValid ?? this.isConfirmaSenhaValid,
+        isDataNascimentoValid:
+            isDataNascimentoValid ?? this.isDataNascimentoValid,
+        isEmailValid: isEmailValid ?? this.isEmailValid,
+        isTelValid: isTelValid ?? this.isTelValid,
         isSubmitting: isSubmitting ?? this.isSubmitting,
         isSucess: isSucess ?? this.isSucess,
         isFailure: isFailure ?? this.isFailure);

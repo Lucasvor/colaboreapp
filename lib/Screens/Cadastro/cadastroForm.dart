@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 import '../../constants.dart';
-import 'cadastro.dart';
 import 'cadastroFormSenha.dart';
 
 class CadastroForm extends StatefulWidget {
@@ -48,26 +47,71 @@ class _CadastroState extends State<CadastroForm> {
     return state.isFormValid && isPopulated && !state.isSubmitting;
   }
 
+  bool result;
+
   CadastroBloc _cadastroBloc;
-
-  void _mostraSenha() {
-    setState(() {
-      mostraSenha = !mostraSenha;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
     _cadastroBloc = BlocProvider.of<CadastroBloc>(context);
-    cpfController.addListener(() {
-      _cadastroBloc.add(CadastroCpfChanged(cpfController.text));
+    cpfController.addListener(
+      () {
+        _cadastroBloc.add(CadastroCpfChanged(cpfController.text));
+      },
+    );
+    telController.addListener(() {
+      _cadastroBloc.add(CadastroTelChanged(telController.text));
+    });
+    birthController.addListener(() {
+      _cadastroBloc.add(CadastroDateChanged(birthController.text));
+    });
+    emailController.addListener(() {
+      _cadastroBloc.add(CadastroEmailChanged(emailController.text));
+    });
+  }
+
+  _navigateToSenhaDisplay(BuildContext context, CadastroState state) async {
+    result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) {
+          return CadastroFormSenha(
+            userRepository: widget.userRepository,
+            email: emailController.text,
+            cadastroBloc: _cadastroBloc,
+            cpf: cpfController.text,
+            date: birthController.text,
+            nome: nomeController.text,
+            telefone: telController.text,
+            state: state,
+          );
+        },
+      ),
+    );
+    _cadastroBloc = null;
+    _cadastroBloc = CadastroBloc(widget.userRepository);
+    cpfController.addListener(
+      () {
+        _cadastroBloc.add(CadastroCpfChanged(cpfController.text));
+      },
+    );
+    telController.addListener(() {
+      _cadastroBloc.add(CadastroTelChanged(telController.text));
+    });
+    birthController.addListener(() {
+      _cadastroBloc.add(CadastroDateChanged(birthController.text));
+    });
+    emailController.addListener(() {
+      _cadastroBloc.add(CadastroEmailChanged(emailController.text));
     });
   }
 
   @override
   void dispose() {
     cpfController.dispose();
+    telController.dispose();
+    birthController.dispose();
+    emailController.dispose();
     super.dispose();
   }
 
@@ -127,17 +171,19 @@ class _CadastroState extends State<CadastroForm> {
                   child: Padding(
                 padding: EdgeInsets.all(25),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
                     Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          IconButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            icon: Icon(Icons.arrow_back),
-                          ),
-                        ]),
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        IconButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          icon: Icon(Icons.arrow_back),
+                        ),
+                      ],
+                    ),
                     SizedBox(
                       height: size.height * 0.01,
                     ),
@@ -212,7 +258,7 @@ class _CadastroState extends State<CadastroForm> {
                     TextFormField(
                       controller: telController,
                       validator: (_) {
-                        return !state.isCpfValid ? 'Telefone Inválido' : null;
+                        return !state.isTelValid ? 'Telefone Inválido' : null;
                       },
                       decoration: InputDecoration(
                         labelText: "Telefone",
@@ -223,7 +269,7 @@ class _CadastroState extends State<CadastroForm> {
                                   color: kPrimaryColorGreen,
                                 ),
                                 onPressed: () {
-                                  cpfController.text = '';
+                                  telController.text = '';
                                 },
                               )
                             : null,
@@ -237,7 +283,9 @@ class _CadastroState extends State<CadastroForm> {
                     TextFormField(
                       controller: birthController,
                       validator: (_) {
-                        return !state.isCpfValid ? 'Data inválida' : null;
+                        return !state.isDataNascimentoValid
+                            ? 'Data inválida'
+                            : null;
                       },
                       decoration: InputDecoration(
                         labelText: "Data de Nascimento",
@@ -248,7 +296,7 @@ class _CadastroState extends State<CadastroForm> {
                                   color: kPrimaryColorGreen,
                                 ),
                                 onPressed: () {
-                                  cpfController.text = '';
+                                  birthController.text = '';
                                 },
                               )
                             : null,
@@ -262,7 +310,7 @@ class _CadastroState extends State<CadastroForm> {
                     TextFormField(
                       controller: emailController,
                       validator: (_) {
-                        return !state.isCpfValid ? 'E-mail inválido' : null;
+                        return !state.isEmailValid ? 'E-mail inválido' : null;
                       },
                       decoration: InputDecoration(
                           labelText: "E-mail",
@@ -273,7 +321,7 @@ class _CadastroState extends State<CadastroForm> {
                                     color: kPrimaryColorGreen,
                                   ),
                                   onPressed: () {
-                                    cpfController.text = '';
+                                    emailController.text = '';
                                   },
                                 )
                               : null),
@@ -281,19 +329,15 @@ class _CadastroState extends State<CadastroForm> {
                       autovalidate: true,
                     ),
                     SizedBox(
-                      height: size.height * 0.20,
+                      height: size.height * 0.08,
                     ),
                     RoundedButton(
                       text: "Continuar",
                       press: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) {
-                              return CadastroFormSenha();
-                            },
-                          ),
-                        );
+                        state.update(isSenhaValid: true);
+                        if (isButtonEnabled(state)) {
+                          _navigateToSenhaDisplay(context, state);
+                        }
                       },
                     ),
                   ],

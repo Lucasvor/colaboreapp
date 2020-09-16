@@ -1,4 +1,5 @@
 import 'package:colaboreapp/Screens/Cadastro/cadastro.dart';
+import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -6,8 +7,14 @@ import '../constants.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title, description, buttonText;
+  final UserRepository userRepository;
 
-  const CustomDialog({Key key, this.title, this.description, this.buttonText})
+  const CustomDialog(
+      {Key key,
+      this.title,
+      this.description,
+      this.buttonText,
+      this.userRepository})
       : super(key: key);
 
   @override
@@ -73,6 +80,7 @@ class CustomDialog extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (_) {
                                 return Cadastro(
+                                  userRepository: userRepository,
                                   selecionaCadastro: true,
                                 );
                               },
@@ -113,6 +121,7 @@ class CustomDialog extends StatelessWidget {
                             MaterialPageRoute(
                               builder: (_) {
                                 return Cadastro(
+                                  userRepository: userRepository,
                                   selecionaCadastro: false,
                                 );
                               },
