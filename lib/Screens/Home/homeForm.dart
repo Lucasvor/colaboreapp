@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:colaboreapp/Screens/PerfilOng/perfilOng.dart';
+import 'package:colaboreapp/Screens/PerfilUser/perfilUser.dart';
 import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
@@ -29,6 +30,7 @@ class _HomeFormState extends State<HomeForm> {
   Container containerOngs = Container();
   HomeBloc _homeBloc;
   SvgPicture svgPicture;
+  String faceHome;
 
   @override
   void initState() {
@@ -41,7 +43,7 @@ class _HomeFormState extends State<HomeForm> {
     listOngs.add("Instituto da Criança");
     listOngs.add("Vetor Brasil");
     listOngs.add("Centro de Inclusão Digital");
-
+    faceHome = 'face0';
     _homeBloc = BlocProvider.of<HomeBloc>(context);
     //
     svgPicture =
@@ -126,7 +128,7 @@ class _HomeFormState extends State<HomeForm> {
         }
         if (state.isSucess) {
           Scaffold.of(context)..removeCurrentSnackBar();
-
+          faceHome = state.usuario.face;
           svgPicture = SvgPicture.asset(
             'assets/images/' + '${state.usuario.face}' + '.svg',
             height: size.height * 0.06,
@@ -251,10 +253,23 @@ class _HomeFormState extends State<HomeForm> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            widget.userRepository.singOut();
+                            //widget.userRepository.singOut();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => PerfilUser(
+                                  userRepository: widget.userRepository,
+                                  usuario: widget.usuario,
+                                  face: state.usuario.face,
+                                ),
+                              ),
+                            );
                             //_homeBloc.add(LoadingOngs());
                           },
-                          child: svgPicture,
+                          child: Hero(
+                            tag: faceHome,
+                            child: svgPicture,
+                          ),
                         ),
                       ],
                     ),
@@ -272,7 +287,12 @@ class _HomeFormState extends State<HomeForm> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: FlatButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  widget.userRepository.singOut();
+                                  BlocProvider.of<AuthBloc>(context).add(
+                                    AuthSplash(),
+                                  );
+                                },
                                 color: kPrimaryColorGreen,
                                 child: Column(
                                   mainAxisAlignment:
