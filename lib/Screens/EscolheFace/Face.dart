@@ -1,7 +1,10 @@
+import 'package:colaboreapp/repositories/FirestoreUserRepository.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../main.dart';
 
 class Face extends StatelessWidget {
   final UserRepository userRepository;
@@ -9,12 +12,21 @@ class Face extends StatelessWidget {
 
   const Face({Key key, this.userRepository, this.usuario}) : super(key: key);
 
-  List<Container> _faces() => List.generate(
-        21,
+  List<Container> _faces(BuildContext context) => List.generate(
+        20,
         (i) => Container(
-          child: SvgPicture.asset(
-            'assets/images/face$i.svg',
-            semanticsLabel: i.toString(),
+          child: InkWell(
+            onTap: () async {
+              var user = FirestoreUserRepository();
+              user.SetFace(usuario.email.replaceAll('@colaboreapp.com', ''), i);
+              await new Future.delayed(const Duration(seconds: 1));
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            },
+            child: SvgPicture.asset(
+              'assets/images/face${++i}.svg',
+              semanticsLabel: i.toString(),
+            ),
           ),
         ),
       );
@@ -26,19 +38,27 @@ class Face extends StatelessWidget {
       body: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
               height: 25,
             ),
-            Text(
-              'Selecione a foto do seu usuário',
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Selecione a foto do seu usuário',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            Expanded(
-              child: GridView.extent(
-                maxCrossAxisExtent: 100,
-                padding: EdgeInsets.all(5),
-                children: _faces(),
+            Flexible(
+              child: GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 5,
+                padding: EdgeInsets.all(20),
+                children: _faces(context),
                 mainAxisSpacing: 5,
                 crossAxisSpacing: 5,
               ),

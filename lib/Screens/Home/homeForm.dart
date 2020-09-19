@@ -57,6 +57,20 @@ class _HomeFormState extends State<HomeForm> {
     super.initState();
   }
 
+  _navigateAndDisplaySelection(BuildContext context, HomeState state) async {
+    var result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => PerfilUser(
+          userRepository: widget.userRepository,
+          usuario: widget.usuario,
+          face: state.usuario.face,
+        ),
+      ),
+    );
+    _homeBloc.add(LoadingOngs());
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -259,18 +273,9 @@ class _HomeFormState extends State<HomeForm> {
                           ),
                         ),
                         GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             //widget.userRepository.singOut();
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => PerfilUser(
-                                  userRepository: widget.userRepository,
-                                  usuario: widget.usuario,
-                                  face: state.usuario.face,
-                                ),
-                              ),
-                            );
+                            _navigateAndDisplaySelection(context, state);
                             //_homeBloc.add(LoadingOngs());
                           },
                           child: Hero(
