@@ -61,6 +61,7 @@ class _CadastroState extends State<CadastroForm> {
   bool result;
 
   CadastroBloc _cadastroBloc;
+
   @override
   void initState() {
     super.initState();
@@ -121,7 +122,6 @@ class _CadastroState extends State<CadastroForm> {
     //
     senhaController.dispose();
     confirmaSenhaController.dispose();
-
     super.dispose();
   }
 
@@ -350,6 +350,22 @@ class _CadastroState extends State<CadastroForm> {
                             //_navigateToSenhaDisplay(context, state);
                             BlocProvider.of<CadastroBloc>(context)
                                 .add(CadastroPageSenha());
+                          } else {
+                            Scaffold.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  content: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text('Preencha todos os campos!'),
+                                      Icon(Icons.announcement),
+                                    ],
+                                  ),
+                                  backgroundColor: HexColor("e63946"),
+                                ),
+                              );
                           }
                         },
                       ),
@@ -465,6 +481,22 @@ class _CadastroState extends State<CadastroForm> {
                                 telefone: telController.text,
                               ),
                             );
+                          } else {
+                            Scaffold.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  content: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text('Preencha todos os campos!'),
+                                      Icon(Icons.build),
+                                    ],
+                                  ),
+                                  backgroundColor: HexColor("91C7A6"),
+                                ),
+                              );
                           }
                           // if (isButtonEnabled(state)) {
                           //   _cadastroBloc.add(CadastroSubmitted(

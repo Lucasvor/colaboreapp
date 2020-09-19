@@ -1,3 +1,4 @@
+import 'package:colaboreapp/Screens/EscolheFace/Face.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -37,11 +38,24 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                 ),
               ],
             ),
-            Hero(
-              tag: widget.face,
-              child: SvgPicture.asset(
-                'assets/images/' + '${widget.face}' + '.svg',
-                height: size.height * 0.20,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => Face(
+                      userRepository: widget.userRepository,
+                      usuario: widget.usuario,
+                    ),
+                  ),
+                );
+              },
+              child: Hero(
+                tag: widget.face,
+                child: SvgPicture.asset(
+                  'assets/images/' + '${widget.face}' + '.svg',
+                  height: size.height * 0.20,
+                ),
               ),
             ),
             SizedBox(

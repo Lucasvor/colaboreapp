@@ -72,7 +72,7 @@ class CadastroState {
         isDataNascimentoValid: true,
         isEmailValid: true,
         isTelValid: true,
-        isSenhaPage: false,
+        isSenhaPage: true,
         isSubmitting: false,
         isSucess: true,
         isFailure: false);

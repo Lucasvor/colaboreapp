@@ -82,10 +82,11 @@ class _HomeFormState extends State<HomeForm> {
 
           ///Carregando ONggs
           containerOngs = Container(
-            height: size.height * 0.5,
+            height: size.height * 0.55,
             width: size.width,
             child: CarouselSlider(
               options: CarouselOptions(
+                height: size.height * 0.5,
                 aspectRatio: 2.0,
                 autoPlay: true,
                 enlargeCenterPage: true,
@@ -135,10 +136,11 @@ class _HomeFormState extends State<HomeForm> {
           );
 
           containerOngs = Container(
-            height: size.height * 0.5,
+            height: size.height * 0.55,
             width: size.width,
             child: CarouselSlider(
               options: CarouselOptions(
+                height: size.height * 0.5,
                 aspectRatio: 2.0,
                 autoPlay: true,
                 enlargeCenterPage: true,
@@ -319,7 +321,9 @@ class _HomeFormState extends State<HomeForm> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: FlatButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  _homeBloc.add(LoadingOngs());
+                                },
                                 color: kPrimaryColorGreen,
                                 child: Column(
                                   mainAxisAlignment:
