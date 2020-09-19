@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:colaboreapp/Model/usuario.dart';
 import 'package:colaboreapp/Screens/PerfilOng/perfilOng.dart';
 import 'package:colaboreapp/Screens/PerfilUser/perfilUser.dart';
 import 'package:colaboreapp/bloc/Home/home_bloc.dart';
@@ -31,6 +32,8 @@ class _HomeFormState extends State<HomeForm> {
   HomeBloc _homeBloc;
   SvgPicture svgPicture;
   String faceHome;
+  String nameUser;
+  String nameShort;
 
   @override
   void initState() {
@@ -45,11 +48,12 @@ class _HomeFormState extends State<HomeForm> {
     listOngs.add("Centro de Inclusão Digital");
     faceHome = 'face0';
     _homeBloc = BlocProvider.of<HomeBloc>(context);
-    //
     svgPicture =
         svgPicture = SvgPicture.asset('assets/images/face0.svg', height: 25);
     containerOngs.build(context);
     _homeBloc.add(LoadingOngs());
+    nameUser = '${widget.usuario.displayName}';
+    nameShort = nameUser.substring(0, nameUser.indexOf(' '));
     super.initState();
   }
 
@@ -246,7 +250,8 @@ class _HomeFormState extends State<HomeForm> {
                             style: TextStyle(fontSize: 20, color: Colors.black),
                             children: <TextSpan>[
                               TextSpan(
-                                text: '  ' + '${widget.usuario.displayName}',
+                                text: '  ' + nameShort,
+                                //'${widget.usuario.displayName}',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 26),
                               ),

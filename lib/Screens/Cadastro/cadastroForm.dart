@@ -336,7 +336,6 @@ class _CadastroState extends State<CadastroForm> {
                                     },
                                   )
                                 : null),
-                        keyboardType: TextInputType.number,
                         autovalidate: true,
                       ),
                       SizedBox(
