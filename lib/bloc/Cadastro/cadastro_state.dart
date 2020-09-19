@@ -7,6 +7,7 @@ class CadastroState {
   final bool isTelValid;
   final bool isDataNascimentoValid;
   final bool isEmailValid;
+  final bool isSenhaPage;
   final bool isSucess;
   final bool isFailure;
   final String message;
@@ -16,6 +17,7 @@ class CadastroState {
     this.isCpfValid,
     this.isSenhaValid,
     this.isSubmitting,
+    this.isSenhaPage,
     this.isSucess,
     this.isFailure,
     this.isTelValid,
@@ -30,6 +32,7 @@ class CadastroState {
         isSenhaValid: true,
         isDataNascimentoValid: true,
         isEmailValid: true,
+        isSenhaPage: false,
         isTelValid: true,
         isSubmitting: false,
         isSucess: false,
@@ -42,6 +45,7 @@ class CadastroState {
         isSenhaValid: true,
         isDataNascimentoValid: true,
         isEmailValid: true,
+        isSenhaPage: false,
         isTelValid: true,
         isSubmitting: true,
         isSucess: false,
@@ -56,6 +60,7 @@ class CadastroState {
         isDataNascimentoValid: true,
         isEmailValid: true,
         isTelValid: true,
+        isSenhaPage: false,
         isSubmitting: false,
         isSucess: false,
         isFailure: true);
@@ -67,6 +72,7 @@ class CadastroState {
         isDataNascimentoValid: true,
         isEmailValid: true,
         isTelValid: true,
+        isSenhaPage: false,
         isSubmitting: false,
         isSucess: true,
         isFailure: false);
@@ -77,6 +83,7 @@ class CadastroState {
       bool isSenhaValid,
       bool isConfirmaSenhaValid,
       bool isDataNascimentoValid,
+      bool isSenhaPage,
       bool isEmailValid,
       bool isTelValid}) {
     return copyWith(
@@ -85,6 +92,7 @@ class CadastroState {
         isDataNascimentoValid: isDataNascimentoValid,
         isEmailValid: isEmailValid,
         isTelValid: isTelValid,
+        isSenhaPage: isSenhaPage,
         isSubmitting: false,
         isSucess: false,
         isFailure: false);
@@ -97,6 +105,7 @@ class CadastroState {
     bool isDataNascimentoValid,
     bool isEmailValid,
     bool isTelValid,
+    bool isSenhaPage,
     bool isSucess,
     bool isFailure,
   }) {
@@ -108,6 +117,7 @@ class CadastroState {
         isEmailValid: isEmailValid ?? this.isEmailValid,
         isTelValid: isTelValid ?? this.isTelValid,
         isSubmitting: isSubmitting ?? this.isSubmitting,
+        isSenhaPage: isSenhaPage ?? this.isSenhaPage,
         isSucess: isSucess ?? this.isSucess,
         isFailure: isFailure ?? this.isFailure);
   }

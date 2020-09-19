@@ -80,8 +80,9 @@ class _CadastroState extends State<CadastroFormSenha> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: BlocProvider<CadastroBloc>(
-        create: (context) => widget.cadastroBloc,
+      body: BlocProvider.value(
+        value: widget.cadastroBloc,
+        // create: (context) => widget.cadastroBloc,
         child: BlocListener<CadastroBloc, CadastroState>(
           listener: (context, state) {
             if (state.isFailure) {

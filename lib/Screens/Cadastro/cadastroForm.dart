@@ -34,6 +34,9 @@ class _CadastroState extends State<CadastroForm> {
       new MaskedTextController(mask: '00/00/0000');
   final TextEditingController emailController = TextEditingController();
 
+  final TextEditingController senhaController = TextEditingController();
+  final TextEditingController confirmaSenhaController = TextEditingController();
+
   bool mostraSenha = true;
 
   bool get isPopulated =>
@@ -44,6 +47,14 @@ class _CadastroState extends State<CadastroForm> {
       emailController.text.isNotEmpty;
 
   bool isButtonEnabled(CadastroState state) {
+    return state.isFormValid && isPopulated && !state.isSubmitting;
+  }
+
+  bool get isSenhaPopulated =>
+      senhaController.text.isNotEmpty &&
+      confirmaSenhaController.text.isNotEmpty;
+
+  bool isSenhaButtonEnabled(CadastroState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
   }
 
@@ -68,6 +79,10 @@ class _CadastroState extends State<CadastroForm> {
     emailController.addListener(() {
       _cadastroBloc.add(CadastroEmailChanged(emailController.text));
     });
+
+    senhaController.addListener(() {
+      _cadastroBloc.add(CadastroSenhaChanged(senhaController.text));
+    });
   }
 
   _navigateToSenhaDisplay(BuildContext context, CadastroState state) async {
@@ -88,21 +103,11 @@ class _CadastroState extends State<CadastroForm> {
         },
       ),
     );
-    _cadastroBloc = null;
-    _cadastroBloc = CadastroBloc(widget.userRepository);
-    cpfController.addListener(
-      () {
-        _cadastroBloc.add(CadastroCpfChanged(cpfController.text));
-      },
-    );
-    telController.addListener(() {
-      _cadastroBloc.add(CadastroTelChanged(telController.text));
-    });
-    birthController.addListener(() {
-      _cadastroBloc.add(CadastroDateChanged(birthController.text));
-    });
-    emailController.addListener(() {
-      _cadastroBloc.add(CadastroEmailChanged(emailController.text));
+  }
+
+  void _mostraSenha() {
+    setState(() {
+      mostraSenha = !mostraSenha;
     });
   }
 
@@ -112,6 +117,11 @@ class _CadastroState extends State<CadastroForm> {
     telController.dispose();
     birthController.dispose();
     emailController.dispose();
+
+    //
+    senhaController.dispose();
+    confirmaSenhaController.dispose();
+
     super.dispose();
   }
 
@@ -163,188 +173,313 @@ class _CadastroState extends State<CadastroForm> {
       },
       child: BlocBuilder<CadastroBloc, CadastroState>(
         builder: (context, state) {
-          return Container(
-            width: double.infinity,
-            height: size.height,
-            child: SingleChildScrollView(
-              child: Form(
-                  child: Padding(
-                padding: EdgeInsets.all(25),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        IconButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          icon: Icon(Icons.arrow_back),
+          if (!state.isSenhaPage) {
+            return Container(
+              width: double.infinity,
+              height: size.height,
+              child: SingleChildScrollView(
+                child: Form(
+                    child: Padding(
+                  padding: EdgeInsets.all(25),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: Icon(Icons.arrow_back),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: size.height * 0.01,
+                      ),
+                      Row(children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Informações Pessoais',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                    fontFamily: 'Avenir'),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: size.height * 0.01,
-                    ),
-                    Row(children: <Widget>[
-                      RichText(
-                        text: TextSpan(
-                          style: DefaultTextStyle.of(context).style,
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Informações Pessoais',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24,
-                                  fontFamily: 'Avenir'),
-                            ),
-                          ],
-                        ),
+                      ]),
+                      SizedBox(
+                        height: size.height * 0.03,
                       ),
-                    ]),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    TextFormField(
-                      controller: nomeController,
-                      validator: null,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 0),
-                        labelText: "Nome",
-                        suffixIcon: nomeController.text.length > 0
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.close,
-                                  color: kPrimaryColorGreen,
-                                ),
-                                onPressed: () {
-                                  nomeController.text = '';
-                                },
-                              )
-                            : null,
-                      ),
-                      keyboardType: TextInputType.name,
-                      autovalidate: true,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.04,
-                    ),
-                    TextFormField(
-                      controller: cpfController,
-                      validator: (_) {
-                        return !state.isCpfValid ? 'CPF inválido' : null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: "CPF",
-                        suffixIcon: cpfController.text.length > 0
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.close,
-                                  color: kPrimaryColorGreen,
-                                ),
-                                onPressed: () {
-                                  cpfController.text = '';
-                                },
-                              )
-                            : null,
-                      ),
-                      keyboardType: TextInputType.number,
-                      autovalidate: true,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.04,
-                    ),
-                    TextFormField(
-                      controller: telController,
-                      validator: (_) {
-                        return !state.isTelValid ? 'Telefone Inválido' : null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: "Telefone",
-                        suffixIcon: telController.text.length > 0
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.close,
-                                  color: kPrimaryColorGreen,
-                                ),
-                                onPressed: () {
-                                  telController.text = '';
-                                },
-                              )
-                            : null,
-                      ),
-                      keyboardType: TextInputType.number,
-                      autovalidate: true,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.04,
-                    ),
-                    TextFormField(
-                      controller: birthController,
-                      validator: (_) {
-                        return !state.isDataNascimentoValid
-                            ? 'Data inválida'
-                            : null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: "Data de Nascimento",
-                        suffixIcon: birthController.text.length > 0
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.close,
-                                  color: kPrimaryColorGreen,
-                                ),
-                                onPressed: () {
-                                  birthController.text = '';
-                                },
-                              )
-                            : null,
-                      ),
-                      keyboardType: TextInputType.number,
-                      autovalidate: true,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.04,
-                    ),
-                    TextFormField(
-                      controller: emailController,
-                      validator: (_) {
-                        return !state.isEmailValid ? 'E-mail inválido' : null;
-                      },
-                      decoration: InputDecoration(
-                          labelText: "E-mail",
-                          suffixIcon: emailController.text.length > 0
+                      TextFormField(
+                        controller: nomeController,
+                        validator: null,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(vertical: 0),
+                          labelText: "Nome",
+                          suffixIcon: nomeController.text.length > 0
                               ? IconButton(
                                   icon: Icon(
                                     Icons.close,
                                     color: kPrimaryColorGreen,
                                   ),
                                   onPressed: () {
-                                    emailController.text = '';
+                                    nomeController.text = '';
                                   },
                                 )
-                              : null),
-                      keyboardType: TextInputType.number,
-                      autovalidate: true,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.08,
-                    ),
-                    RoundedButton(
-                      text: "Continuar",
-                      press: () {
-                        state.update(isSenhaValid: true);
-                        if (isButtonEnabled(state)) {
-                          _navigateToSenhaDisplay(context, state);
-                        }
-                      },
-                    ),
-                  ],
-                ),
-              )),
-            ),
-          );
+                              : null,
+                        ),
+                        keyboardType: TextInputType.name,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
+                      TextFormField(
+                        controller: cpfController,
+                        validator: (_) {
+                          return !state.isCpfValid ? 'CPF inválido' : null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "CPF",
+                          suffixIcon: cpfController.text.length > 0
+                              ? IconButton(
+                                  icon: Icon(
+                                    Icons.close,
+                                    color: kPrimaryColorGreen,
+                                  ),
+                                  onPressed: () {
+                                    cpfController.text = '';
+                                  },
+                                )
+                              : null,
+                        ),
+                        keyboardType: TextInputType.number,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
+                      TextFormField(
+                        controller: telController,
+                        validator: (_) {
+                          return !state.isTelValid ? 'Telefone Inválido' : null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Telefone",
+                          suffixIcon: telController.text.length > 0
+                              ? IconButton(
+                                  icon: Icon(
+                                    Icons.close,
+                                    color: kPrimaryColorGreen,
+                                  ),
+                                  onPressed: () {
+                                    telController.text = '';
+                                  },
+                                )
+                              : null,
+                        ),
+                        keyboardType: TextInputType.number,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
+                      TextFormField(
+                        controller: birthController,
+                        validator: (_) {
+                          return !state.isDataNascimentoValid
+                              ? 'Data inválida'
+                              : null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Data de Nascimento",
+                          suffixIcon: birthController.text.length > 0
+                              ? IconButton(
+                                  icon: Icon(
+                                    Icons.close,
+                                    color: kPrimaryColorGreen,
+                                  ),
+                                  onPressed: () {
+                                    birthController.text = '';
+                                  },
+                                )
+                              : null,
+                        ),
+                        keyboardType: TextInputType.number,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
+                      TextFormField(
+                        controller: emailController,
+                        validator: (_) {
+                          return !state.isEmailValid ? 'E-mail inválido' : null;
+                        },
+                        decoration: InputDecoration(
+                            labelText: "E-mail",
+                            suffixIcon: emailController.text.length > 0
+                                ? IconButton(
+                                    icon: Icon(
+                                      Icons.close,
+                                      color: kPrimaryColorGreen,
+                                    ),
+                                    onPressed: () {
+                                      emailController.text = '';
+                                    },
+                                  )
+                                : null),
+                        keyboardType: TextInputType.number,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.08,
+                      ),
+                      RoundedButton(
+                        text: "Continuar",
+                        press: () {
+                          state.update(isSenhaValid: true);
+                          if (isButtonEnabled(state)) {
+                            //_navigateToSenhaDisplay(context, state);
+                            BlocProvider.of<CadastroBloc>(context)
+                                .add(CadastroPageSenha());
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                )),
+              ),
+            );
+          } else {
+            return Container(
+              width: double.infinity,
+              height: size.height,
+              child: SingleChildScrollView(
+                child: Form(
+                    child: Padding(
+                  padding: EdgeInsets.all(25),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            IconButton(
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    BlocProvider.of<CadastroBloc>(context)
+                                        .add(CadastroPageSenha());
+                                  },
+                                );
+                              },
+                              icon: Icon(Icons.arrow_back),
+                            ),
+                          ]),
+                      SizedBox(
+                        height: size.height * 0.01,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'Crie a sua senha para usar no APP',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        fontFamily: 'Avenir'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ]),
+                      SizedBox(
+                        height: size.height * 0.20,
+                      ),
+                      TextFormField(
+                        controller: senhaController,
+                        validator: (_) {
+                          return !state.isSenhaValid ? 'Senha inválida' : null;
+                        },
+                        obscureText: mostraSenha,
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.lock, color: kPrimaryColorGreen),
+                          labelText: "Senha",
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 20),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Icons.visibility,
+                              color: kPrimaryColorGreen,
+                            ),
+                            onPressed: _mostraSenha,
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        autovalidate: true,
+                      ),
+                      TextFormField(
+                        controller: confirmaSenhaController,
+                        validator: (_) {
+                          if (confirmaSenhaController.text.length > 0)
+                            return senhaController.text !=
+                                    confirmaSenhaController.text
+                                ? 'Senha digitada não corresponde com a anterior'
+                                : null;
+                        },
+                        obscureText: mostraSenha,
+                        decoration: InputDecoration(
+                            icon: Icon(Icons.lock, color: kPrimaryColorGreen),
+                            labelText: "Confirmar Senha",
+                            contentPadding:
+                                const EdgeInsets.symmetric(vertical: 20)),
+                        keyboardType: TextInputType.text,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.20,
+                      ),
+                      RoundedButton(
+                        text: "Finalizar",
+                        press: () {
+                          if (isSenhaButtonEnabled(state)) {
+                            _cadastroBloc.add(
+                              CadastroSubmitted(
+                                nome: nomeController.text,
+                                cpf: cpfController.text,
+                                senha: senhaController.text,
+                                dataNascimento: birthController.text,
+                                email: emailController.text,
+                                telefone: telController.text,
+                              ),
+                            );
+                          }
+                          // if (isButtonEnabled(state)) {
+                          //   _cadastroBloc.add(CadastroSubmitted(
+                          //       nome: nomeController.text,
+                          //       cpf: cpfController.text,
+                          //       senha: senhaController.text));
+                          // }
+                        },
+                      ),
+                    ],
+                  ),
+                )),
+              ),
+            );
+          }
         },
       ),
     );

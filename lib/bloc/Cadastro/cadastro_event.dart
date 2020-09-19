@@ -14,7 +14,7 @@ class CadastroNomeFantasiaChanged extends CadastroEvent {
 
   CadastroNomeFantasiaChanged(this.nomeFantasia);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [nomeFantasia];
 }
 
 class CadastroCnpjChanged extends CadastroEvent {
@@ -22,7 +22,7 @@ class CadastroCnpjChanged extends CadastroEvent {
 
   CadastroCnpjChanged(this.cnpj);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [cnpj];
 }
 
 class CadastroDataRegistroChanged extends CadastroEvent {
@@ -30,7 +30,7 @@ class CadastroDataRegistroChanged extends CadastroEvent {
 
   CadastroDataRegistroChanged(this.dataRegistro);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [dataRegistro];
 }
 
 class CadastroCategoriaChanged extends CadastroEvent {
@@ -38,7 +38,7 @@ class CadastroCategoriaChanged extends CadastroEvent {
 
   CadastroCategoriaChanged(this.categoria);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [categoria];
 }
 
 class CadastroCpfChanged extends CadastroEvent {
@@ -47,7 +47,7 @@ class CadastroCpfChanged extends CadastroEvent {
   CadastroCpfChanged(this.cpf);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [cpf];
 }
 
 class CadastroEmailChanged extends CadastroEvent {
@@ -56,7 +56,7 @@ class CadastroEmailChanged extends CadastroEvent {
   CadastroEmailChanged(this.email);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [email];
 }
 
 class CadastroDateChanged extends CadastroEvent {
@@ -65,7 +65,7 @@ class CadastroDateChanged extends CadastroEvent {
   CadastroDateChanged(this.date);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [date];
 }
 
 class CadastroTelChanged extends CadastroEvent {
@@ -73,7 +73,7 @@ class CadastroTelChanged extends CadastroEvent {
 
   CadastroTelChanged(this.telefone);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [telefone];
 }
 
 //cadastroFromSenha
@@ -83,7 +83,12 @@ class CadastroSenhaChanged extends CadastroEvent {
 
   CadastroSenhaChanged(this.senha);
   @override
-  List<Object> get props => [];
+  List<Object> get props => [senha];
+}
+
+class CadastroPageSenha extends CadastroEvent {
+  @override
+  List<Object> get props => null;
 }
 
 class CadastroSubmitted extends CadastroEvent {
@@ -104,5 +109,12 @@ class CadastroSubmitted extends CadastroEvent {
   });
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+        cpf,
+        senha,
+        nome,
+        telefone,
+        dataNascimento,
+        email,
+      ];
 }

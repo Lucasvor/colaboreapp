@@ -37,11 +37,17 @@ class CadastroBloc extends Bloc<CadastroEvent, CadastroState> {
         email: event.email,
         tel: event.telefone,
       );
+    } else if (event is CadastroPageSenha) {
+      yield* _mapCadastroSenhaPageToState();
     }
   }
 
   Stream<CadastroState> _mapCadastroEmailChangeToState(String email) async* {
     yield state.update(isEmailValid: Validators.isValidEmail(email));
+  }
+
+  Stream<CadastroState> _mapCadastroSenhaPageToState() async* {
+    yield state.update(isSenhaPage: !state.isSenhaPage);
   }
 
   Stream<CadastroState> _mapCadastroDateChangeToState(String date) async* {
