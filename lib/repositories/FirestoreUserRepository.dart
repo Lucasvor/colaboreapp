@@ -22,4 +22,8 @@ class FirestoreUserRepository {
       face: res.data()['face'],
     );
   }
+
+  Future<void> SetFace(String cpf, int face) async {
+    await usuarioCollection.doc(cpf).update({'face': 'face$face'});
+  }
 }
