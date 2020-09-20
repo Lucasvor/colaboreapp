@@ -100,49 +100,8 @@ class _HomeFormState extends State<HomeForm> {
 
           ///Carregando ONggs
           containerOngs = Container(
-            height: size.height * 0.55,
+            height: size.height * 0.4,
             width: size.width,
-            child: CarouselSlider(
-              options: CarouselOptions(
-                height: size.height * 0.5,
-                aspectRatio: 2.0,
-                autoPlay: true,
-                enlargeCenterPage: true,
-              ),
-              items: listOngs
-                  .map(
-                    (item) => Container(
-                      margin: EdgeInsets.symmetric(
-                        vertical: 20,
-                      ),
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.green[200],
-                        ),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      height: size.height * 0.5,
-                      width: size.width,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Expanded(
-                            child: Text(
-                              item,
-                              textAlign: TextAlign.center,
-                            ),
-                            // child: SvgPicture.asset(
-                            //   "assets/images/earth.svg",
-                            //   color: kBackgroundColor,
-                            // ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                  .toList(),
-            ),
           );
         }
         if (state.isSucess) {
@@ -154,14 +113,14 @@ class _HomeFormState extends State<HomeForm> {
           );
 
           containerOngs = Container(
-            height: size.height * 0.55,
+            height: size.height * 0.4,
             width: size.width,
             child: CarouselSlider(
               options: CarouselOptions(
-                height: size.height * 0.5,
                 aspectRatio: 2.0,
                 autoPlay: true,
                 enlargeCenterPage: true,
+                enlargeStrategy: CenterPageEnlargeStrategy.height,
               ),
               items: state.ongs
                   .map(
@@ -176,47 +135,55 @@ class _HomeFormState extends State<HomeForm> {
                         );
                       },
                       child: Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: 20,
-                        ),
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.green[200],
+                        margin: EdgeInsets.all(5),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(5),
                           ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Hero(
-                              tag: '${item.nome}',
-                              child: CachedNetworkImage(
-                                height: size.height * 0.15,
-                                imageUrl: item.imageUrl,
-                                placeholder: (context, url) =>
-                                    new CircularProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    new Icon(Icons.error),
-                                fit: BoxFit.contain,
+                          child: Stack(
+                            children: <Widget>[
+                              Hero(
+                                tag: '${item.nome}',
+                                child: CachedNetworkImage(
+                                  width: size.width,
+                                  imageUrl: item.imageUrl,
+                                  placeholder: (context, url) =>
+                                      new CircularProgressIndicator(),
+                                  errorWidget: (context, url, error) =>
+                                      new Icon(Icons.error),
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                            Container(
-                              alignment: Alignment.bottomCenter,
-                              child: Text(
-                                item.nome,
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black38,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold),
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color.fromARGB(200, 0, 0, 0),
+                                        Color.fromARGB(0, 0, 0, 0)
+                                      ],
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment.topCenter,
+                                    ),
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 10, horizontal: 20),
+                                  child: Text(
+                                    item.nome,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                            // child: SvgPicture.asset(
-                            //   "assets/images/earth.svg",
-                            //   color: kBackgroundColor,
-                            // ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -234,6 +201,7 @@ class _HomeFormState extends State<HomeForm> {
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   // Row(
@@ -251,9 +219,6 @@ class _HomeFormState extends State<HomeForm> {
                   //     ),
                   //   ],
                   // ),
-                  SizedBox(
-                    height: size.height * 0.03,
-                  ),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -286,6 +251,7 @@ class _HomeFormState extends State<HomeForm> {
                       ],
                     ),
                   ),
+
                   containerOngs,
                   Container(
                     height: size.height * 0.2,
