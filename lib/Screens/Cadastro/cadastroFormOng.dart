@@ -21,7 +21,7 @@ class CadastroFormOng extends StatefulWidget {
 class _CadastroState extends State<CadastroFormOng> {
   final TextEditingController nomeFantasiaController = TextEditingController();
   final TextEditingController cnpjController =
-      new MaskedTextController(mask: '000.000.000-00');
+      new MaskedTextController(mask: '00.000.000/0000-00');
   final TextEditingController telController =
       new MaskedTextController(mask: '(00) 00000-0000');
   final TextEditingController dataRegistroController =

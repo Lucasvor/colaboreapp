@@ -1,8 +1,12 @@
 import 'package:colaboreapp/Screens/EscolheFace/Face.dart';
+import 'package:colaboreapp/Screens/ValorDoacao/valorDoacao.dart';
+import 'package:colaboreapp/constants.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+
+import '../../main.dart';
 
 class PerfilUserForm extends StatefulWidget {
   final UserRepository userRepository;
@@ -75,53 +79,69 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
             Container(
               margin: EdgeInsets.all(10),
               width: size.width * 0.8,
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black26)),
+              // decoration:
+              //     BoxDecoration(border: Border.all(color: Colors.black26)),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  FlatButton(
-                    onPressed: () {},
-                    color: Colors.white,
+                  OutlineButton(
+                    borderSide: BorderSide(color: kPrimaryColorGreen),
+                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) {
+                            return ValorDoacaoForm();
+                          },
+                        ),
+                      );
+                    },
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Text(
-                      'Valor de Doação',
+                      "Valor da Doação",
                       style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
+                        color: HexColor("91C7A6"),
                         fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        fontFamily: 'Avenir',
                       ),
                     ),
                   ),
-                  IconButton(
-                      icon: Icon(Icons.arrow_forward_ios), onPressed: () {})
                 ],
               ),
             ),
             SizedBox(
-              height: size.height * 0.10,
+              height: size.height * 0.02,
             ),
             Container(
               margin: EdgeInsets.all(10),
               width: size.width * 0.8,
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black26)),
+              // decoration:
+              //     BoxDecoration(border: Border.all(color: Colors.black26)),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  FlatButton(
+                  OutlineButton(
+                    borderSide: BorderSide(color: kPrimaryColorGreen),
+                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                     onPressed: () {},
-                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Text(
-                      'Ongs Favoritas',
+                      "Ongs Favoritas",
                       style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
+                        color: HexColor("91C7A6"),
                         fontWeight: FontWeight.bold,
+                        fontSize: 27,
+                        fontFamily: 'Avenir',
                       ),
                     ),
                   ),
-                  IconButton(
-                      icon: Icon(Icons.arrow_forward_ios), onPressed: () {})
                 ],
               ),
             ),
