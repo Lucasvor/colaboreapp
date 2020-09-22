@@ -23,14 +23,15 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginState extends State<LoginForm> {
-  final TextEditingController cpfController =
+  final MaskedTextController documentController =
       new MaskedTextController(mask: '000.000.000-00');
+
   final TextEditingController senhaController = TextEditingController();
 
   bool mostraSenha = true;
 
   bool get isPopulated =>
-      cpfController.text.isNotEmpty && senhaController.text.isNotEmpty;
+      documentController.text.isNotEmpty && senhaController.text.isNotEmpty;
 
   bool isButtonEnabled(LoginState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
@@ -48,17 +49,39 @@ class _LoginState extends State<LoginForm> {
   void initState() {
     super.initState();
     _loginBloc = BlocProvider.of<LoginBloc>(context);
-    cpfController.addListener(() {
-      _loginBloc.add(LoginCpfChange(cpf: cpfController.text));
+    documentController.addListener(() {
+      _loginBloc.add(LoginDocumentChange(documento: documentController.text));
     });
     senhaController.addListener(() {
       _loginBloc.add(LoginSenhaChange(senha: senhaController.text));
     });
+
+    documentController.beforeChange = (String previous, String next) {
+      if (next.length <= 14) {
+        if (documentController.mask != '000.000.000-00')
+          documentController.updateMask('000.000.000-00');
+      } else if (next.length > 14) {
+        documentController.updateMask('00.000.000/0000-00');
+      }
+      print("{$previous e $next}");
+      return true;
+    };
+
+    // cpfController.beforeChange = (String previous, String next) {
+    //   if (previous.length <= 14) {
+    //     if (cpfController.mask != '000.000.000-00')
+    //       cpfController.updateMask('000.000.000-00');
+    //   } else {
+    //     cpfController.updateMask('00.000.000/0000-00');
+    //   }
+    //   print("{$previous e $next}");
+    //   return true;
+    // };
   }
 
   @override
   void dispose() {
-    cpfController.dispose();
+    documentController.dispose();
     senhaController.dispose();
     super.dispose();
   }
@@ -102,10 +125,26 @@ class _LoginState extends State<LoginForm> {
               ),
             );
         }
-        if (state.isSucess) {
+        if (state.isSucessDoador) {
           BlocProvider.of<AuthBloc>(context).add(
             AuthLoggedIn(),
           );
+        }
+        if (state.isSucessOng) {
+          Scaffold.of(context)
+            ..removeCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('Não implementadoa ainda'),
+                    Icon(Icons.error),
+                  ],
+                ),
+                backgroundColor: HexColor("e63946"),
+              ),
+            );
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(
@@ -126,20 +165,26 @@ class _LoginState extends State<LoginForm> {
                         color: kBackgroundColor,
                       ),
                       TextFormField(
-                        controller: cpfController,
+                        controller: documentController,
                         validator: (_) {
-                          return !state.isCpfValid ? 'CPF inválido' : null;
+                          if (documentController.text.length == 0) {
+                            return null;
+                          } else if (documentController.text.length <= 14) {
+                            return !state.isCpfValid ? 'CPF inválido' : null;
+                          } else if (documentController.text.length > 14) {
+                            return !state.isCnpjValid ? 'CNPJ inválido' : null;
+                          }
                         },
                         decoration: InputDecoration(
                           icon: Icon(Icons.person, color: kPrimaryColorGreen),
-                          labelText: "CPF",
+                          labelText: "CPF ou CNPJ",
                           suffixIcon: IconButton(
                             icon: Icon(
                               Icons.close,
                               color: kPrimaryColorGreen,
                             ),
                             onPressed: () {
-                              cpfController.text = '';
+                              documentController.text = '';
                             },
                           ),
                         ),
@@ -182,9 +227,29 @@ class _LoginState extends State<LoginForm> {
                         text: "ENTRAR",
                         press: () {
                           if (isButtonEnabled(state))
-                            _loginBloc.add(LoginWithCredentialsPressed(
-                                cpf: cpfController.text,
-                                senha: senhaController.text));
+                            _loginBloc.add(
+                              LoginWithCredentialsPressed(
+                                documento: documentController.text,
+                                senha: senhaController.text,
+                              ),
+                            );
+                          else {
+                            Scaffold.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  content: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text('Preencha todos os campos!'),
+                                      Icon(Icons.error),
+                                    ],
+                                  ),
+                                  backgroundColor: HexColor("e63946"),
+                                ),
+                              );
+                          }
                         },
                       ),
                       Container(

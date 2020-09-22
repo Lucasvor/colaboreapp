@@ -25,6 +25,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         yield* _mapAuthStartedToState();
       } else if (event is AuthLoggedIn) {
         yield* _mapAuthLoggedInToState();
+      } else if (event is AuthLoggedInOng) {
+        yield* _mapAuthLoggedInToStateOng();
       } else if (event is AuthLoggedOut) {
         yield* _mapAuthLoggedOutToState();
       }
@@ -52,12 +54,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     yield AuthSucessState(user: await userRepository.getCurrentUser());
   }
 
+  Stream<AuthState> _mapAuthLoggedInToStateOng() async* {
+    yield AuthSucessStateOng(user: await userRepository.getCurrentUser());
+  }
+
 // ! Autenticação
   Stream<AuthState> _mapAuthStartedToState() async* {
     final isSignedIn = await userRepository.isSignedIn();
     if (isSignedIn) {
       final user = await userRepository.getCurrentUser();
-      yield AuthSucessState(user: user);
+      var document = user.email.replaceAll("@colaboreapp.com", "");
+      if (document.length == 11) {
+        yield AuthSucessState(user: user);
+      } else if (document.length == 14) {
+        yield AuthSucessStateOng(user: user);
+      }
     } else {
       yield UnAuthState();
     }

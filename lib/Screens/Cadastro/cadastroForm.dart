@@ -490,10 +490,10 @@ class _CadastroState extends State<CadastroForm> {
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Text('Preencha todos os campos!'),
-                                      Icon(Icons.build),
+                                      Icon(Icons.error),
                                     ],
                                   ),
-                                  backgroundColor: HexColor("91C7A6"),
+                                  backgroundColor: HexColor("e63946"),
                                 ),
                               );
                           }

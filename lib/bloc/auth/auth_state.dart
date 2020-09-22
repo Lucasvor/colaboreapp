@@ -13,10 +13,17 @@ class AuthSplashState extends AuthState {}
 
 // ignore: must_be_immutable
 class AuthSucessState extends AuthState {
-  User user;
+  final User user;
   AuthSucessState({@required this.user});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [user];
+}
+
+class AuthSucessStateOng extends AuthState {
+  final User user;
+  AuthSucessStateOng({@required this.user});
+  @override
+  List<Object> get props => [user];
 }
 
 class UnAuthState extends AuthState {}

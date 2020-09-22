@@ -25,18 +25,22 @@ part of 'login_bloc.dart';
 
 class LoginState {
   final bool isCpfValid;
+  final bool isCnpjValid;
   final bool isSenhaValid;
   final bool isSubmitting;
-  final bool isSucess;
+  final bool isSucessDoador;
+  final bool isSucessOng;
   final bool isFailure;
   final String message;
 
   LoginState(
       {this.message,
       this.isCpfValid,
+      this.isCnpjValid,
       this.isSenhaValid,
       this.isSubmitting,
-      this.isSucess,
+      this.isSucessDoador,
+      this.isSucessOng,
       this.isFailure});
 
   bool get isFormValid => isCpfValid && isSenhaValid;
@@ -44,18 +48,22 @@ class LoginState {
   factory LoginState.initial() {
     return LoginState(
         isCpfValid: true,
+        isCnpjValid: true,
         isSenhaValid: true,
         isSubmitting: false,
-        isSucess: false,
+        isSucessOng: false,
+        isSucessDoador: false,
         isFailure: false);
   }
 
   factory LoginState.loading() {
     return LoginState(
         isCpfValid: true,
+        isCnpjValid: true,
         isSenhaValid: true,
         isSubmitting: true,
-        isSucess: false,
+        isSucessDoador: false,
+        isSucessOng: false,
         isFailure: false);
   }
 
@@ -63,44 +71,64 @@ class LoginState {
     return LoginState(
         message: message,
         isCpfValid: true,
+        isCnpjValid: true,
         isSenhaValid: true,
         isSubmitting: false,
-        isSucess: false,
+        isSucessDoador: false,
         isFailure: true);
   }
-  factory LoginState.sucess() {
+  factory LoginState.sucessDoador() {
     return LoginState(
         isCpfValid: true,
+        isCnpjValid: true,
         isSenhaValid: true,
         isSubmitting: false,
-        isSucess: true,
+        isSucessDoador: true,
+        isSucessOng: false,
+        isFailure: false);
+  }
+  factory LoginState.sucessOng() {
+    return LoginState(
+        isCpfValid: true,
+        isCnpjValid: true,
+        isSenhaValid: true,
+        isSubmitting: false,
+        isSucessDoador: false,
+        isSucessOng: true,
         isFailure: false);
   }
 
   LoginState update({
     bool isCpfValid,
     bool isSenhaValid,
+    bool isCnpjValid,
   }) {
     return copyWith(
         isCpfValid: isCpfValid,
         isSenhaValid: isSenhaValid,
+        isCnpjValid: isCnpjValid,
         isSubmitting: false,
-        isSucess: false,
+        isSucessDoador: false,
+        isSucessOng: false,
         isFailure: false);
   }
 
   LoginState copyWith({
     bool isCpfValid,
+    bool isCnpjValid,
     bool isSenhaValid,
     bool isSubmitting,
-    bool isSucess,
+    bool isSucessDoador,
+    bool isSucessOng,
     bool isFailure,
   }) {
     return LoginState(
         isCpfValid: isCpfValid ?? this.isCpfValid,
+        isCnpjValid: isCnpjValid ?? this.isCnpjValid,
         isSenhaValid: isSenhaValid ?? this.isSenhaValid,
         isSubmitting: isSubmitting ?? this.isSubmitting,
-        isSucess: isSucess ?? this.isSucess,
+        isSucessDoador: isSucessDoador ?? this.isSucessDoador,
+        isSucessOng: isSucessOng ?? this.isSucessOng,
         isFailure: isFailure ?? this.isFailure);
   }
 }

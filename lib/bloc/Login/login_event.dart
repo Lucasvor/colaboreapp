@@ -7,12 +7,12 @@ abstract class LoginEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoginCpfChange extends LoginEvent {
-  final String cpf;
+class LoginDocumentChange extends LoginEvent {
+  final String documento;
 
-  LoginCpfChange({this.cpf});
+  LoginDocumentChange({this.documento});
   @override
-  List<Object> get props => [cpf];
+  List<Object> get props => [documento];
 }
 
 class LoginSenhaChange extends LoginEvent {
@@ -25,13 +25,13 @@ class LoginSenhaChange extends LoginEvent {
 }
 
 class LoginWithCredentialsPressed extends LoginEvent {
-  final String cpf;
+  final String documento;
   final String senha;
 
-  LoginWithCredentialsPressed({this.cpf, this.senha});
+  LoginWithCredentialsPressed({this.documento, this.senha});
 
   @override
-  List<Object> get props => [cpf, senha];
+  List<Object> get props => [documento, senha];
 }
 
 class LoginButtonPressedEvent extends LoginEvent {

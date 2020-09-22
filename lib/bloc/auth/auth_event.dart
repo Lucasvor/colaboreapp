@@ -22,6 +22,11 @@ class AuthLoggedIn extends AuthEvent {
   List<Object> get props => null;
 }
 
+class AuthLoggedInOng extends AuthEvent {
+  @override
+  List<Object> get props => null;
+}
+
 class AuthLoggedOut extends AuthEvent {
   @override
   List<Object> get props => null;
