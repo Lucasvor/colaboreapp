@@ -3,14 +3,40 @@ import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
-import '../../main.dart';
-
-class Face extends StatelessWidget {
+class Face extends StatefulWidget {
   final UserRepository userRepository;
   final User usuario;
+  final String face;
 
-  const Face({Key key, this.userRepository, this.usuario}) : super(key: key);
+  const Face({Key key, this.userRepository, this.usuario, this.face})
+      : super(key: key);
+  @override
+  _Face createState() => _Face();
+}
+
+class _Face extends State<Face> {
+  File _image;
+  final picker = ImagePicker();
+
+  Future getImageFromCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
+
+  Future getImageFromGallery() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
 
   List<Container> _faces(BuildContext context) => List.generate(
         20,
@@ -18,7 +44,8 @@ class Face extends StatelessWidget {
           child: InkWell(
             onTap: () async {
               var user = FirestoreUserRepository();
-              user.SetFace(usuario.email.replaceAll('@colaboreapp.com', ''), i);
+              user.SetFace(
+                  widget.usuario.email.replaceAll('@colaboreapp.com', ''), i);
               await new Future.delayed(const Duration(seconds: 1));
               Navigator.of(context).pop();
               Navigator.of(context).pop();
