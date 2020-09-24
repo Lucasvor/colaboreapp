@@ -5,6 +5,9 @@ import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
 
 import '../../main.dart';
 
@@ -20,6 +23,25 @@ class PerfilUserForm extends StatefulWidget {
 }
 
 class _PerfilUserFormState extends State<PerfilUserForm> {
+  File _image;
+  final picker = ImagePicker();
+
+  Future getImageFromCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
+
+  Future getImageFromGallery() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    setState(() {
+      _image = File(pickedFile.path);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -56,14 +78,34 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
               },
               child: Hero(
                 tag: widget.face,
-                child: SvgPicture.asset(
-                  'assets/images/' + '${widget.face}' + '.svg',
-                  height: size.height * 0.20,
-                ),
+                child: _image == null
+                    ? Text('Selecione uma imagem')
+                    : Image.file(_image),
+                // child: SvgPicture.asset(
+                //   'assets/images/' + '${widget.face}' + '.svg',
+                //   height: size.height * 0.20,
+                // ),
               ),
             ),
             SizedBox(
               height: size.height * 0.02,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FloatingActionButton(
+                  heroTag: "btn1",
+                  onPressed: getImageFromGallery,
+                  tooltip: 'Pick Image',
+                  child: Icon(Icons.wallpaper),
+                ),
+                FloatingActionButton(
+                  heroTag: "btn2",
+                  onPressed: getImageFromCamera,
+                  tooltip: 'Pick Image',
+                  child: Icon(Icons.add_a_photo),
+                ),
+              ],
             ),
             Text(
               '${widget.usuario.displayName}',

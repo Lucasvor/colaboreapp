@@ -4,8 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'dart:async';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 
 class Face extends StatefulWidget {
   final UserRepository userRepository;
@@ -19,25 +17,6 @@ class Face extends StatefulWidget {
 }
 
 class _Face extends State<Face> {
-  File _image;
-  final picker = ImagePicker();
-
-  Future getImageFromCamera() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
-
-    setState(() {
-      _image = File(pickedFile.path);
-    });
-  }
-
-  Future getImageFromGallery() async {
-    final pickedFile = await picker.getImage(source: ImageSource.gallery);
-
-    setState(() {
-      _image = File(pickedFile.path);
-    });
-  }
-
   List<Container> _faces(BuildContext context) => List.generate(
         20,
         (i) => Container(
