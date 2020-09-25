@@ -141,7 +141,7 @@ class _HomeFormState extends State<HomeForm> {
                         margin: EdgeInsets.all(5),
                         child: ClipRRect(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(5),
+                            Radius.circular(10),
                           ),
                           child: Stack(
                             children: <Widget>[
@@ -163,14 +163,7 @@ class _HomeFormState extends State<HomeForm> {
                                 right: 0,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color.fromARGB(200, 0, 0, 0),
-                                        Color.fromARGB(0, 0, 0, 0)
-                                      ],
-                                      begin: Alignment.bottomCenter,
-                                      end: Alignment.topCenter,
-                                    ),
+                                    color: kPrimaryColorGreen,
                                   ),
                                   padding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 20),
@@ -179,7 +172,7 @@ class _HomeFormState extends State<HomeForm> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20.0,
+                                      fontSize: 16.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
