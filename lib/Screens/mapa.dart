@@ -152,7 +152,7 @@ class _MapaState extends State<Mapa> {
                   state.locationData.latitude, state.locationData.longitude);
               setState(() {
                 mapController
-                    .moveCamera(CameraUpdate.newLatLngZoom(latlng, 16));
+                    .moveCamera(CameraUpdate.newLatLngZoom(latlng, 13));
 
                 _markers.add(Marker(
                   // This marker id can be anything that uniquely identifies each marker.
@@ -163,7 +163,8 @@ class _MapaState extends State<Mapa> {
                     snippet:
                         'LAT: ${latlng.latitude} e LONG: ${latlng.longitude}',
                   ),
-                  icon: BitmapDescriptor.defaultMarker,
+                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                      BitmapDescriptor.hueCyan),
                 ));
               });
               floatingActionButton = FloatingActionButton(
@@ -179,6 +180,7 @@ class _MapaState extends State<Mapa> {
           child: BlocBuilder<MapaBloc, MapaState>(
             builder: (context, state) {
               _mapaBloc = BlocProvider.of<MapaBloc>(context);
+              _mapaBloc.add(MapaCarregaOngs(_markers, widget.ongs));
               return Stack(
                 children: <Widget>[
                   GoogleMap(
@@ -190,7 +192,7 @@ class _MapaState extends State<Mapa> {
                     zoomControlsEnabled: false,
                     initialCameraPosition: CameraPosition(
                       target: center,
-                      zoom: 11.0,
+                      zoom: 10.0,
                     ),
                   ),
                   Padding(

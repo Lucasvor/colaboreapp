@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:colaboreapp/Model/ong.dart';
 import 'package:equatable/equatable.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 part 'mapa_event.dart';
@@ -21,12 +23,30 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
     // TODO: implement mapEventToState
     try {
       if (event is MapaInicial) {
+      } else if (event is MapaCarregaOngs) {
+        yield* mapSetMarkers(event.markers, event.ongs);
       } else if (event is MapaPegaPosicao) {
         yield* mapPegaPosicao();
       }
     } catch (e) {
       yield MapaError(e.toString());
     }
+  }
+
+  Stream<MapaState> mapSetMarkers(Set<Marker> markers, List<Ong> ongs) async* {
+    for (var item in ongs) {
+      markers.add(Marker(
+        // This marker id can be anything that uniquely identifies each marker.
+        markerId: MarkerId(item.nome.toString()),
+        position: LatLng(item.latitude, item.longitude),
+        infoWindow: InfoWindow(
+          title: '${item.nome}',
+          snippet: 'Telefone: ${item.telefone}, Endereço: ${item.endereco}',
+        ),
+        icon: BitmapDescriptor.defaultMarker,
+      ));
+    }
+    yield MapaCarregaOngsState(ongs, markers);
   }
 
   Stream<MapaState> mapPegaPosicao() async* {

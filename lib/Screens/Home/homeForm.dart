@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Model/usuario.dart';
 import 'package:colaboreapp/Screens/PerfilOng/perfilOng.dart';
 import 'package:colaboreapp/Screens/PerfilUser/perfilUser.dart';
@@ -35,6 +36,7 @@ class _HomeFormState extends State<HomeForm> {
   String faceHome;
   String nameUser;
   String nameShort;
+  List<Ong> ongs;
 
   @override
   void initState() {
@@ -112,7 +114,7 @@ class _HomeFormState extends State<HomeForm> {
             'assets/images/' + '${state.usuario.face}' + '.svg',
             height: size.height * 0.06,
           );
-
+          ongs = state.ongs;
           containerOngs = Container(
             height: size.height * 0.4,
             width: size.width,
@@ -329,7 +331,9 @@ class _HomeFormState extends State<HomeForm> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => Mapa(),
+                          builder: (_) => Mapa(
+                            ongs: ongs,
+                          ),
                         ),
                       );
                     },

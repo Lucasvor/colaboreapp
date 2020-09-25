@@ -13,6 +13,15 @@ class MapaSucess extends MapaState {}
 
 class MapaPegandoPosicaoState extends MapaState {}
 
+class MapaCarregaOngsState extends MapaState {
+  final Set<Marker> markers;
+  final List<Ong> ongs;
+
+  MapaCarregaOngsState(this.ongs, this.markers);
+  @override
+  List<Object> get props => [ongs, markers];
+}
+
 class MapaPegaPosicaoState extends MapaState {
   final LocationData locationData;
 
