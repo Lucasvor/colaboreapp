@@ -41,6 +41,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       var userFirestore = FirestoreUserRepository();
 
       var ongs = await ongsFirestore.allOngs();
+      //var test = await ongsFirestore.setOng(ongs);
       var currentUser = await userRepository.getCurrentUser();
       var usuario = await userFirestore.GetUser(
           currentUser.email.replaceAll('@colaboreapp.com', ''));

@@ -5,11 +5,28 @@ part 'ong.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class Ong extends Equatable {
-  final String nome;
-  final String imageUrl;
-  final String info;
+  String nome;
+  String idDocument;
+  String imageUrl;
+  String info;
+  String cnpj;
+  String endereco;
+  double latitude;
+  double longitude;
+  String telefone;
+  double valorRecebido;
 
-  Ong({this.info, this.nome, this.imageUrl});
+  Ong(
+      {this.idDocument,
+      this.cnpj,
+      this.endereco,
+      this.latitude,
+      this.longitude,
+      this.telefone,
+      this.valorRecebido,
+      this.info,
+      this.nome,
+      this.imageUrl});
 
   @override
   // TODO: implement props

@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Model/usuario.dart';
 import 'package:colaboreapp/Screens/PerfilOng/perfilOng.dart';
 import 'package:colaboreapp/Screens/PerfilUser/perfilUser.dart';
+import 'package:colaboreapp/Screens/mapa.dart';
 import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
@@ -34,6 +36,7 @@ class _HomeFormState extends State<HomeForm> {
   String faceHome;
   String nameUser;
   String nameShort;
+  List<Ong> ongs;
 
   @override
   void initState() {
@@ -111,7 +114,7 @@ class _HomeFormState extends State<HomeForm> {
             'assets/images/' + '${state.usuario.face}' + '.svg',
             height: size.height * 0.06,
           );
-
+          ongs = state.ongs;
           containerOngs = Container(
             height: size.height * 0.4,
             width: size.width,
@@ -138,7 +141,7 @@ class _HomeFormState extends State<HomeForm> {
                         margin: EdgeInsets.all(5),
                         child: ClipRRect(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(5),
+                            Radius.circular(10),
                           ),
                           child: Stack(
                             children: <Widget>[
@@ -160,14 +163,7 @@ class _HomeFormState extends State<HomeForm> {
                                 right: 0,
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color.fromARGB(200, 0, 0, 0),
-                                        Color.fromARGB(0, 0, 0, 0)
-                                      ],
-                                      begin: Alignment.bottomCenter,
-                                      end: Alignment.topCenter,
-                                    ),
+                                    color: kPrimaryColorGreen,
                                   ),
                                   padding: EdgeInsets.symmetric(
                                       vertical: 10, horizontal: 20),
@@ -176,7 +172,7 @@ class _HomeFormState extends State<HomeForm> {
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Colors.white,
-                                      fontSize: 20.0,
+                                      fontSize: 16.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -321,6 +317,19 @@ class _HomeFormState extends State<HomeForm> {
                         ),
                       ],
                     ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.map),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => Mapa(
+                            ongs: ongs,
+                          ),
+                        ),
+                      );
+                    },
                   )
                 ],
               ),
