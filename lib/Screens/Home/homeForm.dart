@@ -139,6 +139,16 @@ class _HomeFormState extends State<HomeForm> {
                       },
                       child: Container(
                         margin: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black12,
+                                spreadRadius: 2,
+                                blurRadius: 3,
+                              ),
+                            ]),
                         child: ClipRRect(
                           borderRadius: BorderRadius.all(
                             Radius.circular(10),
