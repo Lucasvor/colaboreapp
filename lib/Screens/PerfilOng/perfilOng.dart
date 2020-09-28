@@ -12,6 +12,7 @@ class PerfilOng extends StatelessWidget {
     return Scaffold(
       body: PerfilOngForm(
         ong: ong,
+        ongNome: ongNome,
       ),
     );
   }

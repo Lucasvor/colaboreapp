@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:colaboreapp/Model/ong.dart';
+import 'package:colaboreapp/Screens/ValorDoacao/valorDoacao.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/constants.dart';
 import 'package:flutter/material.dart';
@@ -139,7 +140,7 @@ class _PerfilOngFormState extends State<PerfilOngForm> {
                         children: <Widget>[
                           SingleChildScrollView(
                             child: AutoSizeText(
-                              widget.ong.info ?? "",
+                              widget.ong.info,
                               minFontSize: 14,
                               maxFontSize: 19,
                               style: TextStyle(
@@ -196,7 +197,14 @@ class _PerfilOngFormState extends State<PerfilOngForm> {
                 child: RoundedButton(
                   color: kPrimaryColorGreen,
                   press: () {
-                    Navigator.of(context).pop();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ValorDoacaoForm(
+                          ong: widget.ong,
+                        ),
+                      ),
+                    );
                   },
                   text: 'Doar',
                   textColor: Colors.white,

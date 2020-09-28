@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Model/usuario.dart';
+import 'package:colaboreapp/Screens/ListOngs/OngsView.dart';
 import 'package:colaboreapp/Screens/PerfilOng/perfilOng.dart';
 import 'package:colaboreapp/Screens/PerfilUser/perfilUser.dart';
 import 'package:colaboreapp/Screens/mapa.dart';
@@ -272,9 +273,17 @@ class _HomeFormState extends State<HomeForm> {
                               borderRadius: BorderRadius.circular(10),
                               child: FlatButton(
                                 onPressed: () {
-                                  widget.userRepository.singOut();
-                                  BlocProvider.of<AuthBloc>(context).add(
-                                    AuthSplash(),
+                                  // widget.userRepository.singOut();
+                                  // BlocProvider.of<AuthBloc>(context).add(
+                                  //   AuthSplash(),
+                                  // );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => ListOngs(
+                                        ongs: ongs,
+                                      ),
+                                    ),
                                   );
                                 },
                                 color: kPrimaryColorGreen,

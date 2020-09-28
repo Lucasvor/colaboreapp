@@ -1,3 +1,4 @@
+import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/bloc/Cadastro/cadastro_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,10 @@ import '../../constants.dart';
 
 class ValorDoacaoForm extends StatefulWidget {
   final ValorDoacaoForm valorDoacao;
+  final Ong ong;
 
-  const ValorDoacaoForm({Key key, this.valorDoacao}) : super(key: key);
+  const ValorDoacaoForm({Key key, this.valorDoacao, this.ong})
+      : super(key: key);
 
   @override
   _ValorDoacaoState createState() => _ValorDoacaoState();
