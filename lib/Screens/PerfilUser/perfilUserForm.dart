@@ -5,6 +5,7 @@ import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
@@ -76,36 +77,51 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                   ),
                 );
               },
-              child: Hero(
-                tag: widget.face,
-                child: _image == null
-                    ? Text('Selecione uma imagem')
-                    : Image.file(_image),
-                // child: SvgPicture.asset(
-                //   'assets/images/' + '${widget.face}' + '.svg',
-                //   height: size.height * 0.20,
-                // ),
+              child: ClipOval(
+                child: AspectRatio(
+                  aspectRatio: 2,
+                  child: Hero(
+                    tag: widget.face,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: <Widget>[
+                        _image == null
+                            ? Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: <Widget>[
+                                  SvgPicture.asset(
+                                      'assets/images/' +
+                                          '${widget.face}' +
+                                          '.svg',
+                                      height: size.height * 0.20),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: Align(
+                                      alignment: Alignment.bottomRight,
+                                      child: IconButton(
+                                        onPressed: getImageFromGallery,
+                                        icon: Icon(Icons.edit),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Stack(
+                                alignment: Alignment.center,
+                                children: <Widget>[
+                                  Image.file(
+                                    _image,
+                                  ),
+                                ],
+                              )
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
             SizedBox(
               height: size.height * 0.02,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FloatingActionButton(
-                  heroTag: "btn1",
-                  onPressed: getImageFromGallery,
-                  tooltip: 'Pick Image',
-                  child: Icon(Icons.wallpaper),
-                ),
-                FloatingActionButton(
-                  heroTag: "btn2",
-                  onPressed: getImageFromCamera,
-                  tooltip: 'Pick Image',
-                  child: Icon(Icons.add_a_photo),
-                ),
-              ],
             ),
             Text(
               '${widget.usuario.displayName}',
@@ -121,8 +137,6 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
             Container(
               margin: EdgeInsets.all(10),
               width: size.width * 0.8,
-              // decoration:
-              //     BoxDecoration(border: Border.all(color: Colors.black26)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -162,8 +176,6 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
             Container(
               margin: EdgeInsets.all(10),
               width: size.width * 0.8,
-              // decoration:
-              //     BoxDecoration(border: Border.all(color: Colors.black26)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
