@@ -9,8 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ListOngs extends StatefulWidget {
   final List<Ong> ongs;
+  final HomeBloc homeBloc;
 
-  const ListOngs({Key key, this.ongs}) : super(key: key);
+  const ListOngs({Key key, this.ongs, this.homeBloc}) : super(key: key);
 
   @override
   _ListOngsState createState() => _ListOngsState();
@@ -105,6 +106,7 @@ class _ListOngsState extends State<ListOngs> {
                               context,
                               MaterialPageRoute(
                                 builder: (_) => PerfilOng(
+                                  homeBloc: widget.homeBloc,
                                   ong: widget.ongs[index],
                                   ongNome: widget.ongs[index].nome,
                                 ),
@@ -125,6 +127,7 @@ class _ListOngsState extends State<ListOngs> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (_) => PerfilOng(
+                                      homeBloc: widget.homeBloc,
                                       ong: widget.ongs[index],
                                       ongNome: widget.ongs[index].nome,
                                     ),

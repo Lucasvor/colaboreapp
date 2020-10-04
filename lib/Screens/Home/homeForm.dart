@@ -281,6 +281,7 @@ class _HomeFormState extends State<HomeForm> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (_) => ListOngs(
+                                        homeBloc: _homeBloc,
                                         ongs: ongs,
                                       ),
                                     ),

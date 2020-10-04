@@ -31,6 +31,17 @@ class FirestoreOngs {
     return ongsCollection.doc(userOng.cnpj).set(userOng.toJson());
   }
 
+  Future<bool> addValorDoacao(Ong ong, double valor) async {
+    try {
+      ong.valorRecebido = ong.valorRecebido + valor;
+      print(ong.toJson());
+      ongsCollection.doc(ong.idDocument).set(ong.toJson());
+      return true;
+    } catch (x) {
+      return false;
+    }
+  }
+
   Future<void> setOng(List<Ong> ongs) async {
     for (var item in ongs) {
       if (item.cnpj == "77596050000101") {

@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Screens/ValorDoacao/valorDoacao.dart';
+import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/constants.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,9 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class PerfilOngForm extends StatefulWidget {
   final Ong ong;
   final String ongNome;
-  PerfilOngForm({Key key, this.ong, this.ongNome}) : super(key: key);
+  final HomeBloc homeBloc;
+  PerfilOngForm({Key key, this.ong, this.ongNome, this.homeBloc})
+      : super(key: key);
 
   @override
   _PerfilOngFormState createState() => _PerfilOngFormState();
@@ -201,6 +204,7 @@ class _PerfilOngFormState extends State<PerfilOngForm> {
                       context,
                       MaterialPageRoute(
                         builder: (_) => ValorDoacaoForm(
+                          homeBloc: widget.homeBloc,
                           ong: widget.ong,
                         ),
                       ),

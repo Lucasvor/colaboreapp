@@ -1,7 +1,11 @@
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/bloc/Cadastro/cadastro_bloc.dart';
+import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
+import 'package:colaboreapp/repositories/FirestoreOngs.dart';
+import 'package:colaboreapp/repositories/FirestoreOngs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 import '../../constants.dart';
@@ -9,8 +13,9 @@ import '../../constants.dart';
 class ValorDoacaoForm extends StatefulWidget {
   final ValorDoacaoForm valorDoacao;
   final Ong ong;
+  final HomeBloc homeBloc;
 
-  const ValorDoacaoForm({Key key, this.valorDoacao, this.ong})
+  const ValorDoacaoForm({Key key, this.valorDoacao, this.ong, this.homeBloc})
       : super(key: key);
 
   @override
@@ -49,12 +54,13 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       IconButton(
-                        onPressed: () {
-                          setState(() {
-                            Navigator.of(context).pop();
-                          });
-                        },
                         icon: Icon(Icons.arrow_back),
+                        iconSize: 36,
+                        color: kPrimaryColorGreen,
+                        onPressed: () {
+                          // widget.homeBloc.add(LoadingOngs());
+                          Navigator.of(context).pop();
+                        },
                       ),
                     ]),
                 SizedBox(
@@ -113,8 +119,24 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
                 ),
                 RoundedButton(
                   text: "Continuar",
-                  press: () {
+                  press: () async {
                     //aqui deve ir a tela de pagamento.
+                    try {
+                      var ongRepo = new FirestoreOngs();
+                      var res = await ongRepo.addValorDoacao(
+                          widget.ong,
+                          double.parse(
+                              valorController.text.replaceAll(",", ".")));
+                      if (res) {
+                        print("Valor doado com sucesso!");
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
+                      } else {
+                        print("Houve algum erro");
+                      }
+                    } catch (e) {
+                      print(e);
+                    }
                   },
                 ),
               ],
