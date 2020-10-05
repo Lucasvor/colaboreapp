@@ -50,6 +50,7 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
   }
 
   Stream<MapaState> mapPegaPosicao() async* {
+    try{
     yield MapaPegandoPosicaoState();
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
@@ -66,5 +67,8 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
       }
     }
     yield MapaPegaPosicaoState(await location.getLocation());
+    }catch(e){
+      print(e);
+    }
   }
 }

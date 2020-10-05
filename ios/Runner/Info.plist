@@ -4,6 +4,12 @@
 	<dict>
 		<key>io.flutter.embedded_views_preview</key>
 		<true/>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>Necessario para pegar sua posicao</string>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>We need your location to find places near to you.</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>We need your location to find places near to you.</string>
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleExecutable</key>
