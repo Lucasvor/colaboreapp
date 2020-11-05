@@ -315,6 +315,9 @@ class _HomeFormState extends State<HomeForm> {
                               child: FlatButton(
                                 onPressed: () {
                                   widget.userRepository.singOut();
+                                  BlocProvider.of<AuthBloc>(context).add(
+                                    AuthSplash(),
+                                  );
                                   //_homeBloc.add(LoadingOngs());
                                 },
                                 color: kPrimaryColorGreen,
