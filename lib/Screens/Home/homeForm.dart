@@ -314,7 +314,8 @@ class _HomeFormState extends State<HomeForm> {
                               borderRadius: BorderRadius.circular(10),
                               child: FlatButton(
                                 onPressed: () {
-                                  _homeBloc.add(LoadingOngs());
+                                  widget.userRepository.singOut();
+                                  //_homeBloc.add(LoadingOngs());
                                 },
                                 color: kPrimaryColorGreen,
                                 child: Column(
