@@ -1,4 +1,5 @@
 import 'package:colaboreapp/Model/ong.dart';
+import 'package:colaboreapp/Screens/Comprovante/Confirmacao.dart';
 import 'package:colaboreapp/bloc/Cadastro/cadastro_bloc.dart';
 import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
@@ -121,22 +122,32 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
                   text: "Continuar",
                   press: () async {
                     //aqui deve ir a tela de pagamento.
-                    try {
-                      var ongRepo = new FirestoreOngs();
-                      var res = await ongRepo.addValorDoacao(
-                          widget.ong,
-                          double.parse(
-                              valorController.text.replaceAll(",", ".")));
-                      if (res) {
-                        print("Valor doado com sucesso!");
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
-                      } else {
-                        print("Houve algum erro");
-                      }
-                    } catch (e) {
-                      print(e);
-                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => ConfirmacaoForm(
+                          homeBloc: widget.homeBloc,
+                          ong: widget.ong,
+                          valorDoacao: valorController.text,
+                        ),
+                      ),
+                    );
+                    // try {
+                    //   var ongRepo = new FirestoreOngs();
+                    //   var res = await ongRepo.addValorDoacao(
+                    //       widget.ong,
+                    //       double.parse(
+                    //           valorController.text.replaceAll(",", ".")));
+                    //   if (res) {
+                    //     print("Valor doado com sucesso!");
+                    //     Navigator.of(context)
+                    //         .popUntil((route) => route.isFirst);
+                    //   } else {
+                    //     print("Houve algum erro");
+                    //   }
+                    // } catch (e) {
+                    //   print(e);
+                    // }
                   },
                 ),
               ],

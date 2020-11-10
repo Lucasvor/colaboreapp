@@ -164,7 +164,10 @@ class _HomeFormState extends State<HomeForm> {
                                   placeholder: (context, url) =>
                                       new CircularProgressIndicator(),
                                   errorWidget: (context, url, error) =>
-                                      new Icon(Icons.error),
+                                      new Icon(
+                                    Icons.error,
+                                    size: 26,
+                                  ),
                                   fit: BoxFit.fill,
                                 ),
                               ),
