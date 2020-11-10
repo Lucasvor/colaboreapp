@@ -1,16 +1,16 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:colaboreapp/Screens/EscolheFace/Face.dart';
-import 'package:colaboreapp/Screens/ValorDoacao/valorDoacao.dart';
+import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/constants.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
-
-import '../../main.dart';
+import '../../constants.dart';
 
 class PerfilUserForm extends StatefulWidget {
   final UserRepository userRepository;
@@ -83,25 +83,19 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                   child: Hero(
                     tag: widget.face,
                     child: Stack(
-                      alignment: Alignment.center,
+                      alignment: Alignment.bottomCenter,
                       children: <Widget>[
                         _image == null
                             ? Stack(
-                                alignment: Alignment.bottomCenter,
+                                alignment: Alignment.center,
                                 children: <Widget>[
-                                  SvgPicture.asset(
-                                      'assets/images/' +
-                                          '${widget.face}' +
-                                          '.svg',
-                                      height: size.height * 0.20),
-                                  Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Align(
-                                      alignment: Alignment.bottomRight,
-                                      child: IconButton(
-                                        onPressed: getImageFromGallery,
-                                        icon: Icon(Icons.edit),
-                                      ),
+                                  Positioned(
+                                    child: Container(
+                                      child: SvgPicture.asset(
+                                          'assets/images/' +
+                                              '${widget.face}' +
+                                              '.svg',
+                                          height: size.height * 0.20),
                                     ),
                                   ),
                                 ],
@@ -120,83 +114,129 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                 ),
               ),
             ),
-            SizedBox(
-              height: size.height * 0.02,
+            Stack(
+              children: <Widget>[
+                Positioned(
+                  child: Container(
+                    child: IconButton(
+                      onPressed: getImageFromGallery,
+                      icon: Icon(Icons.edit),
+                    ),
+                  ),
+                ),
+              ],
             ),
-            Text(
-              '${widget.usuario.displayName}',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+              child: AutoSizeText(
+                '${widget.usuario.displayName}',
+                maxLines: 2,
+                minFontSize: 25,
+                maxFontSize: 30,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            SizedBox(
-              height: size.height * 0.10,
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              width: size.width * 0.8,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  OutlineButton(
-                    borderSide: BorderSide(color: kPrimaryColorGreen),
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) {
-                            return ValorDoacaoForm();
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+              child: Container(
+                margin: EdgeInsets.all(10),
+                width: size.width * 0.8,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: size.width * 0.5,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: FlatButton(
+                          color: kPrimaryColorGreen,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 30),
+                          onPressed: () {
+                            widget.userRepository.singOut();
+                            BlocProvider.of<AuthBloc>(context).add(
+                              AuthSplash(),
+                            );
                           },
+                          child: AutoSizeText(
+                            'Ongs Favoritas',
+                            style: TextStyle(color: Colors.white),
+                          ),
                         ),
-                      );
-                    },
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      "Valor da Doação",
-                      style: TextStyle(
-                        color: HexColor("91C7A6"),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
-                        fontFamily: 'Avenir',
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-            SizedBox(
-              height: size.height * 0.02,
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              width: size.width * 0.8,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  OutlineButton(
-                    borderSide: BorderSide(color: kPrimaryColorGreen),
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
-                    onPressed: () {},
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Text(
-                      "Ongs Favoritas",
-                      style: TextStyle(
-                        color: HexColor("91C7A6"),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 27,
-                        fontFamily: 'Avenir',
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+              child: Container(
+                margin: EdgeInsets.all(10),
+                width: size.width * 0.8,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: size.width * 0.5,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: FlatButton(
+                          color: kPrimaryColorGreen,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 30),
+                          onPressed: () {
+                            widget.userRepository.singOut();
+                            BlocProvider.of<AuthBloc>(context).add(
+                              AuthSplash(),
+                            );
+                          },
+                          child: AutoSizeText(
+                            'Suas Doações',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
+              child: Container(
+                margin: EdgeInsets.all(10),
+                width: size.width * 0.8,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: size.width * 0.3,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: FlatButton(
+                          color: Colors.red,
+                          padding: EdgeInsets.symmetric(
+                              vertical: 13, horizontal: 30),
+                          onPressed: () {
+                            widget.userRepository.singOut();
+                            BlocProvider.of<AuthBloc>(context).add(
+                              AuthSplash(),
+                            );
+                          },
+                          child: Text(
+                            'Sair',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

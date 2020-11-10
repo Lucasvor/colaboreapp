@@ -13,7 +13,6 @@ class RoundedButton extends StatelessWidget {
     this.color = kPrimaryColorGreen,
     this.textColor = Colors.white,
     InputDecoration decoration,
-    EdgeInsets margin,
   }) : super(key: key);
 
   @override
