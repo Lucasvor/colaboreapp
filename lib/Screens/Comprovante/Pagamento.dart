@@ -26,99 +26,134 @@ class _PagamentoFormState extends State<PagamentoForm> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: size.height,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    AutoSizeText(
-                      'Obrigado pela doação ;)',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 44, fontWeight: FontWeight.bold),
-                      maxLines: 2,
-                    ),
-                  ],
+    return new WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: Container(
+          width: double.infinity,
+          height: size.height,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      AutoSizeText(
+                        'Obrigado pela doação ;)',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 44, fontWeight: FontWeight.bold),
+                        maxLines: 2,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: SvgPicture.asset(
-                  "assets/images/Appreciation-bro.svg",
-                  height: 300,
-                  width: 300,
+                Expanded(
+                  child: SvgPicture.asset(
+                    "assets/images/Appreciation-bro.svg",
+                    height: 300,
+                    width: 300,
+                  ),
                 ),
-              ),
-              AutoSizeText(
-                'Este é seu codigo: ',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
-                maxLines: 2,
-              ),
-              AutoSizeText(
-                '1614616161461610616161616 161616161616161 12312312',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blueAccent),
-                maxLines: 2,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-                child: RoundedButton(
-                  text: "VOLTAR AO INICIO",
-                  press: () async {
-                    try {
-                      var ongRepo = new FirestoreOngs();
-                      var res = await ongRepo.addValorDoacao(
-                          widget.ong,
-                          double.parse(
-                              widget.valorDoacao.replaceAll(",", ".")));
-                      if (res) {
-                        print("Valor doado com sucesso!");
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
-                      } else {
-                        Scaffold.of(context)
-                          ..removeCurrentSnackBar()
-                          ..showSnackBar(
-                            SnackBar(
-                              content: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                      'Houve algum erro na comunicação com firebase.'),
-                                  Icon(Icons.error),
-                                ],
+                AutoSizeText(
+                  'Este é seu codigo: ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+                  maxLines: 2,
+                ),
+                AutoSizeText(
+                  '1614616161461610616161616 161616161616161 12312312',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueAccent),
+                  maxLines: 2,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                  child: RoundedButton(
+                    text: "VOLTAR AO INICIO",
+                    press: () async {
+                      try {
+                        var ongRepo = new FirestoreOngs();
+                        var res = await ongRepo.addValorDoacao(
+                            widget.ong,
+                            double.parse(
+                                widget.valorDoacao.replaceAll(",", ".")));
+                        if (res) {
+                          print("Valor doado com sucesso!");
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
+                        } else {
+                          Scaffold.of(context)
+                            ..removeCurrentSnackBar()
+                            ..showSnackBar(
+                              SnackBar(
+                                content: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                        'Houve algum erro na comunicação com firebase.'),
+                                    Icon(Icons.error),
+                                  ],
+                                ),
+                                backgroundColor: HexColor("91C7A6"),
                               ),
-                              backgroundColor: HexColor("91C7A6"),
-                            ),
-                          );
-                        print("Houve algum erro");
+                            );
+                          print("Houve algum erro");
+                        }
+                      } catch (e) {
+                        print(e);
                       }
-                    } catch (e) {
-                      print(e);
-                    }
-                  },
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> _onWillPop() async {
+    try {
+      var ongRepo = new FirestoreOngs();
+      var res = await ongRepo.addValorDoacao(
+          widget.ong, double.parse(widget.valorDoacao.replaceAll(",", ".")));
+      if (res) {
+        print("Valor doado com sucesso!");
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        return true;
+      } else {
+        Scaffold.of(context)
+          ..removeCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Houve algum erro na comunicação com firebase.'),
+                  Icon(Icons.error),
+                ],
+              ),
+              backgroundColor: HexColor("91C7A6"),
+            ),
+          );
+        print("Houve algum erro");
+      }
+    } catch (e) {
+      print(e);
+    }
+    return false;
   }
 }
