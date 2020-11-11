@@ -214,21 +214,6 @@ class _HomeFormState extends State<HomeForm> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     GestureDetector(
-                  //       onTap: () {
-                  //         _homeBloc.add(LoadingOngs());
-                  //       },
-                  //       child: SvgPicture.asset(
-                  //         "assets/images/earth.svg",
-                  //         width: size.width * 0.1,
-                  //         color: kBackgroundColor,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -261,7 +246,6 @@ class _HomeFormState extends State<HomeForm> {
                       ],
                     ),
                   ),
-
                   containerOngs,
                   Container(
                     height: size.height * 0.2,

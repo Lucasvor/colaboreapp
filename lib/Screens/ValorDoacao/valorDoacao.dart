@@ -51,104 +51,88 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
             padding: EdgeInsets.all(25),
             child: Column(
               children: <Widget>[
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        iconSize: 36,
-                        color: kPrimaryColorGreen,
-                        onPressed: () {
-                          // widget.homeBloc.add(LoadingOngs());
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ]),
-                SizedBox(
-                  height: size.height * 0.01,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          iconSize: 36,
+                          color: kPrimaryColorGreen,
+                          onPressed: () {
+                            // widget.homeBloc.add(LoadingOngs());
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ]),
                 ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(
-                        height: size.height * 0.10,
-                      ),
-                      RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Valor da Doação',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 35,
-                                fontFamily: 'Avenir',
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Valor da Doação',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 35,
+                                  fontFamily: 'Avenir',
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ]),
-                SizedBox(
-                  height: size.height * 0.25,
+                      ]),
                 ),
-                TextFormField(
-                  controller: valorController,
-                  keyboardType: TextInputType.number,
-                  textAlign: TextAlign.center,
-                  autovalidate: true,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                    fontFamily: 'Avenir',
-                  ),
-                  decoration: InputDecoration(
-                    prefixIcon: Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 30.0),
-                      child: Icon(
-                        Icons.attach_money,
-                        color: kPrimaryColorGreen,
-                      ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
+                  child: TextFormField(
+                    controller: valorController,
+                    keyboardType: TextInputType.number,
+                    textAlign: TextAlign.center,
+                    autovalidate: true,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      fontFamily: 'Avenir',
                     ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 25),
-                  ),
-                ),
-                SizedBox(
-                  height: size.height * 0.33,
-                ),
-                RoundedButton(
-                  text: "Continuar",
-                  press: () async {
-                    //aqui deve ir a tela de pagamento.
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ConfirmacaoForm(
-                          homeBloc: widget.homeBloc,
-                          ong: widget.ong,
-                          valorDoacao: valorController.text,
+                    decoration: InputDecoration(
+                      prefixIcon: Padding(
+                        padding: const EdgeInsetsDirectional.only(end: 30.0),
+                        child: Icon(
+                          Icons.attach_money,
+                          color: kPrimaryColorGreen,
                         ),
                       ),
-                    );
-                    // try {
-                    //   var ongRepo = new FirestoreOngs();
-                    //   var res = await ongRepo.addValorDoacao(
-                    //       widget.ong,
-                    //       double.parse(
-                    //           valorController.text.replaceAll(",", ".")));
-                    //   if (res) {
-                    //     print("Valor doado com sucesso!");
-                    //     Navigator.of(context)
-                    //         .popUntil((route) => route.isFirst);
-                    //   } else {
-                    //     print("Houve algum erro");
-                    //   }
-                    // } catch (e) {
-                    //   print(e);
-                    // }
-                  },
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 15, horizontal: 25),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 270, 0, 0),
+                  child: RoundedButton(
+                    text: "Continuar",
+                    press: () async {
+                      //aqui deve ir a tela de pagamento.
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ConfirmacaoForm(
+                            homeBloc: widget.homeBloc,
+                            ong: widget.ong,
+                            valorDoacao: valorController.text,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),

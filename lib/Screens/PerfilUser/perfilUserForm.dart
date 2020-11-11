@@ -156,12 +156,7 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                           color: kPrimaryColorGreen,
                           padding: EdgeInsets.symmetric(
                               vertical: 15, horizontal: 30),
-                          onPressed: () {
-                            widget.userRepository.singOut();
-                            BlocProvider.of<AuthBloc>(context).add(
-                              AuthSplash(),
-                            );
-                          },
+                          onPressed: () {},
                           child: AutoSizeText(
                             'Ongs Favoritas',
                             style: TextStyle(color: Colors.white),
@@ -189,12 +184,7 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                           color: kPrimaryColorGreen,
                           padding: EdgeInsets.symmetric(
                               vertical: 15, horizontal: 30),
-                          onPressed: () {
-                            widget.userRepository.singOut();
-                            BlocProvider.of<AuthBloc>(context).add(
-                              AuthSplash(),
-                            );
-                          },
+                          onPressed: () {},
                           child: AutoSizeText(
                             'Suas Doações',
                             style: TextStyle(color: Colors.white),

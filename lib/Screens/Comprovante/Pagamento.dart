@@ -38,7 +38,7 @@ class _PagamentoFormState extends State<PagamentoForm> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
+                padding: const EdgeInsets.fromLTRB(10, 60, 0, 0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,8 +46,9 @@ class _PagamentoFormState extends State<PagamentoForm> {
                     AutoSizeText(
                       'Obrigado pela doação ;)',
                       textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 44, fontWeight: FontWeight.bold),
+                      minFontSize: 40,
+                      maxFontSize: 40,
+                      style: TextStyle(fontWeight: FontWeight.bold),
                       maxLines: 2,
                     ),
                   ],
@@ -63,12 +64,14 @@ class _PagamentoFormState extends State<PagamentoForm> {
               AutoSizeText(
                 'Este é seu codigo: ',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 maxLines: 2,
               ),
               AutoSizeText(
                 '1614616161461610616161616 161616161616161 12312312',
                 textAlign: TextAlign.center,
+                minFontSize: 15,
+                maxFontSize: 18,
                 style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
