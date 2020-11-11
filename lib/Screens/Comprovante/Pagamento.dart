@@ -5,6 +5,7 @@ import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/repositories/FirestoreOngs.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants.dart';
 import '../../main.dart';
@@ -52,13 +53,12 @@ class _PagamentoFormState extends State<PagamentoForm> {
                   ],
                 ),
               ),
-              CachedNetworkImage(
-                width: 300,
-                height: 300,
-                imageUrl: widget.ong.imageUrl,
-                placeholder: (context, url) => new CircularProgressIndicator(),
-                errorWidget: (context, url, error) => new Icon(Icons.error),
-                fit: BoxFit.scaleDown,
+              Expanded(
+                child: SvgPicture.asset(
+                  "assets/images/Appreciation-bro.svg",
+                  height: 300,
+                  width: 300,
+                ),
               ),
               AutoSizeText(
                 'Este é seu codigo: ',
