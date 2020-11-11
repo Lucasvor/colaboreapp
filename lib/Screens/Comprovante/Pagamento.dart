@@ -38,7 +38,7 @@ class _PagamentoFormState extends State<PagamentoForm> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 60, 0, 0),
+                padding: const EdgeInsets.fromLTRB(10, 60, 0, 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
