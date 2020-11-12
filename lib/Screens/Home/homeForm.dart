@@ -134,6 +134,9 @@ class _HomeFormState extends State<HomeForm> {
                           MaterialPageRoute(
                             builder: (context) => PerfilOng(
                               ong: item,
+                              ongNome: item.nome,
+                              usuario: widget.usuario,
+                              userRepository: widget.userRepository,
                             ),
                           ),
                         );

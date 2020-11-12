@@ -39,7 +39,7 @@ class FirestoreOngs {
     try {
       var tran =
           new Transacao(nome, cpf, valor, ong.nome, ong.cnpj, DateTime.now());
-      print(tran);
+      print(tran.toJson());
       ong.valorRecebido = ong.valorRecebido + valor;
       print(ong.toJson());
       ongsCollection.doc(ong.idDocument).set(ong.toJson());

@@ -98,7 +98,7 @@ class _PagamentoFormState extends State<PagamentoForm> {
                       var res = await ongRepo.addValorDoacao(
                           widget.ong,
                           double.parse(widget.valorDoacao.replaceAll(",", ".")),
-                          widget.usuario.phoneNumber
+                          widget.usuario.email
                               .replaceAll('@colaboreapp.com', ""),
                           widget.usuario.displayName);
                       // await ongRepo.addValorDoacao(
@@ -130,6 +130,21 @@ class _PagamentoFormState extends State<PagamentoForm> {
                       }
                     } catch (e) {
                       print(e);
+                      Scaffold.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(
+                          SnackBar(
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                    'Houve algum erro na comunicação com firebase.'),
+                                Icon(Icons.error),
+                              ],
+                            ),
+                            backgroundColor: HexColor("91C7A6"),
+                          ),
+                        );
                     }
                   },
                 ),
