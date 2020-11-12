@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Model/ongCadastro.dart';
+import 'package:colaboreapp/Model/transacao.dart';
+import 'package:colaboreapp/Model/usuario.dart';
 
 class FirestoreOngs {
   final ongsCollection = FirebaseFirestore.instance.collection("ongs");
+  final transacoes = FirebaseFirestore.instance.collection("transacoes");
 
   Future<List<Ong>> allOngs() async {
     var qshot = await ongsCollection.get();
@@ -31,11 +34,16 @@ class FirestoreOngs {
     return ongsCollection.doc(userOng.cnpj).set(userOng.toJson());
   }
 
-  Future<bool> addValorDoacao(Ong ong, double valor) async {
+  Future<bool> addValorDoacao(
+      Ong ong, double valor, String cpf, String nome) async {
     try {
+      var tran =
+          new Transacao(nome, cpf, valor, ong.nome, ong.cnpj, DateTime.now());
+      print(tran);
       ong.valorRecebido = ong.valorRecebido + valor;
       print(ong.toJson());
       ongsCollection.doc(ong.idDocument).set(ong.toJson());
+      transacoes.doc().set(tran.toJson());
       return true;
     } catch (x) {
       return false;

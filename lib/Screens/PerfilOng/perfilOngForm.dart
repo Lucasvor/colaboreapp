@@ -5,6 +5,8 @@ import 'package:colaboreapp/Screens/ValorDoacao/valorDoacao.dart';
 import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/constants.dart';
+import 'package:colaboreapp/repositories/UserRepository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -12,7 +14,15 @@ class PerfilOngForm extends StatefulWidget {
   final Ong ong;
   final String ongNome;
   final HomeBloc homeBloc;
-  PerfilOngForm({Key key, this.ong, this.ongNome, this.homeBloc})
+  final User usuario;
+  final UserRepository userRepository;
+  PerfilOngForm(
+      {Key key,
+      this.ong,
+      this.ongNome,
+      this.homeBloc,
+      this.usuario,
+      this.userRepository})
       : super(key: key);
 
   @override
@@ -206,6 +216,8 @@ class _PerfilOngFormState extends State<PerfilOngForm> {
                         builder: (_) => ValorDoacaoForm(
                           homeBloc: widget.homeBloc,
                           ong: widget.ong,
+                          usuario: widget.usuario,
+                          userRepository: widget.userRepository,
                         ),
                       ),
                     );

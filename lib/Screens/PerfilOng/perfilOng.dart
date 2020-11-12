@@ -1,13 +1,23 @@
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Screens/PerfilOng/perfilOngForm.dart';
 import 'package:colaboreapp/bloc/Home/home_bloc.dart';
+import 'package:colaboreapp/repositories/UserRepository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class PerfilOng extends StatelessWidget {
   final Ong ong;
   final String ongNome;
   final HomeBloc homeBloc;
-  const PerfilOng({Key key, this.ong, this.ongNome, this.homeBloc})
+  final User usuario;
+  final UserRepository userRepository;
+  const PerfilOng(
+      {Key key,
+      this.ong,
+      this.ongNome,
+      this.homeBloc,
+      this.usuario,
+      this.userRepository})
       : super(key: key);
 
   @override
@@ -17,6 +27,8 @@ class PerfilOng extends StatelessWidget {
         homeBloc: homeBloc,
         ong: ong,
         ongNome: ongNome,
+        usuario: usuario,
+        userRepository: userRepository,
       ),
     );
   }

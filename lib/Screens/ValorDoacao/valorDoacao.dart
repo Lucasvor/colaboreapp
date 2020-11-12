@@ -5,6 +5,8 @@ import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/repositories/FirestoreOngs.dart';
 import 'package:colaboreapp/repositories/FirestoreOngs.dart';
+import 'package:colaboreapp/repositories/UserRepository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
@@ -15,8 +17,16 @@ class ValorDoacaoForm extends StatefulWidget {
   final ValorDoacaoForm valorDoacao;
   final Ong ong;
   final HomeBloc homeBloc;
+  final User usuario;
+  final UserRepository userRepository;
 
-  const ValorDoacaoForm({Key key, this.valorDoacao, this.ong, this.homeBloc})
+  const ValorDoacaoForm(
+      {Key key,
+      this.valorDoacao,
+      this.ong,
+      this.homeBloc,
+      this.usuario,
+      this.userRepository})
       : super(key: key);
 
   @override
@@ -128,6 +138,8 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
                             homeBloc: widget.homeBloc,
                             ong: widget.ong,
                             valorDoacao: valorController.text,
+                            usuario: widget.usuario,
+                            userRepository: widget.userRepository,
                           ),
                         ),
                       );

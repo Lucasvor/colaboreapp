@@ -4,6 +4,8 @@ import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/repositories/FirestoreOngs.dart';
+import 'package:colaboreapp/repositories/UserRepository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,8 +16,16 @@ class PagamentoForm extends StatefulWidget {
   final Ong ong;
   final HomeBloc homeBloc;
   final String valorDoacao;
+  final User usuario;
+  final UserRepository userRepository;
 
-  const PagamentoForm({Key key, this.ong, this.homeBloc, this.valorDoacao})
+  const PagamentoForm(
+      {Key key,
+      this.ong,
+      this.homeBloc,
+      this.valorDoacao,
+      this.usuario,
+      this.userRepository})
       : super(key: key);
 
   @override
@@ -87,8 +97,14 @@ class _PagamentoFormState extends State<PagamentoForm> {
                       var ongRepo = new FirestoreOngs();
                       var res = await ongRepo.addValorDoacao(
                           widget.ong,
-                          double.parse(
-                              widget.valorDoacao.replaceAll(",", ".")));
+                          double.parse(widget.valorDoacao.replaceAll(",", ".")),
+                          widget.usuario.phoneNumber
+                              .replaceAll('@colaboreapp.com', ""),
+                          widget.usuario.displayName);
+                      // await ongRepo.addValorDoacao(
+                      //     widget.ong,
+                      //     double.parse(
+                      //         widget.valorDoacao.replaceAll(",", ".")));
                       if (res) {
                         print("Valor doado com sucesso!");
                         Navigator.of(context)

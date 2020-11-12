@@ -3,6 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
+import 'package:colaboreapp/repositories/UserRepository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants.dart';
@@ -12,8 +14,16 @@ class ConfirmacaoForm extends StatefulWidget {
   final Ong ong;
   final HomeBloc homeBloc;
   final String valorDoacao;
+  final User usuario;
+  final UserRepository userRepository;
 
-  ConfirmacaoForm({Key key, this.ong, this.homeBloc, this.valorDoacao})
+  ConfirmacaoForm(
+      {Key key,
+      this.ong,
+      this.homeBloc,
+      this.valorDoacao,
+      this.usuario,
+      this.userRepository})
       : super(key: key);
 
   @override
@@ -97,6 +107,8 @@ class _ConfirmacaoFormState extends State<ConfirmacaoForm> {
                         homeBloc: widget.homeBloc,
                         ong: widget.ong,
                         valorDoacao: widget.valorDoacao,
+                        usuario: widget.usuario,
+                        userRepository: widget.userRepository,
                       ),
                     ),
                   );
