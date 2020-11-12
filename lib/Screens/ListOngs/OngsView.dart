@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Screens/PerfilOng/perfilOng.dart';
@@ -6,6 +7,7 @@ import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class ListOngs extends StatefulWidget {
   final List<Ong> ongs;
@@ -61,64 +63,73 @@ class _ListOngsState extends State<ListOngs> {
                     color: kPrimaryColorGreen,
                   ),
                 ),
-                SizedBox(
-                  width: size.width * 0.15,
-                ),
-                FittedBox(
-                  fit: BoxFit.cover,
-                  child: Text(
-                    'Lista de Ongs',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 26,
-                      color: kPrimaryColorGreen,
-                    ),
-                  ),
-                ),
               ],
             ),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: TextField(
-                controller: searchController,
-                decoration: InputDecoration(
-                  hintText: 'Busque a Ong',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
+            // Padding(
+            //   padding: EdgeInsets.all(10),
+            //   child: TextField(
+            //     controller: searchController,
+            //     decoration: InputDecoration(
+            //       hintText: 'Busque a Ong',
+            //       border: OutlineInputBorder(
+            //         borderRadius: BorderRadius.circular(20),
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            FittedBox(
+              fit: BoxFit.cover,
+              child: AutoSizeText(
+                'Selecionar Ong',
+                textAlign: TextAlign.center,
+                minFontSize: 25,
+                maxFontSize: 30,
+                style: TextStyle(
+                    color: kPrimaryColorGreen, fontWeight: FontWeight.bold),
               ),
+            ),
+            SvgPicture.asset(
+              "assets/images/Search-rafiki.svg",
+              height: 100,
+              width: 100,
             ),
             Expanded(
               child: ListView.builder(
                 itemCount: widget.ongs.length,
                 itemBuilder: (context, index) {
                   return filter == null || filter == ""
-                      ? ListTile(
-                          title: Text('${widget.ongs[index].nome}'),
-                          subtitle: Text(
-                              'Doe e ajude a Ong ${widget.ongs[index].nome}'),
-                          leading: _buildCircleAvatar(
-                              widget.ongs[index].imageUrl,
-                              widget.ongs[index].nome),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => PerfilOng(
-                                  homeBloc: widget.homeBloc,
-                                  ong: widget.ongs[index],
-                                  ongNome: widget.ongs[index].nome,
+                      ? Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: ListTile(
+                            title: Text('${widget.ongs[index].nome}'),
+                            leading: _buildCircleAvatar(
+                                widget.ongs[index].imageUrl,
+                                widget.ongs[index].nome),
+                            trailing: Wrap(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: kPrimaryColorGreen,
                                 ),
-                              ),
-                            );
-                          },
+                              ],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => PerfilOng(
+                                    homeBloc: widget.homeBloc,
+                                    ong: widget.ongs[index],
+                                    ongNome: widget.ongs[index].nome,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
                         )
                       : '${widget.ongs[index].nome}'.contains(filter)
                           ? ListTile(
                               title: Text('${widget.ongs[index].nome}'),
-                              subtitle: Text(
-                                  'Doe e ajude a Ong ${widget.ongs[index].nome}'),
                               leading: _buildCircleAvatar(
                                   widget.ongs[index].imageUrl,
                                   widget.ongs[index].nome),
