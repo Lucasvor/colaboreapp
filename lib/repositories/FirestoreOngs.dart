@@ -23,7 +23,7 @@ class FirestoreOngs {
             latitude: e.data()['latitude'],
             longitude: e.data()['longitude'],
             telefone: e.data()['telefone'],
-            valorRecebido: e.data()['valorRecebido'],
+            valorRecebido: reciprocal(e.data()['valorRecebido']),
           ),
         )
         .toList();
@@ -123,4 +123,8 @@ class FirestoreOngs {
       ongsCollection.doc(item.idDocument).set(item.toJson());
     }
   }
+}
+
+double reciprocal(num value) {
+  return value.toDouble();
 }

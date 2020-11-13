@@ -4,7 +4,7 @@ class ErrorCodes {
   static const String ERROR_TOO_MANY_REQUESTS = "ERROR_TOO_MANY_REQUESTS";
   static const String ERROR_INVALID_EMAIL = "ERROR_INVALID_EMAIL";
   static const String ERROR_CODE_USER_DISABLED = "ERROR_CODE_USER_DISABLED";
-  static const String ERROR_CODE_WRONG_PASSWORD = "ERROR_CODE_WRONG_PASSWORD";
+  static const String ERROR_CODE_WRONG_PASSWORD = "wrong-password";
   static const String ERROR_CODE_EMAIL_ALREADY_IN_USE =
       "ERROR_CODE_EMAIL_ALREADY_IN_USE";
   static const String ERROR_OPERATION_NOT_ALLOWED =

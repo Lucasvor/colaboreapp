@@ -52,7 +52,7 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 40, horizontal: 20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -141,7 +141,7 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
               child: Container(
                 margin: EdgeInsets.all(10),
                 width: size.width * 0.8,
@@ -168,65 +168,62 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-              child: Container(
-                margin: EdgeInsets.all(10),
-                width: size.width * 0.8,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: size.width * 0.5,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: FlatButton(
-                          color: kPrimaryColorGreen,
-                          padding: EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 30),
-                          onPressed: () {},
-                          child: AutoSizeText(
-                            'Suas Doações',
-                            style: TextStyle(color: Colors.white),
-                          ),
+            Container(
+              margin: EdgeInsets.all(10),
+              width: size.width * 0.8,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: size.width * 0.5,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: FlatButton(
+                        color: kPrimaryColorGreen,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                        onPressed: () {},
+                        child: AutoSizeText(
+                          'Suas Doações',
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 120, 0, 0),
-              child: Container(
-                margin: EdgeInsets.all(10),
-                width: size.width * 0.8,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: size.width * 0.3,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: FlatButton(
-                          color: Colors.red,
-                          padding: EdgeInsets.symmetric(
-                              vertical: 13, horizontal: 30),
-                          onPressed: () {
-                            widget.userRepository.singOut();
+            Container(
+              margin: EdgeInsets.all(10),
+              width: size.width * 0.8,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: size.width * 0.3,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: FlatButton(
+                        color: Colors.red,
+                        padding:
+                            EdgeInsets.symmetric(vertical: 13, horizontal: 30),
+                        onPressed: () async {
+                          try {
+                            await widget.userRepository.singOut();
                             BlocProvider.of<AuthBloc>(context).add(
                               AuthSplash(),
                             );
-                          },
-                          child: Text(
-                            'Sair',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                            Navigator.of(context).pop();
+                          } catch (e) {}
+                        },
+                        child: Text(
+                          'Sair',
+                          style: TextStyle(color: Colors.white),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ],

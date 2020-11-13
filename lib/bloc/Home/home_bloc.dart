@@ -48,6 +48,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       yield HomeState.sucess(ongs: ongs, usuario: usuario);
     } on Exception catch (e) {
       HomeState.failure(message: e.toString().replaceAll('Exception', ''));
+    } catch (e) {
+      print(e);
     }
   }
 }

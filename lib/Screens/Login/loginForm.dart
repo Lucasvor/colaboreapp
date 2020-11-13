@@ -112,6 +112,7 @@ class _LoginState extends State<LoginForm> {
             ..removeCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
+                duration: Duration(days: 365),
                 content: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
