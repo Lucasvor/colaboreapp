@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:colaboreapp/Screens/EscolheFace/Face.dart';
 import 'package:colaboreapp/Screens/SuasDoacoes/doadorDoacoes.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
+import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/constants.dart';
 import 'package:colaboreapp/repositories/FirestoreOngs.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
@@ -13,6 +14,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import '../../constants.dart';
+import '../../main.dart';
 
 class PerfilUserForm extends StatefulWidget {
   final UserRepository userRepository;
@@ -153,15 +155,66 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                     Container(
                       width: size.width * 0.5,
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: FlatButton(
-                          color: kPrimaryColorGreen,
+                        borderRadius: BorderRadius.circular(10),
+                        child: OutlineButton(
+                          borderSide: BorderSide(color: kPrimaryColorGreen),
                           padding: EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 30),
+                              vertical: 20, horizontal: 40),
                           onPressed: () {},
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
                           child: AutoSizeText(
-                            'Ongs Favoritas',
-                            style: TextStyle(color: Colors.white),
+                            "Ongs Favoritas",
+                            minFontSize: 10,
+                            style: TextStyle(
+                                color: HexColor("91C7A6"),
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: Container(
+                margin: EdgeInsets.all(10),
+                width: size.width * 0.8,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: size.width * 0.5,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: OutlineButton(
+                          borderSide: BorderSide(color: kPrimaryColorGreen),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20, horizontal: 40),
+                          onPressed: () async {
+                            var firestoreongs = new FirestoreOngs();
+                            var result = await firestoreongs
+                                .getTransacoesDoador(widget.usuario.email
+                                    .replaceAll('@colaboreapp.com', ""));
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => DoadorDoacoes(
+                                  transacoes: result,
+                                ),
+                              ),
+                            );
+                          },
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10)),
+                          child: AutoSizeText(
+                            "Suas Doações",
+                            minFontSize: 10,
+                            style: TextStyle(
+                                color: HexColor("91C7A6"),
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
@@ -177,65 +230,15 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    width: size.width * 0.5,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: FlatButton(
-                        color: kPrimaryColorGreen,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                        onPressed: () async {
-                          var firestoreongs = new FirestoreOngs();
-                          var result = await firestoreongs.getTransacoesDoador(
-                              widget.usuario.email
-                                  .replaceAll('@colaboreapp.com', ""));
-
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => DoadorDoacoes(
-                                transacoes: result,
-                              ),
-                            ),
-                          );
-                        },
-                        child: AutoSizeText(
-                          'Suas Doações',
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              width: size.width * 0.8,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
                     width: size.width * 0.3,
+                    height: size.height * 0.1,
                     child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: FlatButton(
+                      borderRadius: BorderRadius.circular(10),
+                      child: RoundedButton(
                         color: Colors.red,
-                        padding:
-                            EdgeInsets.symmetric(vertical: 13, horizontal: 30),
-                        onPressed: () async {
-                          try {
-                            await widget.userRepository.singOut();
-                            BlocProvider.of<AuthBloc>(context).add(
-                              AuthSplash(),
-                            );
-                            Navigator.of(context).pop();
-                          } catch (e) {}
-                        },
-                        child: Text(
-                          'Sair',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                        text: 'Sair',
+                        textColor: Colors.white,
+                        press: () {},
                       ),
                     ),
                   ),

@@ -67,19 +67,36 @@ class _PerfilOngFormState extends State<PerfilOngForm> {
               Stack(
                 alignment: Alignment.topLeft,
                 children: <Widget>[
-                  Hero(
-                    tag: '${widget.ong.nome}',
-                    child: CachedNetworkImage(
-                      height: size.height * 0.3,
-                      width: size.width,
-                      imageUrl: widget.ong.imageUrl,
-                      placeholder: (context, url) =>
-                          new CircularProgressIndicator(),
-                      errorWidget: (context, url, error) =>
-                          new Icon(Icons.error),
-                      fit: BoxFit.fitWidth,
+                  Container(
+                    width: size.width,
+                    height: size.height * 0.3,
+                    child: GoogleMap(
+                      markers: _markers,
+                      myLocationButtonEnabled: true,
+                      myLocationEnabled: false,
+                      zoomControlsEnabled: false,
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(
+                          widget.ong.latitude,
+                          widget.ong.longitude,
+                        ),
+                        zoom: 15,
+                      ),
                     ),
                   ),
+                  // Hero(
+                  //   tag: '${widget.ong.nome}',
+                  //   child: CachedNetworkImage(
+                  //     height: size.height * 0.3,
+                  //     width: size.width,
+                  //     imageUrl: widget.ong.imageUrl,
+                  //     placeholder: (context, url) =>
+                  //         new CircularProgressIndicator(),
+                  //     errorWidget: (context, url, error) =>
+                  //         new Icon(Icons.error),
+                  //     fit: BoxFit.fitWidth,
+                  //   ),
+                  // ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                     child: IconButton(
@@ -101,15 +118,16 @@ class _PerfilOngFormState extends State<PerfilOngForm> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Text(
-                        widget.ong.nome,
-                        style: TextStyle(
-                          fontSize: 26,
-                          color: kPrimaryColorGreen,
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: AutoSizeText(
+                          widget.ong.nome,
+                          minFontSize: 20,
+                          maxFontSize: 30,
+                          style: TextStyle(
+                            color: kPrimaryColorGreen,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -148,10 +166,18 @@ class _PerfilOngFormState extends State<PerfilOngForm> {
                           ),
                         ],
                       ),
-                      ExpansionTile(
-                        title: Text("Mais Detalhes"),
-                        children: <Widget>[
-                          SingleChildScrollView(
+                      Center(
+                        child: SingleChildScrollView(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              border: Border(
+                                top: BorderSide(
+                                  //                    <--- top side
+                                  color: Colors.black,
+                                  width: 0.8,
+                                ),
+                              ),
+                            ),
                             child: AutoSizeText(
                               widget.ong.info,
                               minFontSize: 14,
@@ -162,26 +188,9 @@ class _PerfilOngFormState extends State<PerfilOngForm> {
                               ),
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ],
-                  ),
-                ),
-              ),
-              Container(
-                width: size.width,
-                height: size.height * 0.3,
-                child: GoogleMap(
-                  markers: _markers,
-                  myLocationButtonEnabled: true,
-                  myLocationEnabled: false,
-                  zoomControlsEnabled: false,
-                  initialCameraPosition: CameraPosition(
-                    target: LatLng(
-                      widget.ong.latitude,
-                      widget.ong.longitude,
-                    ),
-                    zoom: 15,
                   ),
                 ),
               ),

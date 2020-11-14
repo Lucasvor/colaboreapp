@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Screens/Comprovante/Confirmacao.dart';
 import 'package:colaboreapp/bloc/Cadastro/cadastro_bloc.dart';
@@ -78,28 +79,23 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
                       ]),
                 ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                  child: Row(
+                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'Valor da Doação',
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 35,
-                                  fontFamily: 'Avenir',
-                                ),
-                              ),
-                            ],
+                        AutoSizeText.rich(
+                          TextSpan(text: 'Valor da Doação'),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Avenir',
                           ),
+                          minFontSize: 25,
+                          maxFontSize: 30,
+                          textAlign: TextAlign.center,
                         ),
-                      ]),
-                ),
+                      ],
+                    )),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(0, 200, 0, 0),
                   child: TextFormField(

@@ -289,12 +289,6 @@ class _LoginState extends State<LoginForm> {
                                       userRepository: widget.userRepository,
                                     ),
                                   );
-                                  // Navigator.push(context,
-                                  //     MaterialPageRoute(builder: (_) {
-                                  //   return Cadastro(
-                                  //     selecionaCadastro: false,
-                                  //   );
-                                  // }));
                                 },
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)),
