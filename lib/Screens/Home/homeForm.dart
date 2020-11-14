@@ -290,6 +290,8 @@ class _HomeFormState extends State<HomeForm> {
                                       builder: (_) => ListOngs(
                                         homeBloc: _homeBloc,
                                         ongs: ongs,
+                                        usuario: widget.usuario,
+                                        userRepository: widget.userRepository,
                                       ),
                                     ),
                                   );

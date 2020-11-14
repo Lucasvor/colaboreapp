@@ -95,9 +95,10 @@ class _PagamentoFormState extends State<PagamentoForm> {
                   press: () async {
                     try {
                       var ongRepo = new FirestoreOngs();
+                      var valor = widget.valorDoacao.replaceAll(".", "");
                       var res = await ongRepo.addValorDoacao(
                           widget.ong,
-                          double.parse(widget.valorDoacao.replaceAll(",", ".")),
+                          double.parse(valor.replaceAll(",", ".")),
                           widget.usuario.email
                               .replaceAll('@colaboreapp.com', ""),
                           widget.usuario.displayName);

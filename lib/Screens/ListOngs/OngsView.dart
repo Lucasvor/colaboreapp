@@ -5,6 +5,8 @@ import 'package:colaboreapp/Screens/PerfilOng/perfilOng.dart';
 import 'package:colaboreapp/Screens/PerfilOng/perfilOngForm.dart';
 import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/constants.dart';
+import 'package:colaboreapp/repositories/UserRepository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,8 +14,12 @@ import 'package:flutter_svg/svg.dart';
 class ListOngs extends StatefulWidget {
   final List<Ong> ongs;
   final HomeBloc homeBloc;
+  final UserRepository userRepository;
+  final User usuario;
 
-  const ListOngs({Key key, this.ongs, this.homeBloc}) : super(key: key);
+  const ListOngs(
+      {Key key, this.ongs, this.homeBloc, this.userRepository, this.usuario})
+      : super(key: key);
 
   @override
   _ListOngsState createState() => _ListOngsState();
@@ -121,6 +127,8 @@ class _ListOngsState extends State<ListOngs> {
                                     homeBloc: widget.homeBloc,
                                     ong: widget.ongs[index],
                                     ongNome: widget.ongs[index].nome,
+                                    usuario: widget.usuario,
+                                    userRepository: widget.userRepository,
                                   ),
                                 ),
                               );
