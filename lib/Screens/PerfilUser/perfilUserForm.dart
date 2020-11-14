@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:colaboreapp/Screens/EscolheFace/Face.dart';
+import 'package:colaboreapp/Screens/SuasDoacoes/doadorDoacoes.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/constants.dart';
+import 'package:colaboreapp/repositories/FirestoreOngs.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +81,7 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
               },
               child: ClipOval(
                 child: AspectRatio(
-                  aspectRatio: 2,
+                  aspectRatio: 3,
                   child: Hero(
                     tag: widget.face,
                     child: Stack(
@@ -127,7 +129,7 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: AutoSizeText(
                 '${widget.usuario.displayName}',
                 maxLines: 2,
@@ -182,7 +184,21 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                         color: kPrimaryColorGreen,
                         padding:
                             EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-                        onPressed: () {},
+                        onPressed: () async {
+                          var firestoreongs = new FirestoreOngs();
+                          var result = await firestoreongs.getTransacoesDoador(
+                              widget.usuario.email
+                                  .replaceAll('@colaboreapp.com', ""));
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => DoadorDoacoes(
+                                transacoes: result,
+                              ),
+                            ),
+                          );
+                        },
                         child: AutoSizeText(
                           'Suas Doações',
                           style: TextStyle(color: Colors.white),

@@ -62,17 +62,34 @@ class _HomeFormState extends State<HomeForm> {
   }
 
   _navigateAndDisplaySelection(BuildContext context, HomeState state) async {
-    var result = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => PerfilUser(
-          userRepository: widget.userRepository,
-          usuario: widget.usuario,
-          face: state.usuario.face,
+    if (state.usuario == null) {
+      Scaffold.of(context)
+        ..removeCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text('Perfil não disponível no momento.'),
+                Icon(Icons.error),
+              ],
+            ),
+            backgroundColor: HexColor("e63946"),
+          ),
+        );
+    } else {
+      var result = await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => PerfilUser(
+            userRepository: widget.userRepository,
+            usuario: widget.usuario,
+            face: state.usuario.face,
+          ),
         ),
-      ),
-    );
-    _homeBloc.add(LoadingOngs());
+      );
+      _homeBloc.add(LoadingOngs());
+    }
   }
 
   @override

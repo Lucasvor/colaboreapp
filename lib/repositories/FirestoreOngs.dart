@@ -34,6 +34,22 @@ class FirestoreOngs {
     return ongsCollection.doc(userOng.cnpj).set(userOng.toJson());
   }
 
+  Future<List<Transacao>> getTransacoesDoador(String cpf) async {
+    var qtran = await transacoes.where('cpf', isEqualTo: cpf).get();
+
+    return qtran.docs
+        .map(
+          (e) => Transacao(
+              e.data()['nome'],
+              e.data()['cpf'],
+              e.data()['valor'],
+              e.data()['nomeOng'],
+              e.data()['cnpj'],
+              timestamptoDate(e.data()['dataHora'])),
+        )
+        .toList();
+  }
+
   Future<bool> addValorDoacao(
       Ong ong, double valor, String cpf, String nome) async {
     try {
@@ -127,4 +143,8 @@ class FirestoreOngs {
 
 double reciprocal(num value) {
   return value.toDouble();
+}
+
+DateTime timestamptoDate(String t) {
+  return DateTime.parse(t);
 }
