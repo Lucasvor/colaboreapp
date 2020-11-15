@@ -94,7 +94,7 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'Avenir',
+                            fontFamily: 'avenir_next_bold.otf',
                           ),
                           minFontSize: 25,
                           maxFontSize: 30,
@@ -134,7 +134,7 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
                     child: RoundedButton(
-                      text: "Continuar",
+                      text: "CONTINUAR",
                       press: () async {
                         //aqui deve ir a tela de pagamento.
                         Navigator.push(
