@@ -4,6 +4,7 @@ import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/main.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../constants.dart';
@@ -79,6 +80,10 @@ class _CadastroState extends State<CadastroFormSenha> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       body: BlocProvider.value(
         value: widget.cadastroBloc,

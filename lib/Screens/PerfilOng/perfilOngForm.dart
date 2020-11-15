@@ -8,6 +8,7 @@ import 'package:colaboreapp/constants.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class PerfilOngForm extends StatefulWidget {
@@ -52,6 +53,10 @@ class _PerfilOngFormState extends State<PerfilOngForm> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Container(
       width: double.infinity,
       height: size.height,

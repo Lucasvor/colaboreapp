@@ -3,6 +3,7 @@ import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/bloc/Mapa/mapa_bloc.dart';
 import 'package:colaboreapp/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -109,6 +110,10 @@ class _MapaState extends State<Mapa> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       appBar: AppBar(
         title: FittedBox(

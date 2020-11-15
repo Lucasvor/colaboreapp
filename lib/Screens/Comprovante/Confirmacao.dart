@@ -6,6 +6,7 @@ import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../constants.dart';
 import 'Pagamento.dart';
@@ -34,6 +35,10 @@ class _ConfirmacaoFormState extends State<ConfirmacaoForm> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       body: Container(
         width: double.infinity,

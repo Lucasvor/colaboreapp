@@ -9,6 +9,7 @@ import 'package:colaboreapp/repositories/FirestoreOngs.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'dart:async';
@@ -68,6 +69,10 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Container(
       width: double.infinity,
       height: size.height,
@@ -84,6 +89,7 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                     Navigator.of(context).pop();
                   },
                   icon: Icon(Icons.arrow_back),
+                  color: kPrimaryColorGreen,
                 ),
               ],
             ),
