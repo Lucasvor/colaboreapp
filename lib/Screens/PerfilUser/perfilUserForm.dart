@@ -260,7 +260,9 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                           color: Colors.red,
                           text: 'Sair',
                           textColor: Colors.white,
-                          press: () {},
+                          press: () {
+                            //logica de sair do app
+                          },
                         ),
                       ),
                     ),
