@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:colaboreapp/Screens/EscolheFace/Face.dart';
 import 'package:colaboreapp/Screens/SuasDoacoes/doadorDoacoes.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
@@ -45,6 +46,23 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
     setState(() {
       _image = File(pickedFile.path);
     });
+  }
+
+  Widget _buildCircleAvatar(String url, String nome) {
+    return Hero(
+      tag: nome,
+      child: ClipOval(
+        child: AspectRatio(
+          aspectRatio: 1,
+          child: CachedNetworkImage(
+            imageUrl: url,
+            placeholder: (context, url) => new CircularProgressIndicator(),
+            errorWidget: (context, url, error) => new Icon(Icons.error),
+            fit: BoxFit.scaleDown,
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -223,28 +241,30 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                 ),
               ),
             ),
-            Container(
-              margin: EdgeInsets.all(10),
-              width: size.width * 0.8,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    width: size.width * 0.3,
-                    height: size.height * 0.1,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: RoundedButton(
-                        color: Colors.red,
-                        text: 'Sair',
-                        textColor: Colors.white,
-                        press: () {},
+            FittedBox(
+              child: Container(
+                margin: EdgeInsets.all(10),
+                width: size.width * 0.8,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: size.width * 0.3,
+                      height: size.height * 0.1,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: RoundedButton(
+                          color: Colors.red,
+                          text: 'Sair',
+                          textColor: Colors.white,
+                          press: () {},
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+            )
           ],
         ),
       ),
