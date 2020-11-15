@@ -231,7 +231,7 @@ class _HomeFormState extends State<HomeForm> {
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return Container(
-            color: Colors.green[100], //cor do background
+            color: Colors.blue[50], //cor do background
             width: double.infinity,
             height: size.height,
             child: Padding(

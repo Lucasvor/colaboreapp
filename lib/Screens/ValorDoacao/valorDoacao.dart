@@ -99,7 +99,7 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
-                              fontFamily: 'Avenir',
+                              fontFamily: 'avenir_next_regular.otf',
                             ),
                             minFontSize: 25,
                             maxFontSize: 30,
@@ -118,6 +118,7 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
                           fontFamily: 'Avenir',
                         ),
                         decoration: InputDecoration(
+                          labelText: "Valor da Doação",
                           contentPadding: const EdgeInsets.symmetric(
                               vertical: 0, horizontal: 0),
                         ),

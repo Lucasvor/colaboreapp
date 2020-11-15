@@ -73,7 +73,7 @@ class _ConfirmacaoFormState extends State<ConfirmacaoForm> {
                     text: 'Você está doando\n',
                     children: <TextSpan>[
                       TextSpan(
-                        text: 'R\$ ${widget.valorDoacao}\n',
+                        text: '${widget.valorDoacao}\n',
                         style: TextStyle(
                           color: kPrimaryColorGreen,
                         ),
