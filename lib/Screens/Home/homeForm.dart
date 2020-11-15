@@ -271,7 +271,7 @@ class _HomeFormState extends State<HomeForm> {
                       ],
                     ),
                   ),
-                  containerOngs,
+                  containerOngs, // cards das ongs
                   Container(
                     height: size.height * 0.2,
                     child: Row(
@@ -280,15 +280,11 @@ class _HomeFormState extends State<HomeForm> {
                         Expanded(
                           child: Container(
                             height: size.height * 0.2,
-                            margin: EdgeInsets.all(5),
+                            margin: EdgeInsets.all(20),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: FlatButton(
                                 onPressed: () {
-                                  // widget.userRepository.singOut();
-                                  // BlocProvider.of<AuthBloc>(context).add(
-                                  //   AuthSplash(),
-                                  // );
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -323,16 +319,19 @@ class _HomeFormState extends State<HomeForm> {
                         Expanded(
                           child: Container(
                             height: size.height * 0.2,
-                            margin: EdgeInsets.all(5),
+                            margin: EdgeInsets.all(20),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: FlatButton(
                                 onPressed: () {
-                                  widget.userRepository.singOut();
-                                  BlocProvider.of<AuthBloc>(context).add(
-                                    AuthSplash(),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => Mapa(
+                                        ongs: ongs,
+                                      ),
+                                    ),
                                   );
-                                  //_homeBloc.add(LoadingOngs());
                                 },
                                 color: kPrimaryColorGreen,
                                 child: Column(
@@ -356,19 +355,41 @@ class _HomeFormState extends State<HomeForm> {
                       ],
                     ),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.map),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => Mapa(
-                            ongs: ongs,
+                  Container(
+                    height: size.height * 0.2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            height: size.height * 0.2,
+                            margin: EdgeInsets.all(20),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: FlatButton(
+                                onPressed: () {},
+                                color: kPrimaryColorGreen,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: <Widget>[
+                                    SvgPicture.asset(
+                                      "assets/images/schedule.svg",
+                                      height: size.height * 0.1,
+                                    ),
+                                    Text(
+                                      'Eventos',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      );
-                    },
-                  )
+                        )
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
