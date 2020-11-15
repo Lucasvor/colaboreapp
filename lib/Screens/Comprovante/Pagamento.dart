@@ -41,81 +41,105 @@ class _PagamentoFormState extends State<PagamentoForm> {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-    return Scaffold(
-      body: Container(
-        width: double.infinity,
-        height: size.height,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 60, 0, 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    AutoSizeText(
-                      'Obrigado pela doação ;)',
-                      textAlign: TextAlign.center,
-                      minFontSize: 40,
-                      maxFontSize: 40,
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                      maxLines: 2,
-                    ),
-                  ],
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: Scaffold(
+        body: Container(
+          width: double.infinity,
+          height: size.height,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 60, 0, 10),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      AutoSizeText(
+                        'Obrigado pela doação ;)',
+                        textAlign: TextAlign.center,
+                        minFontSize: 40,
+                        maxFontSize: 40,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                        maxLines: 2,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Expanded(
-                child: SvgPicture.asset(
-                  "assets/images/Appreciation-bro.svg",
-                  height: 300,
-                  width: 300,
+                Expanded(
+                  child: SvgPicture.asset(
+                    "assets/images/Appreciation-bro.svg",
+                    height: 300,
+                    width: 300,
+                  ),
                 ),
-              ),
-              AutoSizeText(
-                'Este é seu codigo: ',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                maxLines: 2,
-              ),
-              AutoSizeText(
-                '1614616161461610616161616 161616161616161 12312312',
-                textAlign: TextAlign.center,
-                minFontSize: 15,
-                maxFontSize: 18,
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blueAccent),
-                maxLines: 2,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
-                child: RoundedButton(
-                  text: "VOLTAR AO INICIO",
-                  press: () async {
-                    try {
-                      var ongRepo = new FirestoreOngs();
-                      var valor = widget.valorDoacao.replaceAll(".", "");
-                      var res = await ongRepo.addValorDoacao(
-                          widget.ong,
-                          double.parse(valor.replaceAll(",", ".")),
-                          widget.usuario.email
-                              .replaceAll('@colaboreapp.com', ""),
-                          widget.usuario.displayName);
-                      // await ongRepo.addValorDoacao(
-                      //     widget.ong,
-                      //     double.parse(
-                      //         widget.valorDoacao.replaceAll(",", ".")));
-                      if (res) {
-                        print("Valor doado com sucesso!");
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
-                      } else {
+                AutoSizeText(
+                  'Este é seu codigo: ',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  maxLines: 2,
+                ),
+                AutoSizeText(
+                  '1614616161461610616161616 161616161616161 12312312',
+                  textAlign: TextAlign.center,
+                  minFontSize: 15,
+                  maxFontSize: 18,
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueAccent),
+                  maxLines: 2,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                  child: RoundedButton(
+                    text: "VOLTAR AO INICIO",
+                    press: () async {
+                      try {
+                        var ongRepo = new FirestoreOngs();
+                        var valor = widget.valorDoacao
+                            .replaceAll(".", "")
+                            .replaceAll("R\$ ", "");
+                        var res = await ongRepo.addValorDoacao(
+                            widget.ong,
+                            double.parse(valor.replaceAll(",", ".")),
+                            widget.usuario.email
+                                .replaceAll('@colaboreapp.com', ""),
+                            widget.usuario.displayName);
+                        // await ongRepo.addValorDoacao(
+                        //     widget.ong,
+                        //     double.parse(
+                        //         widget.valorDoacao.replaceAll(",", ".")));
+                        if (res) {
+                          print("Valor doado com sucesso!");
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
+                        } else {
+                          Scaffold.of(context)
+                            ..removeCurrentSnackBar()
+                            ..showSnackBar(
+                              SnackBar(
+                                content: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text(
+                                        'Houve algum erro na comunicação com firebase.'),
+                                    Icon(Icons.error),
+                                  ],
+                                ),
+                                backgroundColor: HexColor("91C7A6"),
+                              ),
+                            );
+                          print("Houve algum erro");
+                        }
+                      } catch (e) {
+                        print(e);
                         Scaffold.of(context)
                           ..removeCurrentSnackBar()
                           ..showSnackBar(
@@ -132,33 +156,52 @@ class _PagamentoFormState extends State<PagamentoForm> {
                               backgroundColor: HexColor("91C7A6"),
                             ),
                           );
-                        print("Houve algum erro");
                       }
-                    } catch (e) {
-                      print(e);
-                      Scaffold.of(context)
-                        ..removeCurrentSnackBar()
-                        ..showSnackBar(
-                          SnackBar(
-                            content: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                    'Houve algum erro na comunicação com firebase.'),
-                                Icon(Icons.error),
-                              ],
-                            ),
-                            backgroundColor: HexColor("91C7A6"),
-                          ),
-                        );
-                    }
-                  },
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Future<bool> _onWillPop() async {
+    try {
+      var ongRepo = new FirestoreOngs();
+      var valor = widget.valorDoacao.replaceAll(".", "").replaceAll("R\$ ", "");
+      var res = await ongRepo.addValorDoacao(
+          widget.ong,
+          double.parse(valor.replaceAll(",", ".")),
+          widget.usuario.email.replaceAll('@colaboreapp.com', ""),
+          widget.usuario.displayName);
+      // await ongRepo.addValorDoacao(
+      if (res) {
+        print("Valor doado com sucesso!");
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        return true;
+      } else {
+        Scaffold.of(context)
+          ..removeCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Houve algum erro na comunicação com firebase.'),
+                  Icon(Icons.error),
+                ],
+              ),
+              backgroundColor: HexColor("91C7A6"),
+            ),
+          );
+        print("Houve algum erro");
+      }
+    } catch (e) {
+      print(e);
+    }
+    return false;
   }
 }
