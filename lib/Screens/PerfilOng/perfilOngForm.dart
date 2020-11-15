@@ -90,19 +90,6 @@ class _PerfilOngFormState extends State<PerfilOngForm> {
                         ),
                       ),
                     ),
-                    // Hero(
-                    //   tag: '${widget.ong.nome}',
-                    //   child: CachedNetworkImage(
-                    //     height: size.height * 0.3,
-                    //     width: size.width,
-                    //     imageUrl: widget.ong.imageUrl,
-                    //     placeholder: (context, url) =>
-                    //         new CircularProgressIndicator(),
-                    //     errorWidget: (context, url, error) =>
-                    //         new Icon(Icons.error),
-                    //     fit: BoxFit.fitWidth,
-                    //   ),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                       child: IconButton(

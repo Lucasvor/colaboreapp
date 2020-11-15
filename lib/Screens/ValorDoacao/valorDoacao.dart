@@ -37,7 +37,7 @@ class ValorDoacaoForm extends StatefulWidget {
 }
 
 class _ValorDoacaoState extends State<ValorDoacaoForm> {
-  final valorController = new MoneyMaskedTextController();
+  final valorController = new MoneyMaskedTextController(leftSymbol: 'R\$ ');
 
   bool get isPopulated => valorController.text.isNotEmpty;
 
@@ -65,94 +65,96 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
         child: Form(
             child: Padding(
           padding: EdgeInsets.all(25),
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        iconSize: 36,
-                        color: kPrimaryColorGreen,
-                        onPressed: () {
-                          // widget.homeBloc.add(LoadingOngs());
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ]),
-              ),
-              Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      AutoSizeText.rich(
-                        TextSpan(text: 'Valor da Doação'),
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Avenir',
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        IconButton(
+                          icon: Icon(Icons.arrow_back),
+                          iconSize: 36,
+                          color: kPrimaryColorGreen,
+                          onPressed: () {
+                            // widget.homeBloc.add(LoadingOngs());
+                            Navigator.of(context).pop();
+                          },
                         ),
-                        minFontSize: 25,
-                        maxFontSize: 30,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  )),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
-                child: TextFormField(
-                  controller: valorController,
-                  keyboardType: TextInputType.number,
-                  // ignore: deprecated_member_use
-                  autovalidate: true,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    fontFamily: 'Avenir',
-                  ),
-                  decoration: InputDecoration(
-                    prefixIcon: Padding(
-                      padding: const EdgeInsetsDirectional.only(end: 30.0),
-                      child: Icon(
-                        Icons.attach_money,
-                        color: kPrimaryColorGreen,
-                      ),
+                      ]),
+                ),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        AutoSizeText.rich(
+                          TextSpan(text: 'Valor da Doação'),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Avenir',
+                          ),
+                          minFontSize: 25,
+                          maxFontSize: 30,
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    )),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),
+                  child: TextFormField(
+                    controller: valorController,
+                    keyboardType: TextInputType.number,
+                    // ignore: deprecated_member_use
+                    autovalidate: true,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      fontFamily: 'Avenir',
                     ),
-                    contentPadding: const EdgeInsets.symmetric(
-                        vertical: 15, horizontal: 25),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 0, horizontal: 0),
+                    ),
                   ),
                 ),
-              ),
-              SvgPicture.asset(
-                "assets/images/Make_it_rain-rafiki.svg",
-                height: 300,
-                width: 300,
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                child: RoundedButton(
-                  text: "Continuar",
-                  press: () async {
-                    //aqui deve ir a tela de pagamento.
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ConfirmacaoForm(
-                          homeBloc: widget.homeBloc,
-                          ong: widget.ong,
-                          valorDoacao: valorController.text,
-                          usuario: widget.usuario,
-                          userRepository: widget.userRepository,
-                        ),
-                      ),
-                    );
-                  },
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                    child: SvgPicture.asset(
+                      "assets/images/Make_it_rain-rafiki.svg",
+                      height: 300,
+                      width: 300,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 50, 0, 0),
+                    child: RoundedButton(
+                      text: "Continuar",
+                      press: () async {
+                        //aqui deve ir a tela de pagamento.
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ConfirmacaoForm(
+                              homeBloc: widget.homeBloc,
+                              ong: widget.ong,
+                              valorDoacao: valorController.text,
+                              usuario: widget.usuario,
+                              userRepository: widget.userRepository,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         )),
       ),
