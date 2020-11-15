@@ -253,7 +253,7 @@ class _HomeFormState extends State<HomeForm> {
                                 text: '  ' + nameShort,
                                 //'${widget.usuario.displayName}',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 26),
+                                    fontWeight: FontWeight.bold, fontSize: 35),
                               ),
                             ],
                           ),
