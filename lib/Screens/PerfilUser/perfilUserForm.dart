@@ -246,27 +246,24 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
             ),
             FittedBox(
               child: Container(
-                margin: EdgeInsets.all(10),
-                width: size.width * 0.8,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: size.width * 0.3,
-                      height: size.height * 0.1,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: RoundedButton(
-                          color: Colors.red,
-                          text: 'Sair',
-                          textColor: Colors.white,
-                          press: () {
-                            //logica de sair do app
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+                width: size.width * 0.3,
+                height: size.height * 0.1,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: RoundedButton(
+                    color: Colors.red,
+                    text: 'Sair',
+                    textColor: Colors.white,
+                    press: () async {
+                      try {
+                        await widget.userRepository.singOut();
+                        BlocProvider.of<AuthBloc>(context).add(
+                          AuthSplash(),
+                        );
+                        Navigator.of(context).pop();
+                      } catch (e) {}
+                    },
+                  ),
                 ),
               ),
             )
