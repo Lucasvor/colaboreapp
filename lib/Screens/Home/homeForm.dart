@@ -231,6 +231,7 @@ class _HomeFormState extends State<HomeForm> {
       child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
           return Container(
+            color: Colors.green[100], //cor do background
             width: double.infinity,
             height: size.height,
             child: Padding(
@@ -355,41 +356,43 @@ class _HomeFormState extends State<HomeForm> {
                       ],
                     ),
                   ),
-                  Container(
-                    height: size.height * 0.2,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            height: size.height * 0.2,
-                            margin: EdgeInsets.all(20),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: FlatButton(
-                                onPressed: () {},
-                                color: kPrimaryColorGreen,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    SvgPicture.asset(
-                                      "assets/images/schedule.svg",
-                                      height: size.height * 0.1,
-                                    ),
-                                    Text(
-                                      'Eventos',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ],
+                  Expanded(
+                    child: Container(
+                      height: size.height * 0.2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              height: size.height * 0.2,
+                              margin: EdgeInsets.all(20),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: FlatButton(
+                                  onPressed: () {},
+                                  color: kPrimaryColorGreen,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      SvgPicture.asset(
+                                        "assets/images/schedule.svg",
+                                        height: size.height * 0.1,
+                                      ),
+                                      Text(
+                                        'Eventos',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
