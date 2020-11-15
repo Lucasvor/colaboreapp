@@ -8,6 +8,8 @@ class FirestoreOngs {
   final ongsCollection = FirebaseFirestore.instance.collection("ongs");
   final transacoes = FirebaseFirestore.instance.collection("transacoes");
 
+  final pictures = FirebaseFirestore.instance.collection("pictures");
+
   Future<List<Ong>> allOngs() async {
     var qshot = await ongsCollection.get();
 
@@ -63,6 +65,38 @@ class FirestoreOngs {
       return true;
     } catch (x) {
       return false;
+    }
+  }
+
+  Future<void> setImages() async {
+    List<String> images = [
+      "https://i.ibb.co/hm1BWwq/face0.jpg",
+      "https://i.ibb.co/cNGwWcW/face1.jpg",
+      "https://i.ibb.co/YBqnL3R/face2.jpg",
+      "https://i.ibb.co/p2HR5WW/face3.jpg",
+      "https://i.ibb.co/wBgQfDb/face4.jpg",
+      "https://i.ibb.co/rFxNBfQ/face5.jpg",
+      "https://i.ibb.co/r3kcFsh/face6.jpg",
+      "https://i.ibb.co/T1VHTny/face7.jpg",
+      "https://i.ibb.co/42sfwHc/face8.jpg",
+      "https://i.ibb.co/mDrL2Hn/face9.jpg",
+      "https://i.ibb.co/56ZMYcS/face10.jpg",
+      "https://i.ibb.co/dfnpKvQ/face11.jpg",
+      "https://i.ibb.co/mDsVyC7/face12.jpg",
+      "https://i.ibb.co/G76Qymb/face13.jpg",
+      "https://i.ibb.co/4WfXTPT/face14.jpg",
+      "https://i.ibb.co/MBrYfG5/face15.jpg",
+      "https://i.ibb.co/pbm1hvg/face16.jpg",
+      "https://i.ibb.co/4YcwHgF/face17.jpg",
+      "https://i.ibb.co/j3MGX4G/face18.jpg",
+      "https://i.ibb.co/cXw5wWz/face19.jpg",
+      "https://i.ibb.co/5kNf0h7/face20.jpg"
+    ];
+    for (var item in images) {
+      pictures.add({
+        'imageUrl': item,
+        'face': item.split('/').last.replaceAll(".jpg", "")
+      }).then((value) => print("Imagem criada: $item"));
     }
   }
 

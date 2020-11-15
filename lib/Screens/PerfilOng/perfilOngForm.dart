@@ -58,185 +58,170 @@ class _PerfilOngFormState extends State<PerfilOngForm> {
       color: Colors.white,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisSize: MainAxisSize.max,
-            children: <Widget>[
-              Stack(
-                alignment: Alignment.topLeft,
-                children: <Widget>[
-                  Container(
-                    width: size.width,
-                    height: size.height * 0.3,
-                    child: GoogleMap(
-                      markers: _markers,
-                      myLocationButtonEnabled: true,
-                      myLocationEnabled: false,
-                      zoomControlsEnabled: false,
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                          widget.ong.latitude,
-                          widget.ong.longitude,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Stack(
+                  alignment: Alignment.topLeft,
+                  children: <Widget>[
+                    Container(
+                      width: size.width,
+                      height: size.height * 0.4,
+                      child: GoogleMap(
+                        markers: _markers,
+                        myLocationButtonEnabled: true,
+                        myLocationEnabled: false,
+                        zoomControlsEnabled: false,
+                        initialCameraPosition: CameraPosition(
+                          target: LatLng(
+                            widget.ong.latitude,
+                            widget.ong.longitude,
+                          ),
+                          zoom: 15,
                         ),
-                        zoom: 15,
                       ),
                     ),
-                  ),
-                  // Hero(
-                  //   tag: '${widget.ong.nome}',
-                  //   child: CachedNetworkImage(
-                  //     height: size.height * 0.3,
-                  //     width: size.width,
-                  //     imageUrl: widget.ong.imageUrl,
-                  //     placeholder: (context, url) =>
-                  //         new CircularProgressIndicator(),
-                  //     errorWidget: (context, url, error) =>
-                  //         new Icon(Icons.error),
-                  //     fit: BoxFit.fitWidth,
-                  //   ),
-                  // ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      iconSize: 36,
-                      color: kPrimaryColorGreen,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
+                    // Hero(
+                    //   tag: '${widget.ong.nome}',
+                    //   child: CachedNetworkImage(
+                    //     height: size.height * 0.3,
+                    //     width: size.width,
+                    //     imageUrl: widget.ong.imageUrl,
+                    //     placeholder: (context, url) =>
+                    //         new CircularProgressIndicator(),
+                    //     errorWidget: (context, url, error) =>
+                    //         new Icon(Icons.error),
+                    //     fit: BoxFit.fitWidth,
+                    //   ),
+                    // ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        iconSize: 36,
+                        color: kPrimaryColorGreen,
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Container(
-                width: size.width,
-                color: Colors.white,
-                child: Padding(
+                  ],
+                ),
+                Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: AutoSizeText(
-                          widget.ong.nome,
-                          minFontSize: 20,
-                          maxFontSize: 30,
-                          style: TextStyle(
-                            color: kPrimaryColorGreen,
+                  child: AutoSizeText(
+                    widget.ong.nome,
+                    minFontSize: 24,
+                    maxFontSize: 30,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: kPrimaryColorGreen,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              width: size.width,
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.assistant_photo,
+                          color: kPrimaryColorGreen,
+                        ),
+                        Expanded(
+                          child: AutoSizeText(
+                            widget.ong.endereco,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.grey),
                           ),
                         ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.assistant_photo,
-                            color: kPrimaryColorGreen,
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.call,
+                          color: kPrimaryColorGreen,
+                        ),
+                        Expanded(
+                          child: AutoSizeText(
+                            widget.ong.telefone,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.grey),
                           ),
-                          Expanded(
-                            child: AutoSizeText(
-                              widget.ong.endereco,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                      child: Container(
+                        height: size.height * 0.25,
+                        decoration: BoxDecoration(
+                          border: Border(
+                            top: BorderSide(
+                              //                    <--- top side
+                              color: Colors.black,
+                              width: 0.8,
                             ),
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height * 0.02,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.call,
-                            color: kPrimaryColorGreen,
-                          ),
-                          Expanded(
-                            child: AutoSizeText(
-                              widget.ong.telefone,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.grey),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Center(
-                        child: SingleChildScrollView(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                top: BorderSide(
-                                  //                    <--- top side
-                                  color: Colors.black,
-                                  width: 0.8,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                          child: Scrollbar(
+                            child: SingleChildScrollView(
+                              child: Text(
+                                widget.ong.info,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.black38,
                                 ),
                               ),
                             ),
-                            child: AutoSizeText(
-                              widget.ong.info,
-                              minFontSize: 14,
-                              maxFontSize: 19,
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black38,
-                              ),
-                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              // Container(
-              //   height: size.height * 0.3,
-              //   margin: EdgeInsets.all(3),
-              //   padding: EdgeInsets.all(3),
-              //   decoration: BoxDecoration(
-              //     border: Border.all(
-              //       color: Colors.green[200],
-              //     ),
-              //     borderRadius: BorderRadius.circular(10),
-              //   ),
-              //   child: SingleChildScrollView(
-              //     child: Text(
-              //       widget.ong.info ?? "",
-              //       style: TextStyle(
-              //         fontSize: 19,
-              //         color: Colors.black38,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: RoundedButton(
-                  color: kPrimaryColorGreen,
-                  press: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) => ValorDoacaoForm(
-                          homeBloc: widget.homeBloc,
-                          ong: widget.ong,
-                          usuario: widget.usuario,
-                          userRepository: widget.userRepository,
-                        ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 20, 8, 0),
+              child: RoundedButton(
+                color: kPrimaryColorGreen,
+                press: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ValorDoacaoForm(
+                        homeBloc: widget.homeBloc,
+                        ong: widget.ong,
+                        usuario: widget.usuario,
+                        userRepository: widget.userRepository,
                       ),
-                    );
-                  },
-                  text: 'Doar',
-                  textColor: Colors.white,
-                ),
-              )
-            ],
-          ),
+                    ),
+                  );
+                },
+                text: 'DOAR',
+                textColor: Colors.white,
+              ),
+            )
+          ],
         ),
       ),
     );
