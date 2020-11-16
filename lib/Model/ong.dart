@@ -6,6 +6,9 @@ part 'ong.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Ong extends Equatable {
   String nome;
+  String senha;
+  String dataRegistro;
+  String categoria;
   String idDocument;
   String imageUrl;
   String info;
@@ -18,6 +21,9 @@ class Ong extends Equatable {
 
   Ong(
       {this.idDocument,
+      this.categoria,
+      this.dataRegistro,
+      this.senha,
       this.cnpj,
       this.endereco,
       this.latitude,
