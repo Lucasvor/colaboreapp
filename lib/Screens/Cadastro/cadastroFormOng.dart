@@ -316,11 +316,93 @@ class _CadastroState extends State<CadastroFormOng> {
                                     },
                                   )
                                 : null),
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.text,
                         autovalidate: true,
                       ),
-                      SizedBox(
-                        height: size.height * 0.20,
+                      TextFormField(
+                        controller: infoController,
+                        decoration: InputDecoration(
+                            labelText: "Descrição da ONG",
+                            suffixIcon: infoController.text.length > 0
+                                ? IconButton(
+                                    icon: Icon(
+                                      Icons.close,
+                                      color: kPrimaryColorGreen,
+                                    ),
+                                    onPressed: () {
+                                      infoController.text = '';
+                                    },
+                                  )
+                                : null),
+                        keyboardType: TextInputType.text,
+                      ),
+                      TextFormField(
+                        controller: enderecoController,
+                        decoration: InputDecoration(
+                            labelText: "Endereço",
+                            suffixIcon: enderecoController.text.length > 0
+                                ? IconButton(
+                                    icon: Icon(
+                                      Icons.close,
+                                      color: kPrimaryColorGreen,
+                                    ),
+                                    onPressed: () {
+                                      enderecoController.text = '';
+                                    },
+                                  )
+                                : null),
+                        keyboardType: TextInputType.text,
+                      ),
+                      TextFormField(
+                        controller: imageURLController,
+                        decoration: InputDecoration(
+                            labelText: "Link da Imagem da ONG",
+                            suffixIcon: imageURLController.text.length > 0
+                                ? IconButton(
+                                    icon: Icon(
+                                      Icons.close,
+                                      color: kPrimaryColorGreen,
+                                    ),
+                                    onPressed: () {
+                                      imageURLController.text = '';
+                                    },
+                                  )
+                                : null),
+                        keyboardType: TextInputType.text,
+                      ),
+                      TextFormField(
+                        controller: latitudeController,
+                        decoration: InputDecoration(
+                            labelText: "Latitude",
+                            suffixIcon: latitudeController.text.length > 0
+                                ? IconButton(
+                                    icon: Icon(
+                                      Icons.close,
+                                      color: kPrimaryColorGreen,
+                                    ),
+                                    onPressed: () {
+                                      latitudeController.text = '';
+                                    },
+                                  )
+                                : null),
+                        keyboardType: TextInputType.text,
+                      ),
+                      TextFormField(
+                        controller: longitudeController,
+                        decoration: InputDecoration(
+                            labelText: "Longitude",
+                            suffixIcon: longitudeController.text.length > 0
+                                ? IconButton(
+                                    icon: Icon(
+                                      Icons.close,
+                                      color: kPrimaryColorGreen,
+                                    ),
+                                    onPressed: () {
+                                      longitudeController.text = '';
+                                    },
+                                  )
+                                : null),
+                        keyboardType: TextInputType.text,
                       ),
                       RoundedButton(
                         text: "Continuar",
