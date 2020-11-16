@@ -148,13 +148,17 @@ class _CadastroState extends State<CadastroFormOng> {
                 child: Column(
                   children: <Widget>[
                     Row(
+                        //mainAxisAlignment: MainAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           IconButton(
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
                             icon: Icon(Icons.arrow_back),
+                            color: kPrimaryColorGreen,
                           ),
                         ]),
                     SizedBox(
@@ -168,9 +172,10 @@ class _CadastroState extends State<CadastroFormOng> {
                             TextSpan(
                               text: 'Informações sobre a ONG',
                               style: TextStyle(
+                                  color: kPrimaryColorGreen,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 24,
-                                  fontFamily: 'Avenir'),
+                                  fontFamily: 'avenir_next_regular.otf'),
                             ),
                           ],
                         ),
