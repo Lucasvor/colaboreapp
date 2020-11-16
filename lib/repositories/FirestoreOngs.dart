@@ -31,7 +31,7 @@ class FirestoreOngs {
         .toList();
   }
 
-  Future<void> addNewOng(OngCadastro userOng) async {
+  Future<void> addNewOng(Ong userOng) async {
     print(userOng.toJson());
     return ongsCollection.doc(userOng.cnpj).set(userOng.toJson());
   }

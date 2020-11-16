@@ -531,6 +531,23 @@ class _CadastroState extends State<CadastroFormOng> {
                         press: () {
                           if (isSenhaButtonEnabled(state)) {
                             print('entrei');
+                            _cadastroBloc.add(
+                              CadastroOngSubmitted(
+                                  nome: nomeFantasiaController.text,
+                                  cnpj: cnpjController.text,
+                                  telefone: telController.text,
+                                  dataRegistro: dataRegistroController.text,
+                                  categoria: categoriaController.text,
+                                  info: infoController.text,
+                                  endereco: enderecoController.text,
+                                  imageUrl: imageURLController.text,
+                                  latitude:
+                                      double.parse(latitudeController.text),
+                                  longitude:
+                                      double.parse(longitudeController.text),
+                                  senha: senhaController.text,
+                                  valorRecebido: 0),
+                            );
                             // _cadastroBloc.add(
                             //   CadastroSubmitted(
                             //     nome: nomeController.text,

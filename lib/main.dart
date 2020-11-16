@@ -1,3 +1,4 @@
+import 'package:colaboreapp/Screens/HomeOng/HomeOng.dart';
 import 'package:colaboreapp/Screens/Welcome/Splash.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/constants.dart';
@@ -73,7 +74,10 @@ class _MyAppState extends State<MyApp> {
             );
           }
           if (state is AuthSucessStateOng) {
-            widget._userRepository.singOut();
+            return HomeOng(
+              userRepository: widget._userRepository,
+              usuario: state.user,
+            );
           }
           if (state is AuthSplashState) {
             return Splash();

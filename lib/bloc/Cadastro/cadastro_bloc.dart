@@ -1,8 +1,11 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Model/usuario.dart';
+import 'package:colaboreapp/repositories/FirestoreOngs.dart';
 import 'package:colaboreapp/repositories/FirestoreUserRepository.dart';
+import 'package:colaboreapp/repositories/OngRepository.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:colaboreapp/utils/validators.dart';
 import 'package:equatable/equatable.dart';
@@ -39,6 +42,21 @@ class CadastroBloc extends Bloc<CadastroEvent, CadastroState> {
       );
     } else if (event is CadastroPageSenha) {
       yield* _mapCadastroSenhaPageToState();
+    } else if (event is CadastroOngSubmitted) {
+      yield* _mapCadastroOngSubmittedToState(
+        nome: event.nome,
+        senha: event.senha,
+        dataRegistro: event.dataRegistro,
+        categoria: event.categoria,
+        imageUrl: event.imageUrl,
+        info: event.info,
+        cnpj: event.cnpj,
+        endereco: event.endereco,
+        latitude: event.latitude,
+        longitude: event.longitude,
+        telefone: event.telefone,
+        valorRecebido: event.valorRecebido,
+      );
     }
   }
 
@@ -94,6 +112,51 @@ class CadastroBloc extends Bloc<CadastroEvent, CadastroState> {
           face: "face0",
         ),
       );
+      yield CadastroState.sucess();
+    } on Exception catch (e) {
+      print(e.toString());
+      yield CadastroState.failure(
+          message: e.toString().replaceAll('Exception', ''));
+    }
+  }
+
+  Stream<CadastroState> _mapCadastroOngSubmittedToState(
+      {String nome,
+      String senha,
+      String dataRegistro,
+      String categoria,
+      String imageUrl,
+      String info,
+      String cnpj,
+      String endereco,
+      double latitude,
+      double longitude,
+      String telefone,
+      double valorRecebido}) async* {
+    yield CadastroState.loading();
+    try {
+      cnpj = cnpj.replaceAll(".", "").replaceAll("/", "").replaceAll("-", "");
+      await userRepository.createUser(cnpj, senha, nome);
+
+      var firestoreOng = new FirestoreOngs();
+
+      var sep = dataRegistro.split("/");
+      dataRegistro = sep[2] + "-" + sep[1] + "-" + sep[0];
+
+      await firestoreOng.addNewOng(Ong(
+        nome: nome,
+        senha: senha,
+        dataRegistro: dataRegistro,
+        categoria: categoria,
+        imageUrl: imageUrl,
+        info: info,
+        cnpj: cnpj,
+        endereco: endereco,
+        latitude: latitude,
+        longitude: longitude,
+        telefone: telefone,
+        valorRecebido: valorRecebido,
+      ));
       yield CadastroState.sucess();
     } on Exception catch (e) {
       print(e.toString());
