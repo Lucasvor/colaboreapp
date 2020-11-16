@@ -133,54 +133,15 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-              child: AutoSizeText(
-                '${widget.usuario.displayName}',
-                maxLines: 2,
-                minFontSize: 25,
-                maxFontSize: 30,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-              child: Container(
-                margin: EdgeInsets.all(10),
-                width: size.width * 0.8,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: size.width * 0.5,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: OutlineButton(
-                          borderSide: BorderSide(color: kPrimaryColorGreen),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 20, horizontal: 40),
-                          onPressed: () {
-                            //var firestoreongs = new FirestoreOngs();
-                            //firestoreongs.setImages();
-                          },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                          child: AutoSizeText(
-                            "Ongs Favoritas",
-                            minFontSize: 10,
-                            style: TextStyle(
-                                color: HexColor("91C7A6"),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+            AutoSizeText(
+              '${widget.usuario.displayName}',
+              maxLines: 2,
+              minFontSize: 25,
+              maxFontSize: 30,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
               ),
             ),
             Padding(
