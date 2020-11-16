@@ -43,7 +43,7 @@ class LoginState {
       this.isSucessOng,
       this.isFailure});
 
-  bool get isFormValid => isCpfValid && isSenhaValid;
+  bool get isFormValid => (isCpfValid || isCnpjValid) && isSenhaValid;
 
   factory LoginState.initial() {
     return LoginState(

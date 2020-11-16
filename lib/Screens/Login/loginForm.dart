@@ -137,20 +137,24 @@ class _LoginState extends State<LoginForm> {
           );
         }
         if (state.isSucessOng) {
-          Scaffold.of(context)
-            ..removeCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text('Não implementadoa ainda'),
-                    Icon(Icons.error),
-                  ],
-                ),
-                backgroundColor: HexColor("e63946"),
-              ),
-            );
+          BlocProvider.of<AuthBloc>(context).add(
+            AuthLoggedInOng(),
+          );
+
+          // Scaffold.of(context)
+          //   ..removeCurrentSnackBar()
+          //   ..showSnackBar(
+          //     SnackBar(
+          //       content: Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         children: <Widget>[
+          //           Text('Não implementadoa ainda'),
+          //           Icon(Icons.error),
+          //         ],
+          //       ),
+          //       backgroundColor: HexColor("e63946"),
+          //     ),
+          //   );
         }
       },
       child: BlocBuilder<LoginBloc, LoginState>(

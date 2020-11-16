@@ -1,3 +1,4 @@
+import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Model/ongCadastro.dart';
 import 'package:colaboreapp/utils/error_codes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +10,7 @@ class OngRepository {
   OngRepository({FirebaseAuth firebaseAuth})
       : this.firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
-  Future<User> createOng(OngCadastro ongCadastro) async {
+  Future<User> createOng(Ong ongCadastro) async {
     try {
       var result = await firebaseAuth.createUserWithEmailAndPassword(
           email: ongCadastro.cnpj + '@colaboreapp.com',

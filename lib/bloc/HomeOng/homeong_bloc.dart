@@ -10,7 +10,7 @@ part 'homeong_state.dart';
 
 class HomeongBloc extends Bloc<HomeongEvent, HomeongState> {
   UserRepository userRepository;
-  HomeongBloc({this.userRepository}) : super(HomeongInitial());
+  HomeongBloc({this.userRepository}) : super(HomeongState.initial());
 
   @override
   Stream<HomeongState> mapEventToState(

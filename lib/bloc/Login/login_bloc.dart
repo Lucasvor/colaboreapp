@@ -45,9 +45,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       String documento, senha) async* {
     yield LoginState.loading();
     try {
-      await userRepository.singInUser(
-          documento.replaceAll(".", "").replaceAll("-", "").replaceAll("/", ""),
-          senha);
+      documento =
+          documento.replaceAll(".", "").replaceAll("-", "").replaceAll("/", "");
+      await userRepository.singInUser(documento, senha);
       if (documento.length == 14) {
         yield LoginState.sucessDoador();
       } else {

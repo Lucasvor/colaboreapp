@@ -1,4 +1,5 @@
 import 'package:colaboreapp/Screens/Home/homeForm.dart';
+import 'package:colaboreapp/Screens/HomeOng/HomeOngForm.dart';
 import 'package:colaboreapp/bloc/HomeOng/homeong_bloc.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,7 +16,7 @@ class HomeOng extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (context) => HomeongBloc(userRepository: userRepository),
-        child: HomeForm(
+        child: HomeOngForm(
           userRepository: userRepository,
           usuario: usuario,
         ),
