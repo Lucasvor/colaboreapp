@@ -9,6 +9,9 @@ part of 'ong.dart';
 Ong _$OngFromJson(Map<String, dynamic> json) {
   return Ong(
     idDocument: json['idDocument'] as String,
+    categoria: json['categoria'] as String,
+    dataRegistro: json['dataRegistro'] as String,
+    senha: json['senha'] as String,
     cnpj: json['cnpj'] as String,
     endereco: json['endereco'] as String,
     latitude: (json['latitude'] as num)?.toDouble(),
@@ -23,6 +26,9 @@ Ong _$OngFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$OngToJson(Ong instance) => <String, dynamic>{
       'nome': instance.nome,
+      'senha': instance.senha,
+      'dataRegistro': instance.dataRegistro,
+      'categoria': instance.categoria,
       'idDocument': instance.idDocument,
       'imageUrl': instance.imageUrl,
       'info': instance.info,
