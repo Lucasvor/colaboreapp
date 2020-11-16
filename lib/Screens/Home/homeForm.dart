@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Model/usuario.dart';
+import 'package:colaboreapp/Screens/HomeOng/HomeOngForm.dart';
 import 'package:colaboreapp/Screens/ListOngs/OngsView.dart';
 import 'package:colaboreapp/Screens/PerfilOng/perfilOng.dart';
 import 'package:colaboreapp/Screens/PerfilUser/perfilUser.dart';
@@ -16,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import '../../main.dart';
 
 class HomeForm extends StatefulWidget {
@@ -327,11 +327,17 @@ class _HomeFormState extends State<HomeForm> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => Mapa(
-                                        ongs: ongs,
-                                      ),
+                                      builder: (_) => HomeOngForm(),
                                     ),
                                   );
+                                  // Navigator.push(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (_) => Mapa(
+                                  //       ongs: ongs,
+                                  //     ),
+                                  //   ),
+                                  // );
                                 },
                                 color: kPrimaryColorGreen,
                                 child: Column(
