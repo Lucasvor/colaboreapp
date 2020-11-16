@@ -75,18 +75,6 @@ class _ListOngsState extends State<ListOngs> {
                 ),
               ],
             ),
-            // Padding(
-            //   padding: EdgeInsets.all(10),
-            //   child: TextField(
-            //     controller: searchController,
-            //     decoration: InputDecoration(
-            //       hintText: 'Busque a Ong',
-            //       border: OutlineInputBorder(
-            //         borderRadius: BorderRadius.circular(20),
-            //       ),
-            //     ),
-            //   ),
-            // ),
             FittedBox(
               fit: BoxFit.cover,
               child: AutoSizeText(

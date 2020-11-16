@@ -107,52 +107,31 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
               },
               child: ClipOval(
                 child: AspectRatio(
-                  aspectRatio: 3,
+                  aspectRatio: 2,
                   child: Hero(
                     tag: widget.face,
                     child: Stack(
                       alignment: Alignment.bottomCenter,
                       children: <Widget>[
-                        _image == null
-                            ? Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Positioned(
-                                    child: Container(
-                                      child: SvgPicture.asset(
-                                          'assets/images/' +
-                                              '${widget.face}' +
-                                              '.svg',
-                                          height: size.height * 0.20),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Stack(
-                                alignment: Alignment.center,
-                                children: <Widget>[
-                                  Image.file(
-                                    _image,
-                                  ),
-                                ],
-                              )
+                        Stack(
+                          alignment: Alignment.center,
+                          children: <Widget>[
+                            Positioned(
+                              child: Container(
+                                child: SvgPicture.asset(
+                                    'assets/images/' +
+                                        '${widget.face}' +
+                                        '.svg',
+                                    height: size.height * 0.20),
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
                 ),
               ),
-            ),
-            Stack(
-              children: <Widget>[
-                Positioned(
-                  child: Container(
-                    child: IconButton(
-                      onPressed: getImageFromGallery,
-                      icon: Icon(Icons.edit),
-                    ),
-                  ),
-                ),
-              ],
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -207,8 +186,7 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Container(
-                margin: EdgeInsets.all(10),
-                width: size.width * 0.8,
+                width: size.width * 0.5,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
