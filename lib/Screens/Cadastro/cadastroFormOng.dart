@@ -29,8 +29,8 @@ class _CadastroState extends State<CadastroFormOng> {
       new MaskedTextController(mask: '00/00/0000');
   final TextEditingController categoriaController = TextEditingController();
 
-  //final TextEditingController senhaController = TextEditingController();
-  //final TextEditingController confirmaSenhaController = TextEditingController();
+  final TextEditingController senhaController = TextEditingController();
+  final TextEditingController confirmaSenhaController = TextEditingController();
 
   bool mostraSenha = true;
 
@@ -42,6 +42,14 @@ class _CadastroState extends State<CadastroFormOng> {
       categoriaController.text.isNotEmpty;
 
   bool isButtonEnabled(CadastroState state) {
+    return state.isFormValid && isPopulated && !state.isSubmitting;
+  }
+
+  bool get isSenhaPopulated =>
+      senhaController.text.isNotEmpty &&
+      confirmaSenhaController.text.isNotEmpty;
+
+  bool isSenhaButtonEnabled(CadastroState state) {
     return state.isFormValid && isPopulated && !state.isSubmitting;
   }
 
@@ -73,6 +81,10 @@ class _CadastroState extends State<CadastroFormOng> {
     });
     categoriaController.addListener(() {
       _cadastroBloc.add(CadastroCategoriaChanged(categoriaController.text));
+    });
+
+    senhaController.addListener(() {
+      _cadastroBloc.add(CadastroSenhaChanged(senhaController.text));
     });
   }
 
@@ -131,186 +143,348 @@ class _CadastroState extends State<CadastroFormOng> {
         }
         if (state.isSucess) {
           BlocProvider.of<AuthBloc>(context).add(
-            AuthLoggedIn(),
+            AuthLoggedInOng(),
           );
           Navigator.pop(context);
         }
       },
       child: BlocBuilder<CadastroBloc, CadastroState>(
         builder: (context, state) {
-          return Container(
-            width: double.infinity,
-            height: size.height,
-            child: SingleChildScrollView(
-              child: Form(
-                  child: Padding(
-                padding: EdgeInsets.all(25),
-                child: Column(
-                  children: <Widget>[
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          IconButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            icon: Icon(Icons.arrow_back),
-                          ),
-                        ]),
-                    SizedBox(
-                      height: size.height * 0.01,
-                    ),
-                    Row(children: <Widget>[
-                      RichText(
-                        text: TextSpan(
-                          style: DefaultTextStyle.of(context).style,
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: 'Informações sobre a ONG',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 24,
-                                  fontFamily: 'Avenir'),
+          if (!state.isSenhaPage) {
+            return Container(
+              width: double.infinity,
+              height: size.height,
+              child: SingleChildScrollView(
+                child: Form(
+                    child: Padding(
+                  padding: EdgeInsets.all(25),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            IconButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              icon: Icon(Icons.arrow_back),
                             ),
-                          ],
+                          ]),
+                      SizedBox(
+                        height: size.height * 0.01,
+                      ),
+                      Row(children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            style: DefaultTextStyle.of(context).style,
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Informações sobre a ONG',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24,
+                                    fontFamily: 'Avenir'),
+                              ),
+                            ],
+                          ),
                         ),
+                      ]),
+                      SizedBox(
+                        height: size.height * 0.03,
                       ),
-                    ]),
-                    SizedBox(
-                      height: size.height * 0.03,
-                    ),
-                    TextFormField(
-                      controller: nomeFantasiaController,
-                      validator: null,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(vertical: 0),
-                        labelText: "Nome Fantasia",
-                        suffixIcon: nomeFantasiaController.text.length > 0
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.close,
-                                  color: kPrimaryColorGreen,
-                                ),
-                                onPressed: () {
-                                  nomeFantasiaController.text = '';
-                                },
-                              )
-                            : null,
-                      ),
-                      keyboardType: TextInputType.name,
-                      autovalidate: true,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.04,
-                    ),
-                    TextFormField(
-                      controller: cnpjController,
-                      validator: (_) {
-                        return !state.isCpfValid ? 'CNPJ Inválido' : null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: "CNPJ",
-                        suffixIcon: cnpjController.text.length > 0
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.close,
-                                  color: kPrimaryColorGreen,
-                                ),
-                                onPressed: () {
-                                  cnpjController.text = '';
-                                },
-                              )
-                            : null,
-                      ),
-                      keyboardType: TextInputType.number,
-                      autovalidate: true,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.04,
-                    ),
-                    TextFormField(
-                      controller: telController,
-                      validator: (_) {
-                        return !state.isCpfValid ? 'Telefone Inválido' : null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: "Telefone",
-                        suffixIcon: telController.text.length > 0
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.close,
-                                  color: kPrimaryColorGreen,
-                                ),
-                                onPressed: () {
-                                  telController.text = '';
-                                },
-                              )
-                            : null,
-                      ),
-                      keyboardType: TextInputType.number,
-                      autovalidate: true,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.04,
-                    ),
-                    TextFormField(
-                      controller: dataRegistroController,
-                      validator: (_) {
-                        return !state.isCpfValid ? 'Data inválida' : null;
-                      },
-                      decoration: InputDecoration(
-                        labelText: "Data de Registro",
-                        suffixIcon: dataRegistroController.text.length > 0
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.close,
-                                  color: kPrimaryColorGreen,
-                                ),
-                                onPressed: () {
-                                  dataRegistroController.text = '';
-                                },
-                              )
-                            : null,
-                      ),
-                      keyboardType: TextInputType.number,
-                      autovalidate: true,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.04,
-                    ),
-                    TextFormField(
-                      controller: categoriaController,
-                      validator: (_) {
-                        return !state.isCpfValid ? 'Categoria Inválida' : null;
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Categoria",
-                          suffixIcon: categoriaController.text.length > 0
+                      TextFormField(
+                        controller: nomeFantasiaController,
+                        validator: null,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(vertical: 0),
+                          labelText: "Nome Fantasia",
+                          suffixIcon: nomeFantasiaController.text.length > 0
                               ? IconButton(
                                   icon: Icon(
                                     Icons.close,
                                     color: kPrimaryColorGreen,
                                   ),
                                   onPressed: () {
-                                    categoriaController.text = '';
+                                    nomeFantasiaController.text = '';
                                   },
                                 )
-                              : null),
-                      keyboardType: TextInputType.number,
-                      autovalidate: true,
-                    ),
-                    SizedBox(
-                      height: size.height * 0.20,
-                    ),
-                    RoundedButton(
-                      text: "Continuar",
-                      press: () {},
-                    ),
-                  ],
-                ),
-              )),
-            ),
-          );
+                              : null,
+                        ),
+                        keyboardType: TextInputType.name,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
+                      TextFormField(
+                        controller: cnpjController,
+                        validator: (_) {
+                          return !state.isCpfValid ? 'CNPJ Inválido' : null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "CNPJ",
+                          suffixIcon: cnpjController.text.length > 0
+                              ? IconButton(
+                                  icon: Icon(
+                                    Icons.close,
+                                    color: kPrimaryColorGreen,
+                                  ),
+                                  onPressed: () {
+                                    cnpjController.text = '';
+                                  },
+                                )
+                              : null,
+                        ),
+                        keyboardType: TextInputType.number,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
+                      TextFormField(
+                        controller: telController,
+                        validator: (_) {
+                          return !state.isCpfValid ? 'Telefone Inválido' : null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Telefone",
+                          suffixIcon: telController.text.length > 0
+                              ? IconButton(
+                                  icon: Icon(
+                                    Icons.close,
+                                    color: kPrimaryColorGreen,
+                                  ),
+                                  onPressed: () {
+                                    telController.text = '';
+                                  },
+                                )
+                              : null,
+                        ),
+                        keyboardType: TextInputType.number,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
+                      TextFormField(
+                        controller: dataRegistroController,
+                        validator: (_) {
+                          return !state.isCpfValid ? 'Data inválida' : null;
+                        },
+                        decoration: InputDecoration(
+                          labelText: "Data de Registro",
+                          suffixIcon: dataRegistroController.text.length > 0
+                              ? IconButton(
+                                  icon: Icon(
+                                    Icons.close,
+                                    color: kPrimaryColorGreen,
+                                  ),
+                                  onPressed: () {
+                                    dataRegistroController.text = '';
+                                  },
+                                )
+                              : null,
+                        ),
+                        keyboardType: TextInputType.number,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
+                      TextFormField(
+                        controller: categoriaController,
+                        validator: (_) {
+                          return !state.isCpfValid
+                              ? 'Categoria Inválida'
+                              : null;
+                        },
+                        decoration: InputDecoration(
+                            labelText: "Categoria",
+                            suffixIcon: categoriaController.text.length > 0
+                                ? IconButton(
+                                    icon: Icon(
+                                      Icons.close,
+                                      color: kPrimaryColorGreen,
+                                    ),
+                                    onPressed: () {
+                                      categoriaController.text = '';
+                                    },
+                                  )
+                                : null),
+                        keyboardType: TextInputType.number,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.20,
+                      ),
+                      RoundedButton(
+                        text: "Continuar",
+                        press: () {
+                          state.update(isSenhaValid: true);
+                          if (isButtonEnabled(state)) {
+                            //_navigateToSenhaDisplay(context, state);
+                            BlocProvider.of<CadastroBloc>(context)
+                                .add(CadastroPageSenha());
+                          } else {
+                            Scaffold.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  content: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text('Preencha todos os campos!'),
+                                      Icon(Icons.announcement),
+                                    ],
+                                  ),
+                                  backgroundColor: HexColor("e63946"),
+                                ),
+                              );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                )),
+              ),
+            );
+          } else {
+            return Container(
+              width: double.infinity,
+              height: size.height,
+              child: SingleChildScrollView(
+                child: Form(
+                    child: Padding(
+                  padding: EdgeInsets.all(25),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            IconButton(
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    BlocProvider.of<CadastroBloc>(context)
+                                        .add(CadastroPageSenha());
+                                  },
+                                );
+                              },
+                              icon: Icon(Icons.arrow_back),
+                            ),
+                          ]),
+                      SizedBox(
+                        height: size.height * 0.01,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                style: DefaultTextStyle.of(context).style,
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text: 'Crie a sua senha para usar no APP',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        fontFamily: 'Avenir'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ]),
+                      TextFormField(
+                        controller: senhaController,
+                        validator: (_) {
+                          return !state.isSenhaValid ? 'Senha inválida' : null;
+                        },
+                        obscureText: mostraSenha,
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.lock, color: kPrimaryColorGreen),
+                          labelText: "Senha",
+                          contentPadding:
+                              const EdgeInsets.symmetric(vertical: 20),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              Icons.visibility,
+                              color: kPrimaryColorGreen,
+                            ),
+                            onPressed: _mostraSenha,
+                          ),
+                        ),
+                        keyboardType: TextInputType.text,
+                        autovalidate: true,
+                      ),
+                      TextFormField(
+                        controller: confirmaSenhaController,
+                        validator: (_) {
+                          if (confirmaSenhaController.text.length > 0)
+                            return senhaController.text !=
+                                    confirmaSenhaController.text
+                                ? 'Senha digitada não corresponde com a anterior'
+                                : null;
+                        },
+                        obscureText: mostraSenha,
+                        decoration: InputDecoration(
+                            icon: Icon(Icons.lock, color: kPrimaryColorGreen),
+                            labelText: "Confirmar Senha",
+                            contentPadding:
+                                const EdgeInsets.symmetric(vertical: 20)),
+                        keyboardType: TextInputType.text,
+                        autovalidate: true,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.20,
+                      ),
+                      RoundedButton(
+                        text: "Finalizar",
+                        press: () {
+                          if (isSenhaButtonEnabled(state)) {
+                            print('entrei');
+                            // _cadastroBloc.add(
+                            //   CadastroSubmitted(
+                            //     nome: nomeController.text,
+                            //     cpf: cpfController.text,
+                            //     senha: senhaController.text,
+                            //     dataNascimento: birthController.text,
+                            //     email: emailController.text,
+                            //     telefone: telController.text,
+                            //   ),
+                            // );
+                          } else {
+                            Scaffold.of(context)
+                              ..removeCurrentSnackBar()
+                              ..showSnackBar(
+                                SnackBar(
+                                  content: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text('Preencha todos os campos!'),
+                                      Icon(Icons.error),
+                                    ],
+                                  ),
+                                  backgroundColor: HexColor("e63946"),
+                                ),
+                              );
+                          }
+                          // if (isButtonEnabled(state)) {
+                          //   _cadastroBloc.add(CadastroSubmitted(
+                          //       nome: nomeController.text,
+                          //       cpf: cpfController.text,
+                          //       senha: senhaController.text));
+                          // }
+                        },
+                      ),
+                    ],
+                  ),
+                )),
+              ),
+            );
+          }
         },
       ),
     );

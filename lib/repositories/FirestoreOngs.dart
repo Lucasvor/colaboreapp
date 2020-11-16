@@ -38,18 +38,21 @@ class FirestoreOngs {
 
   Future<List<Transacao>> getTransacoesDoador(String cpf) async {
     var qtran = await transacoes.where('cpf', isEqualTo: cpf).get();
-
-    return qtran.docs
-        .map(
-          (e) => Transacao(
-              e.data()['nome'],
-              e.data()['cpf'],
-              e.data()['valor'],
-              e.data()['nomeOng'],
-              e.data()['cnpj'],
-              timestamptoDate(e.data()['dataHora'])),
-        )
-        .toList();
+    try {
+      return qtran.docs
+          .map(
+            (e) => Transacao(
+                e.data()['nome'],
+                e.data()['cpf'],
+                e.data()['valor'],
+                e.data()['nomeOng'],
+                e.data()['cnpj'],
+                timestamptoDate(e.data()['dataHora'])),
+          )
+          .toList();
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<bool> addValorDoacao(
