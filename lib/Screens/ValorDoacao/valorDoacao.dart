@@ -85,28 +85,28 @@ class _ValorDoacaoState extends State<ValorDoacaoForm> {
                     ),
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    AutoSizeText.rich(
+                      TextSpan(text: 'Valor da Doação'),
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'avenir_next_regular.otf',
+                      ),
+                      minFontSize: 25,
+                      maxFontSize: 30,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          AutoSizeText.rich(
-                            TextSpan(text: 'Valor da Doação'),
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'avenir_next_regular.otf',
-                            ),
-                            minFontSize: 25,
-                            maxFontSize: 30,
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
                       TextFormField(
                         controller: valorController,
                         keyboardType: TextInputType.number,
