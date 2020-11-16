@@ -128,10 +128,10 @@ class _HomeOngFormState extends State<HomeOngForm> {
                             //_navigateAndDisplaySelection(context, state); HABILITAR ESSE
                             //_homeBloc.add(LoadingOngs());
                           },
-                          child: Hero(
-                            //tag: faceHome,
-                            child: svgPicture,
-                          ),
+                          // child: Hero(
+                          //   //tag: faceHome,
+                          //   child: svgPicture,
+                          // ),
                         ),
                       ],
                     ),
