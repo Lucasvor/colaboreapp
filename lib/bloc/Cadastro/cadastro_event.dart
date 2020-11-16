@@ -118,3 +118,46 @@ class CadastroSubmitted extends CadastroEvent {
         email,
       ];
 }
+
+class CadastroOngSubmitted extends CadastroEvent {
+  final String cnpj;
+  final String senha;
+  final String nome;
+  final String telefone;
+  final String dataRegistro;
+  final String categoria;
+  final String imageUrl;
+  final String endereco;
+  final String info;
+  final double latitude;
+  final double longitude;
+
+  CadastroOngSubmitted({
+    this.imageUrl,
+    this.endereco,
+    this.info,
+    this.latitude,
+    this.longitude,
+    this.cnpj,
+    this.senha,
+    this.nome,
+    this.telefone,
+    this.dataRegistro,
+    this.categoria,
+  });
+
+  @override
+  List<Object> get props => [
+        cnpj,
+        senha,
+        nome,
+        telefone,
+        dataRegistro,
+        categoria,
+        imageUrl,
+        endereco,
+        info,
+        latitude,
+        longitude,
+      ];
+}
