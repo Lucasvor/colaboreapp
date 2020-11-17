@@ -51,12 +51,15 @@ class _HomeOngFormState extends State<HomeOngForm> {
                       textColor: Colors.white,
                       press: () async {
                         try {
+                          //blalala
                           await widget.userRepository.singOut();
                           BlocProvider.of<AuthBloc>(context).add(
                             AuthSplash(),
                           );
                           Navigator.of(context).pop();
-                        } catch (e) {}
+                        } catch (e) {
+                          print(e);
+                        }
                       },
                     ),
                   ),
