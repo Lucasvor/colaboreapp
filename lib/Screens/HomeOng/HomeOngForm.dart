@@ -52,12 +52,14 @@ class _HomeOngFormState extends State<HomeOngForm> {
                       press: () async {
                         try {
                           //blalala
+                          //asdasdasda
                           await widget.userRepository.singOut();
                           BlocProvider.of<AuthBloc>(context).add(
                             AuthSplash(),
                           );
                           Navigator.of(context).pop();
                         } catch (e) {
+                          print(e);
                           print(e);
                         }
                       },
