@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:colaboreapp/Model/evento.dart';
+import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/constants.dart';
+import 'package:colaboreapp/main.dart';
 import 'package:colaboreapp/repositories/FirestoreOngs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +11,11 @@ import 'package:flutter/services.dart';
 
 class CriaEventoForm extends StatefulWidget {
   final User usuario;
+  final BuildContext contextA;
+  final Ong ong;
 
-  const CriaEventoForm({Key key, this.usuario}) : super(key: key);
+  const CriaEventoForm({Key key, this.usuario, this.contextA, this.ong})
+      : super(key: key);
 
   @override
   _CriaEventoFormState createState() => _CriaEventoFormState();
@@ -97,18 +102,34 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
                           : null),
                 ),
                 RoundedButton(
-                  text: "Criar Evento",
-                  press: () async {
-                    var firestoreOng = FirestoreOngs();
-                    var ong = await firestoreOng.getOng(widget.usuario.email
-                        .replaceAll('@colaboreapp.com', ""));
-                    firestoreOng.makeEvento(new Evento(
-                        ong: ong.nome,
-                        data: new DateTime.now(),
-                        mensagem: descricaoController.text));
-                    Navigator.of(context).pop();
-                  },
-                ),
+                    text: "Criar Evento",
+                    press: () async {
+                      if (descricaoController.text.length > 10) {
+                        var firestoreOng = FirestoreOngs();
+                        firestoreOng.makeEvento(new Evento(
+                            ong: widget.ong.nome,
+                            data: new DateTime.now(),
+                            mensagem: descricaoController.text));
+                        Navigator.of(context).pop();
+                      } else {
+                        Scaffold.of(context)
+                          ..removeCurrentSnackBar()
+                          ..showSnackBar(
+                            SnackBar(
+                              content: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                      'Campo descrição precisa de mais informações'),
+                                  Icon(Icons.error),
+                                ],
+                              ),
+                              backgroundColor: HexColor("e63946"),
+                            ),
+                          );
+                      }
+                    }),
               ],
             ),
           ),
