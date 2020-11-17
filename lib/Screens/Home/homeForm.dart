@@ -327,17 +327,11 @@ class _HomeFormState extends State<HomeForm> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => HomeOngForm(),
+                                      builder: (_) => Mapa(
+                                        ongs: ongs,
+                                      ),
                                     ),
                                   );
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (_) => Mapa(
-                                  //       ongs: ongs,
-                                  //     ),
-                                  //   ),
-                                  // );
                                 },
                                 color: kPrimaryColorGreen,
                                 child: Column(
