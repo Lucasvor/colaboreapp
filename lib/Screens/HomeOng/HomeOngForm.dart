@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:colaboreapp/Model/ong.dart';
+import 'package:colaboreapp/Screens/Eventos/criaevento.dart';
 import 'package:colaboreapp/bloc/HomeOng/homeong_bloc.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +49,7 @@ class _HomeOngFormState extends State<HomeOngForm> {
                 children: <Widget>[
                   RichText(
                     text: TextSpan(
-                      text: 'Nome da ONG\n',
+                      text: '${widget.usuario.displayName}\n',
                       style: TextStyle(fontSize: 20, color: Colors.black),
                       children: <TextSpan>[
                         // TextSpan(
@@ -97,18 +99,27 @@ class _HomeOngFormState extends State<HomeOngForm> {
                     ),
                   ),
                   Container(
-                    height: size.height * 0.2,
+                    height: size.height * 0.3,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Expanded(
                           child: Container(
-                            height: size.height * 0.2,
+                            height: size.height * 0.3,
                             margin: EdgeInsets.all(20),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: FlatButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => CriaEventoForm(
+                                        usuario: widget.usuario,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 color: kPrimaryColorGreen,
                                 child: Column(
                                   mainAxisAlignment:
@@ -119,7 +130,7 @@ class _HomeOngFormState extends State<HomeOngForm> {
                                       height: size.height * 0.1,
                                     ),
                                     Text(
-                                      'Eventos',
+                                      'Criar Evento',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ],
@@ -130,7 +141,7 @@ class _HomeOngFormState extends State<HomeOngForm> {
                         ),
                         Expanded(
                           child: Container(
-                            height: size.height * 0.2,
+                            height: size.height * 0.3,
                             margin: EdgeInsets.all(20),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
@@ -172,9 +183,7 @@ class _HomeOngFormState extends State<HomeOngForm> {
                             BlocProvider.of<AuthBloc>(context).add(
                               AuthSplash(),
                             );
-                            Navigator.of(context).pop();
                           } catch (e) {
-                            print(e);
                             print(e);
                           }
                         },

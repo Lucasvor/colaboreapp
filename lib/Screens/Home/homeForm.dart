@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Model/usuario.dart';
+import 'package:colaboreapp/Screens/Eventos/evento.dart';
 import 'package:colaboreapp/Screens/HomeOng/HomeOngForm.dart';
 import 'package:colaboreapp/Screens/ListOngs/OngsView.dart';
 import 'package:colaboreapp/Screens/PerfilOng/perfilOng.dart';
@@ -11,6 +12,7 @@ import 'package:colaboreapp/bloc/Home/home_bloc.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
 import 'package:colaboreapp/constants.dart';
+import 'package:colaboreapp/repositories/FirestoreOngs.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +60,8 @@ class _HomeFormState extends State<HomeForm> {
     containerOngs.build(context);
     _homeBloc.add(LoadingOngs());
     nameUser = '${widget.usuario.displayName}';
-    nameShort = nameUser.substring(0, nameUser.indexOf(' '));
+    nameShort =
+        nameUser.length > 0 ? nameUser.substring(0, nameUser.indexOf(' ')) : '';
     super.initState();
   }
 
@@ -368,7 +371,19 @@ class _HomeFormState extends State<HomeForm> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: FlatButton(
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    var firestoreong = FirestoreOngs();
+                                    var listEventos =
+                                        await firestoreong.getEventos();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => EventoForm(
+                                          eventos: listEventos,
+                                        ),
+                                      ),
+                                    );
+                                  },
                                   color: kPrimaryColorGreen,
                                   child: Column(
                                     mainAxisAlignment:

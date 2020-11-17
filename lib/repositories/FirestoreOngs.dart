@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:colaboreapp/Model/evento.dart';
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Model/ongCadastro.dart';
 import 'package:colaboreapp/Model/transacao.dart';
@@ -7,6 +8,7 @@ import 'package:colaboreapp/Model/usuario.dart';
 class FirestoreOngs {
   final ongsCollection = FirebaseFirestore.instance.collection("ongs");
   final transacoes = FirebaseFirestore.instance.collection("transacoes");
+  final eventos = FirebaseFirestore.instance.collection("eventos");
 
   final pictures = FirebaseFirestore.instance.collection("pictures");
 
@@ -18,6 +20,9 @@ class FirestoreOngs {
           (e) => Ong(
             idDocument: e.id,
             nome: e.data()['nome'],
+            categoria: e.data()['categoria'],
+            dataRegistro: e.data()['dataRegistro'],
+            senha: e.data()['senha'],
             imageUrl: e.data()['imageUrl'],
             info: e.data()['info'],
             cnpj: e.data()['cnpj'],
@@ -29,6 +34,38 @@ class FirestoreOngs {
           ),
         )
         .toList();
+  }
+
+  Future<void> makeEvento(Evento evento) async {
+    return eventos.doc().set(evento.toJson());
+  }
+
+  Future<Ong> getOng(String cnpj) async {
+    var qshot = await ongsCollection.where('cnpj', isEqualTo: cnpj).get();
+    try {
+      return qshot.docs
+          .map(
+            (e) => Ong(
+              idDocument: e.id,
+              nome: e.data()['nome'],
+              categoria: e.data()['categoria'],
+              dataRegistro: e.data()['dataRegistro'],
+              senha: e.data()['senha'],
+              imageUrl: e.data()['imageUrl'],
+              info: e.data()['info'],
+              cnpj: e.data()['cnpj'],
+              endereco: e.data()['endereco'],
+              latitude: e.data()['latitude'],
+              longitude: e.data()['longitude'],
+              telefone: e.data()['telefone'],
+              valorRecebido: reciprocal(e.data()['valorRecebido']),
+            ),
+          )
+          .toList()
+          .first;
+    } catch (e) {
+      print(e);
+    }
   }
 
   Future<void> addNewOng(Ong userOng) async {
@@ -48,6 +85,25 @@ class FirestoreOngs {
                 e.data()['nomeOng'],
                 e.data()['cnpj'],
                 timestamptoDate(e.data()['dataHora'])),
+          )
+          .toList();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<List<Evento>> getEventos() async {
+    var qeventos = await eventos.get();
+    try {
+      return qeventos.docs
+          .map(
+            (e) => Evento(
+              ong: e.data()['ong'],
+              mensagem: e.data()['mensagem'],
+              data: timestamptoDate(
+                e.data()['data'],
+              ),
+            ),
           )
           .toList();
     } catch (e) {
