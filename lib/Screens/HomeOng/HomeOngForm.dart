@@ -34,123 +34,6 @@ class _HomeOngFormState extends State<HomeOngForm> {
       child: BlocBuilder<HomeongBloc, HomeongState>(
         builder: (context, state) {
           return Container(
-<<<<<<< HEAD
-            width: double.infinity,
-            height: size.height,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            text: 'Olá,\n',
-                            style: TextStyle(fontSize: 20, color: Colors.black),
-                            children: <TextSpan>[
-                              TextSpan(
-                                //text: '  ' + nameShort,
-                                //'${widget.usuario.displayName}',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 35),
-                              ),
-                            ],
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () async {
-                            //widget.userRepository.singOut();
-                            //_navigateAndDisplaySelection(context, state); HABILITAR ESSE
-                            //_homeBloc.add(LoadingOngs());
-                          },
-                          // child: Hero(
-                          //   //tag: faceHome,
-                          //   child: svgPicture,
-                          // ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  containerOngs, // cards das ongs
-                  Container(
-                    height: size.height * 0.2,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            height: size.height * 0.2,
-                            margin: EdgeInsets.all(20),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: FlatButton(
-                                onPressed: () {},
-                                color: kPrimaryColorGreen,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    SvgPicture.asset(
-                                      "assets/images/charity.svg",
-                                      height: size.height * 0.1,
-                                    ),
-                                    Text(
-                                      'Doações',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            height: size.height * 0.2,
-                            margin: EdgeInsets.all(20),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: FlatButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => HomeOngForm(),
-                                    ),
-                                  );
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //     builder: (_) => Mapa(
-                                  //       ongs: ongs,
-                                  //     ),
-                                  //   ),
-                                  // );
-                                },
-                                color: kPrimaryColorGreen,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    SvgPicture.asset(
-                                      "assets/images/search.svg",
-                                      height: size.height * 0.1,
-                                    ),
-                                    Text(
-                                      'Descubra',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -178,14 +61,13 @@ class _HomeOngFormState extends State<HomeOngForm> {
                           print(e);
                         }
                       },
->>>>>>> 16e0a27f1b733a03a27d65110a550c99763f1e22
                     ),
                   ),
                 ),
               ],
             ),
           );
-        }
+        },
       ),
     );
   }
