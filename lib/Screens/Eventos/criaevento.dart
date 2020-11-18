@@ -23,6 +23,7 @@ class CriaEventoForm extends StatefulWidget {
 
 class _CriaEventoFormState extends State<CriaEventoForm> {
   final TextEditingController descricaoController = TextEditingController();
+  final TextEditingController tituloController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
                     FittedBox(
                       fit: BoxFit.cover,
                       child: AutoSizeText(
-                        'Eventos',
+                        'Crie um Evento',
                         textAlign: TextAlign.center,
                         minFontSize: 25,
                         maxFontSize: 30,
@@ -75,6 +76,31 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
                       ),
                     ),
                   ],
+                ),
+                TextField(
+                  controller: tituloController,
+                  maxLines: null,
+                  style: TextStyle(fontSize: 24),
+                  decoration: new InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: kPrimaryColorGreen, width: 1.0),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.red, width: 1.0),
+                      ),
+                      labelText: 'Dê um nome para o evento',
+                      hintText: 'Titulo.',
+                      suffixIcon: descricaoController.text.length > 0
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.close,
+                                color: kPrimaryColorGreen,
+                              ),
+                              onPressed: () {
+                                descricaoController.text = '';
+                              })
+                          : null),
                 ),
                 TextField(
                   controller: descricaoController,
@@ -89,7 +115,7 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
                         borderSide: BorderSide(color: Colors.red, width: 1.0),
                       ),
                       labelText: 'Preencha com a descrição do evento',
-                      hintText: 'Descreva o evento para todos saberem.',
+                      hintText: 'Conte um pouco do evento.',
                       suffixIcon: descricaoController.text.length > 0
                           ? IconButton(
                               icon: Icon(
@@ -102,34 +128,34 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
                           : null),
                 ),
                 RoundedButton(
-                    text: "Criar Evento",
-                    press: () async {
-                      if (descricaoController.text.length > 10) {
-                        var firestoreOng = FirestoreOngs();
-                        firestoreOng.makeEvento(new Evento(
-                            ong: widget.ong.nome,
-                            data: new DateTime.now(),
-                            mensagem: descricaoController.text));
-                        Navigator.of(context).pop();
-                      } else {
-                        Scaffold.of(context)
-                          ..removeCurrentSnackBar()
-                          ..showSnackBar(
-                            SnackBar(
-                              content: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                      'Campo descrição precisa de mais informações'),
-                                  Icon(Icons.error),
-                                ],
-                              ),
-                              backgroundColor: HexColor("e63946"),
+                  text: "Criar Evento",
+                  press: () async {
+                    if (descricaoController.text.length > 10) {
+                      var firestoreOng = FirestoreOngs();
+                      firestoreOng.makeEvento(new Evento(
+                          ong: widget.ong.nome,
+                          data: new DateTime.now(),
+                          mensagem: descricaoController.text));
+                      Navigator.of(context).pop();
+                    } else {
+                      Scaffold.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(
+                          SnackBar(
+                            content: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(
+                                    'Campo descrição precisa de mais informações'),
+                                Icon(Icons.error),
+                              ],
                             ),
-                          );
-                      }
-                    }),
+                            backgroundColor: HexColor("e63946"),
+                          ),
+                        );
+                    }
+                  },
+                ),
               ],
             ),
           ),

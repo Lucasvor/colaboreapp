@@ -75,8 +75,17 @@ class _HomeOngFormState extends State<HomeOngForm> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'Bem-vindo',
+                          text: 'Bem-',
                           style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 35,
+                            fontFamily: 'Avenir',
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'vindo',
+                          style: TextStyle(
+                            color: Colors.green[300],
                             fontWeight: FontWeight.bold,
                             fontSize: 35,
                             fontFamily: 'Avenir',
@@ -84,6 +93,7 @@ class _HomeOngFormState extends State<HomeOngForm> {
                         ),
                       ],
                     ),
+                    textAlign: TextAlign.left,
                   ),
                   Expanded(
                     child: Container(
