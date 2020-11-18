@@ -87,9 +87,11 @@ class _EventoFormState extends State<EventoForm> {
                               )
                             : Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                child: Text(
-                                  '${widget.eventos[index].mensagem} da ong: ${widget.eventos[index].ong}',
-                                  textAlign: TextAlign.center,
+                                child: Container(
+                                  child: Text(
+                                    '${widget.eventos[index].mensagem} da ong: ${widget.eventos[index].ong}',
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                               );
                       },

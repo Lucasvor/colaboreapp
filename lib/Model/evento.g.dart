@@ -11,6 +11,7 @@ Evento _$EventoFromJson(Map<String, dynamic> json) {
     ong: json['ong'] as String,
     data: json['data'] == null ? null : DateTime.parse(json['data'] as String),
     mensagem: json['mensagem'] as String,
+    titulo: json['titulo'] as String,
   );
 }
 
@@ -18,4 +19,5 @@ Map<String, dynamic> _$EventoToJson(Evento instance) => <String, dynamic>{
       'ong': instance.ong,
       'data': instance.data?.toIso8601String(),
       'mensagem': instance.mensagem,
+      'titulo': instance.titulo,
     };

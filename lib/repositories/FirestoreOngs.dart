@@ -119,6 +119,7 @@ class FirestoreOngs {
             (e) => Evento(
               ong: e.data()['ong'],
               mensagem: e.data()['mensagem'],
+              titulo: e.data()['titulo'],
               data: timestamptoDate(
                 e.data()['data'],
               ),
