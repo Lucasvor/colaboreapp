@@ -15,7 +15,8 @@ class HomeOng extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => HomeongBloc(userRepository: userRepository),
+        create: (context) =>
+            HomeongBloc(userRepository: userRepository, user: usuario),
         child: HomeOngForm(
           userRepository: userRepository,
           usuario: usuario,

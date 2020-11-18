@@ -31,12 +31,19 @@ class HomeOngForm extends StatefulWidget {
 
 class _HomeOngFormState extends State<HomeOngForm> {
   FirestoreOngs firestoreOngs;
+  Container container;
   Ong ong;
+  HomeongBloc _homeongBloc;
 
   @override
   void initState() {
     firestoreOngs = new FirestoreOngs();
-    getOng();
+    //getOng();
+    container = new Container(
+      child: new CircularProgressIndicator(),
+    );
+    _homeongBloc = BlocProvider.of<HomeongBloc>(context);
+    _homeongBloc.add(LoadHomeOng());
     // TODO: implement initState
     super.initState();
   }
@@ -56,9 +63,31 @@ class _HomeOngFormState extends State<HomeOngForm> {
     return BlocListener<HomeongBloc, HomeongState>(
       listener: (context, state) {
         if (state.isLoadHome) {}
+        if (state.isSucess) {
+          ong = state.ong;
+          container = Container(
+            child: _buildCircleAvatar(ong.imageUrl),
+          );
+        }
       },
       child: BlocBuilder<HomeongBloc, HomeongState>(
         builder: (context, state) {
+          // Scaffold.of(context)
+          //   ..removeCurrentSnackBar()
+          //   ..showSnackBar(
+          //     SnackBar(
+          //       content: Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         children: <Widget>[
+          //           Text('Carregando ong...'),
+          //           CircularProgressIndicator(
+          //             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          //           )
+          //         ],
+          //       ),
+          //       backgroundColor: HexColor("91C7A6"),
+          //     ),
+          //   );
           return Container(
             width: double.infinity,
             height: size.height,
@@ -102,13 +131,12 @@ class _HomeOngFormState extends State<HomeOngForm> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Expanded(
-                            child: _buildCircleAvatar(ong.imageUrl),
+                            child: container,
                           )
                         ],
                       ),
                     ),
                   ),
-                  Row(),
                   Container(
                     height: size.height * 0.3,
                     child: Row(

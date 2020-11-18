@@ -1,8 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:colaboreapp/Model/ong.dart';
+import 'package:colaboreapp/Model/usuario.dart';
+import 'package:colaboreapp/repositories/FirestoreOngs.dart';
 import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 
 part 'homeong_event.dart';
@@ -10,7 +14,8 @@ part 'homeong_state.dart';
 
 class HomeongBloc extends Bloc<HomeongEvent, HomeongState> {
   UserRepository userRepository;
-  HomeongBloc({this.userRepository}) : super(HomeongState.initial());
+  User user;
+  HomeongBloc({this.userRepository, this.user}) : super(HomeongState.initial());
 
   @override
   Stream<HomeongState> mapEventToState(
@@ -27,8 +32,12 @@ class HomeongBloc extends Bloc<HomeongEvent, HomeongState> {
   }
 
   Stream<HomeongState> _mapHomeLoad() async* {
-    yield HomeongState.loading();
-    try {} on Exception catch (e) {
+    try {
+      var ongsFirestore = FirestoreOngs();
+      var ong = await ongsFirestore
+          .getOng(user.email.replaceAll('@colaboreapp.com', ""));
+      yield HomeongState.sucess(ong: ong);
+    } on Exception catch (e) {
       HomeongState.failure(message: e.toString().replaceAll('Exception', ''));
     } catch (e) {
       print(e);

@@ -5,8 +5,10 @@ class HomeongState {
   final bool isLoadHome;
   final bool isFailure;
   final String message;
+  final Ong ong;
 
-  HomeongState({this.isSucess, this.isLoadHome, this.isFailure, this.message});
+  HomeongState(
+      {this.ong, this.isSucess, this.isLoadHome, this.isFailure, this.message});
 
   factory HomeongState.initial() {
     return HomeongState(isFailure: false, isSucess: false, isLoadHome: false);
@@ -20,8 +22,9 @@ class HomeongState {
         message: message, isSucess: false, isFailure: false, isLoadHome: true);
   }
 
-  factory HomeongState.sucess() {
-    return HomeongState(isSucess: true, isFailure: false, isLoadHome: true);
+  factory HomeongState.sucess({Ong ong}) {
+    return HomeongState(
+        isSucess: true, isFailure: false, isLoadHome: true, ong: ong);
   }
 }
 

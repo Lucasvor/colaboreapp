@@ -133,14 +133,15 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
                               titulo: tituloController.text,
                               mensagem: descricaoController.text),
                         );
+
+                        Navigator.of(context).pop();
                         Flushbar(
                           title: "Sucesso",
                           message:
                               "A mensagem da descrição precisa ter mais de 10 caracteres para ser válido.",
                           duration: Duration(seconds: 3),
-                          backgroundColor: HexColor("e63946"),
+                          backgroundColor: HexColor("91C7A6"),
                         )..show(widget.contextA);
-                        Navigator.of(context).pop();
                       } else {
                         Flushbar(
                           title: "Erro",

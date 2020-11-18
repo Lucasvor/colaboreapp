@@ -10,14 +10,14 @@ class Transacao extends Equatable {
   final String cpf;
   final double valor;
   final String nomeOng;
-  final String cpnj;
+  final String cnpj;
   final DateTime dataHora;
 
   Transacao(
-      this.nome, this.cpf, this.valor, this.nomeOng, this.cpnj, this.dataHora);
+      this.nome, this.cpf, this.valor, this.nomeOng, this.cnpj, this.dataHora);
 
   @override
-  List<Object> get props => [nome, cpf, valor, nomeOng, cpnj, dataHora];
+  List<Object> get props => [nome, cpf, valor, nomeOng, cnpj, dataHora];
 
   factory Transacao.fromJson(Map<String, dynamic> json) =>
       _$TransacaoFromJson(json);

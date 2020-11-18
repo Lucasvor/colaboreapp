@@ -12,7 +12,7 @@ Transacao _$TransacaoFromJson(Map<String, dynamic> json) {
     json['cpf'] as String,
     (json['valor'] as num)?.toDouble(),
     json['nomeOng'] as String,
-    json['cpnj'] as String,
+    json['cnpj'] as String,
     json['dataHora'] == null
         ? null
         : DateTime.parse(json['dataHora'] as String),
@@ -24,6 +24,6 @@ Map<String, dynamic> _$TransacaoToJson(Transacao instance) => <String, dynamic>{
       'cpf': instance.cpf,
       'valor': instance.valor,
       'nomeOng': instance.nomeOng,
-      'cpnj': instance.cpnj,
+      'cnpj': instance.cnpj,
       'dataHora': instance.dataHora?.toIso8601String(),
     };
