@@ -126,11 +126,20 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
                       if (descricaoController.text.length > 10 &&
                           tituloController.text.length > 5) {
                         var firestoreOng = FirestoreOngs();
-                        firestoreOng.makeEvento(new Evento(
-                            ong: widget.ong.nome,
-                            data: new DateTime.now(),
-                            titulo: tituloController.text,
-                            mensagem: descricaoController.text));
+                        firestoreOng.makeEvento(
+                          new Evento(
+                              ong: widget.ong.nome,
+                              data: new DateTime.now(),
+                              titulo: tituloController.text,
+                              mensagem: descricaoController.text),
+                        );
+                        Flushbar(
+                          title: "Sucesso",
+                          message:
+                              "A mensagem da descrição precisa ter mais de 10 caracteres para ser válido.",
+                          duration: Duration(seconds: 3),
+                          backgroundColor: HexColor("e63946"),
+                        )..show(widget.contextA);
                         Navigator.of(context).pop();
                       } else {
                         Flushbar(
