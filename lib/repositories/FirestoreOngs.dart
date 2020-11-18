@@ -4,6 +4,7 @@ import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Model/ongCadastro.dart';
 import 'package:colaboreapp/Model/transacao.dart';
 import 'package:colaboreapp/Model/usuario.dart';
+import 'package:intl/intl.dart';
 
 class FirestoreOngs {
   final ongsCollection = FirebaseFirestore.instance.collection("ongs");
@@ -259,5 +260,9 @@ double reciprocal(num value) {
 }
 
 DateTime timestamptoDate(String t) {
-  return DateTime.parse(t);
+  if (t.contains('/')) {
+    return DateFormat("dd/MM/yyyy").parse(t);
+  } else {
+    return DateTime.parse(t);
+  }
 }
