@@ -51,9 +51,7 @@ class _EventoFormState extends State<EventoForm> {
                 minFontSize: 25,
                 maxFontSize: 30,
                 style: TextStyle(
-                    color: kPrimaryColorGreen,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'avenir_next_regular.otf'),
+                    fontWeight: FontWeight.bold, fontFamily: 'Avenir'),
               ),
             ),
             Expanded(
