@@ -93,7 +93,7 @@ class FirestoreOngs {
   }
 
   Future<List<Transacao>> getTransacaoOng(String cnpj) async {
-    var qtran = await transacoes.where('cpnj', isEqualTo: cnpj).get();
+    var qtran = await transacoes.where('cnpj', isEqualTo: cnpj).get();
     try {
       return qtran.docs
           .map(
