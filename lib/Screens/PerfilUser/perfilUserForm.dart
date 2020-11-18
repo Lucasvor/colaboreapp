@@ -169,6 +169,7 @@ class _PerfilUserFormState extends State<PerfilUserForm> {
                               MaterialPageRoute(
                                 builder: (_) => DoadorDoacoes(
                                   transacoes: result,
+                                  isOng: false,
                                 ),
                               ),
                             );

@@ -6,6 +6,7 @@ import 'package:colaboreapp/constants.dart';
 import 'package:colaboreapp/main.dart';
 import 'package:colaboreapp/repositories/FirestoreOngs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -32,6 +33,7 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
       DeviceOrientation.portraitDown,
     ]);
     return Scaffold(
+      key: widget.key,
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
@@ -104,30 +106,30 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
                 RoundedButton(
                     text: "Criar Evento",
                     press: () async {
-                      if (descricaoController.text.length > 10) {
-                        var firestoreOng = FirestoreOngs();
-                        firestoreOng.makeEvento(new Evento(
-                            ong: widget.ong.nome,
-                            data: new DateTime.now(),
-                            mensagem: descricaoController.text));
-                        Navigator.of(context).pop();
-                      } else {
-                        Scaffold.of(context)
-                          ..removeCurrentSnackBar()
-                          ..showSnackBar(
-                            SnackBar(
-                              content: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text(
-                                      'Campo descrição precisa de mais informações'),
-                                  Icon(Icons.error),
-                                ],
-                              ),
-                              backgroundColor: HexColor("e63946"),
-                            ),
-                          );
+                      try {
+                        if (descricaoController.text.length > 10) {
+                          var firestoreOng = FirestoreOngs();
+                          firestoreOng.makeEvento(new Evento(
+                              ong: widget.ong.nome,
+                              data: new DateTime.now(),
+                              mensagem: descricaoController.text));
+                          Navigator.of(context).pop();
+                        } else {
+                          Flushbar(
+                            title: "Erro",
+                            message:
+                                "A mensagem da descrição precisa ter mais de 10 caracteres para ser válido.",
+                            duration: Duration(seconds: 3),
+                            backgroundColor: HexColor("e63946"),
+                          )..show(context);
+                        }
+                      } catch (e) {
+                        Flushbar(
+                          title: "Erro",
+                          message: e.toString(),
+                          duration: Duration(seconds: 3),
+                          backgroundColor: HexColor("e63946"),
+                        )..show(context);
                       }
                     }),
               ],

@@ -14,8 +14,9 @@ import '../../constants.dart';
 
 class DoadorDoacoes extends StatelessWidget {
   final List<Transacao> transacoes;
+  final bool isOng;
 
-  const DoadorDoacoes({Key key, this.transacoes}) : super(key: key);
+  const DoadorDoacoes({Key key, this.transacoes, this.isOng}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,79 +65,99 @@ class DoadorDoacoes extends StatelessWidget {
               width: 200,
             ),
             Expanded(
-              child: ListView.separated(
-                separatorBuilder: (context, index) => Divider(
-                  color: Colors.black,
-                ),
-                itemCount: transacoes.length,
-                itemBuilder: (context, index) {
-                  return transacoes.length == 0
-                      ? Container(
-                          width: double.infinity,
-                          height: size.height,
-                          child: Center(
-                            child: Text('Você não fez nenhuma transação!!'),
-                          ),
-                        )
-                      : Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                          child: ListTile(
-                            title: AutoSizeText.rich(
-                              TextSpan(
-                                style: DefaultTextStyle.of(context).style,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text: 'Você doou para a ONG: ',
-                                    style: TextStyle(
-                                      fontSize: 15,
+              child: transacoes.length == 0
+                  ? Container(
+                      width: double.infinity,
+                      height: size.height,
+                      child: Center(
+                        child: isOng
+                            ? Text('Sua ong não recebeu nenhuma doação.')
+                            : Text('Você não fez nenhuma transação!!'),
+                      ),
+                    )
+                  : ListView.separated(
+                      separatorBuilder: (context, index) => Divider(
+                        color: Colors.black,
+                      ),
+                      itemCount: transacoes.length,
+                      itemBuilder: (context, index) {
+                        return transacoes.length == 0
+                            ? Container(
+                                width: double.infinity,
+                                height: size.height,
+                                child: Center(
+                                  child: isOng
+                                      ? Text(
+                                          'Sua ong não recebeu nenhuma doação.')
+                                      : Text(
+                                          'Você não fez nenhuma transação!!'),
+                                ),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                child: ListTile(
+                                  title: AutoSizeText.rich(
+                                    TextSpan(
+                                      style: DefaultTextStyle.of(context).style,
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: isOng
+                                              ? 'Você recebeu a doação de: '
+                                              : 'Você doou para a ONG: ',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: isOng
+                                              ? '${transacoes[index].nome}'
+                                              : '${transacoes[index].nomeOng}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          ),
+                                        ),
+                                      ],
                                     ),
+                                    maxLines: 1,
+                                    textAlign: TextAlign.center,
                                   ),
-                                  TextSpan(
-                                    text: '${transacoes[index].nomeOng}',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                                  subtitle: AutoSizeText.rich(
+                                    TextSpan(
+                                      style: DefaultTextStyle.of(context).style,
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                          text: isOng
+                                              ? '\nSua ONG recebeu a doação no valor de '
+                                              : '\nVocê realizou a doação no valor de ',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              'R\$ ${transacoes[index].valor}',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              '\nno dia ${transacoes[index].dataHora.day}/${transacoes[index].dataHora.month}/${transacoes[index].dataHora.year}',
+                                          style: TextStyle(
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ],
                                     ),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
                                   ),
-                                ],
-                              ),
-                              maxLines: 1,
-                              textAlign: TextAlign.center,
-                            ),
-                            subtitle: AutoSizeText.rich(
-                              TextSpan(
-                                style: DefaultTextStyle.of(context).style,
-                                children: <TextSpan>[
-                                  TextSpan(
-                                    text:
-                                        '\nVocê realizou a doação no valor de ',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: 'R\$ ${transacoes[index].valor}',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text:
-                                        '\nno dia ${transacoes[index].dataHora.day}/${transacoes[index].dataHora.month}/${transacoes[index].dataHora.year}',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              maxLines: 3,
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        );
-                },
-              ),
+                                ),
+                              );
+                      },
+                    ),
             )
           ],
         ),

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:colaboreapp/Screens/Eventos/criaevento.dart';
+import 'package:colaboreapp/Screens/SuasDoacoes/doadorDoacoes.dart';
 import 'package:colaboreapp/bloc/HomeOng/homeong_bloc.dart';
 import 'package:colaboreapp/bloc/auth/auth_bloc.dart';
 import 'package:colaboreapp/components/rounded_button.dart';
@@ -166,7 +167,20 @@ class _HomeOngFormState extends State<HomeOngForm> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: FlatButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  var trans = await firestoreOngs
+                                      .getTransacaoOng(ong.cnpj);
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => DoadorDoacoes(
+                                        transacoes: trans,
+                                        isOng: true,
+                                      ),
+                                    ),
+                                  );
+                                },
                                 color: kPrimaryColorGreen,
                                 child: Column(
                                   mainAxisAlignment:

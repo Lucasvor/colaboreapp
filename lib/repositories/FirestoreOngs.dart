@@ -92,6 +92,25 @@ class FirestoreOngs {
     }
   }
 
+  Future<List<Transacao>> getTransacaoOng(String cnpj) async {
+    var qtran = await transacoes.where('cpnj', isEqualTo: cnpj).get();
+    try {
+      return qtran.docs
+          .map(
+            (e) => Transacao(
+                e.data()['nome'],
+                e.data()['cpf'],
+                e.data()['valor'],
+                e.data()['nomeOng'],
+                e.data()['cnpj'],
+                timestamptoDate(e.data()['dataHora'])),
+          )
+          .toList();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<List<Evento>> getEventos() async {
     var qeventos = await eventos.get();
     try {
