@@ -62,20 +62,26 @@ class _HomeOngFormState extends State<HomeOngForm> {
             width: double.infinity,
             height: size.height,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 70, horizontal: 20),
               child: Column(
                 children: <Widget>[
                   RichText(
                     text: TextSpan(
-                      text: '${widget.usuario.displayName}\n',
-                      style: TextStyle(fontSize: 20, color: Colors.black),
+                      text: 'Seja  \n',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontFamily: 'Avenir',
+                      ),
                       children: <TextSpan>[
-                        // TextSpan(
-                        //   text: '  ' + nameShort,
-                        //   //'${widget.usuario.displayName}',
-                        //   style: TextStyle(
-                        //       fontWeight: FontWeight.bold, fontSize: 35),
-                        // ),
+                        TextSpan(
+                          text: 'Bem-vindo',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 35,
+                            fontFamily: 'Avenir',
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -86,31 +92,7 @@ class _HomeOngFormState extends State<HomeOngForm> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Expanded(
-                            child: Container(
-                              height: size.height * 0.2,
-                              margin: EdgeInsets.all(20),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: FlatButton(
-                                  onPressed: () {},
-                                  color: kPrimaryColorGreen,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      SvgPicture.asset(
-                                        "assets/images/schedule.svg",
-                                        height: size.height * 0.1,
-                                      ),
-                                      Text(
-                                        'Imagem da ong',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
+                            child: _buildCircleAvatar(ong.imageUrl),
                           )
                         ],
                       ),
@@ -123,8 +105,8 @@ class _HomeOngFormState extends State<HomeOngForm> {
                       children: <Widget>[
                         Expanded(
                           child: Container(
-                            height: size.height * 0.3,
-                            margin: EdgeInsets.all(20),
+                            height: size.height * 0.16,
+                            margin: EdgeInsets.all(10),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: FlatButton(
@@ -161,8 +143,8 @@ class _HomeOngFormState extends State<HomeOngForm> {
                         ),
                         Expanded(
                           child: Container(
-                            height: size.height * 0.3,
-                            margin: EdgeInsets.all(20),
+                            height: size.height * 0.16,
+                            margin: EdgeInsets.all(10),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: FlatButton(
@@ -193,20 +175,23 @@ class _HomeOngFormState extends State<HomeOngForm> {
                     width: size.width * 0.3,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: RoundedButton(
-                        color: Colors.red,
-                        text: 'Sair',
-                        textColor: Colors.white,
-                        press: () async {
-                          try {
-                            await widget.userRepository.singOut();
-                            BlocProvider.of<AuthBloc>(context).add(
-                              AuthSplash(),
-                            );
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RoundedButton(
+                          color: Colors.red,
+                          text: 'Sair',
+                          textColor: Colors.white,
+                          press: () async {
+                            try {
+                              await widget.userRepository.singOut();
+                              BlocProvider.of<AuthBloc>(context).add(
+                                AuthSplash(),
+                              );
+                            } catch (e) {
+                              print(e);
+                            }
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -219,17 +204,18 @@ class _HomeOngFormState extends State<HomeOngForm> {
     );
   }
 
-  Widget _buildCircleAvatar(String url, String nome) {
+  Widget _buildCircleAvatar(String url) {
     return Hero(
-      tag: nome,
+      tag: url,
       child: ClipOval(
         child: AspectRatio(
-          aspectRatio: 1,
+          aspectRatio: 2,
           child: CachedNetworkImage(
             imageUrl: url,
+            width: 300,
+            height: 300,
             placeholder: (context, url) => new CircularProgressIndicator(),
             errorWidget: (context, url, error) => new Icon(Icons.error),
-            fit: BoxFit.scaleDown,
           ),
         ),
       ),
