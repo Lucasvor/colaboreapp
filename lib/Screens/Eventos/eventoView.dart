@@ -54,7 +54,7 @@ class _EventoViewFormState extends State<EventoViewForm> {
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                     fontFamily: 'Avenir',
-                    color: kPrimaryColorGreen,
+                    color: kPrimaryColorGreen, //qualquer
                   ),
                   children: <TextSpan>[
                     TextSpan(
