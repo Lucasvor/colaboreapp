@@ -115,7 +115,7 @@ class _EventoFormState extends State<EventoForm> {
                                           child: Column(
                                             children: <Widget>[
                                               Text(
-                                                widget.eventos[index].titulo,
+                                                widget.eventos[index].ong ?? "",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Colors.white,
@@ -124,7 +124,9 @@ class _EventoFormState extends State<EventoForm> {
                                                 ),
                                               ),
                                               Text(
-                                                widget.eventos[index].mensagem,
+                                                widget.eventos[index]
+                                                        .mensagem ??
+                                                    "",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   color: Colors.white,
