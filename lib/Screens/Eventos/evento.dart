@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'eventoView.dart';
+
 class EventoForm extends StatefulWidget {
   final List<Evento> eventos;
 
@@ -93,49 +95,60 @@ class _EventoFormState extends State<EventoForm> {
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(10),
                                     ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.stretch,
-                                      children: <Widget>[
-                                        SvgPicture.asset(
-                                          "assets/images/confetti.svg",
-                                          width: 80,
-                                          height: 80,
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: kPrimaryColorGreen,
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => EventoViewForm(),
                                           ),
-                                          padding: EdgeInsets.symmetric(
-                                              vertical: 10, horizontal: 20),
-                                          child: Column(
-                                            children: <Widget>[
-                                              Text(
-                                                widget.eventos[index].ong ?? "",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                              Text(
-                                                widget.eventos[index]
-                                                        .mensagem ??
-                                                    "",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16.0,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
+                                        );
+                                      },
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: <Widget>[
+                                          SvgPicture.asset(
+                                            "assets/images/confetti.svg",
+                                            width: 80,
+                                            height: 80,
                                           ),
-                                        ),
-                                      ],
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color: kPrimaryColorGreen,
+                                            ),
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 10, horizontal: 20),
+                                            child: Column(
+                                              children: <Widget>[
+                                                Text(
+                                                  widget.eventos[index].ong ??
+                                                      "",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  widget.eventos[index]
+                                                          .mensagem ??
+                                                      "",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   // child: Text(
