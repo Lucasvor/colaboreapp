@@ -46,7 +46,7 @@ class _EventoFormState extends State<EventoForm> {
             FittedBox(
               fit: BoxFit.cover,
               child: AutoSizeText(
-                'Histórico de Eventos',
+                'Eventos',
                 textAlign: TextAlign.center,
                 minFontSize: 25,
                 maxFontSize: 30,
@@ -55,11 +55,6 @@ class _EventoFormState extends State<EventoForm> {
                     fontWeight: FontWeight.bold,
                     fontFamily: 'avenir_next_regular.otf'),
               ),
-            ),
-            SvgPicture.asset(
-              "assets/images/Reading list-rafiki.svg",
-              height: 200,
-              width: 200,
             ),
             Expanded(
               child: widget.eventos.length == 0
@@ -70,10 +65,7 @@ class _EventoFormState extends State<EventoForm> {
                         child: Text('Não existe nenhum evento no momento.'),
                       ),
                     )
-                  : ListView.separated(
-                      separatorBuilder: (context, index) => Divider(
-                        color: Colors.black,
-                      ),
+                  : ListView.builder(
                       itemCount: widget.eventos.length,
                       itemBuilder: (context, index) {
                         return widget.eventos.length == 0
@@ -88,10 +80,68 @@ class _EventoFormState extends State<EventoForm> {
                             : Padding(
                                 padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                                 child: Container(
-                                  child: Text(
-                                    '${widget.eventos[index].mensagem} da ong: ${widget.eventos[index].ong}',
-                                    textAlign: TextAlign.center,
+                                  margin: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black12,
+                                          spreadRadius: 2,
+                                          blurRadius: 3,
+                                        ),
+                                      ]),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: <Widget>[
+                                        SvgPicture.asset(
+                                          "assets/images/confetti.svg",
+                                          width: 80,
+                                          height: 80,
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: kPrimaryColorGreen,
+                                          ),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 10, horizontal: 20),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Text(
+                                                widget.eventos[index].titulo,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Text(
+                                                widget.eventos[index].mensagem,
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
+                                  // child: Text(
+                                  //   '${widget.eventos[index].mensagem} da ong: ${widget.eventos[index].ong}',
+                                  //   textAlign: TextAlign.center,
+                                  // ),
                                 ),
                               );
                       },
