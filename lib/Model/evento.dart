@@ -10,8 +10,9 @@ class Evento extends Equatable {
   String ong;
   DateTime data;
   String mensagem;
+  String titulo;
 
-  Evento({this.ong, this.data, this.mensagem});
+  Evento({this.ong, this.data, this.mensagem, this.titulo});
 
   @override
   // TODO: implement props
