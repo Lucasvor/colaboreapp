@@ -68,15 +68,21 @@ class _HomeOngFormState extends State<HomeOngForm> {
                 children: <Widget>[
                   RichText(
                     text: TextSpan(
-                      text: '${widget.usuario.displayName}\n',
-                      style: TextStyle(fontSize: 20, color: Colors.black),
+                      text: 'Seja  \n',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                        fontFamily: 'Avenir',
+                      ),
                       children: <TextSpan>[
-                        // TextSpan(
-                        //   text: '  ' + nameShort,
-                        //   //'${widget.usuario.displayName}',
-                        //   style: TextStyle(
-                        //       fontWeight: FontWeight.bold, fontSize: 35),
-                        // ),
+                        TextSpan(
+                          text: 'Bem-vindo',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 35,
+                            fontFamily: 'Avenir',
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -87,31 +93,7 @@ class _HomeOngFormState extends State<HomeOngForm> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Expanded(
-                            child: Container(
-                              height: size.height * 0.2,
-                              margin: EdgeInsets.all(20),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: FlatButton(
-                                  onPressed: () {},
-                                  color: kPrimaryColorGreen,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      SvgPicture.asset(
-                                        "assets/images/schedule.svg",
-                                        height: size.height * 0.1,
-                                      ),
-                                      Text(
-                                        'Imagem da ong',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
+                            child: _buildCircleAvatar(ong.imageUrl),
                           )
                         ],
                       ),
@@ -233,18 +215,16 @@ class _HomeOngFormState extends State<HomeOngForm> {
     );
   }
 
-  Widget _buildCircleAvatar(String url, String nome) {
-    return Hero(
-      tag: nome,
-      child: ClipOval(
-        child: AspectRatio(
-          aspectRatio: 1,
-          child: CachedNetworkImage(
-            imageUrl: url,
-            placeholder: (context, url) => new CircularProgressIndicator(),
-            errorWidget: (context, url, error) => new Icon(Icons.error),
-            fit: BoxFit.scaleDown,
-          ),
+  Widget _buildCircleAvatar(String url) {
+    return ClipOval(
+      child: AspectRatio(
+        aspectRatio: 2,
+        child: CachedNetworkImage(
+          imageUrl: url,
+          width: 300,
+          height: 300,
+          placeholder: (context, url) => new CircularProgressIndicator(),
+          errorWidget: (context, url, error) => new Icon(Icons.error),
         ),
       ),
     );
