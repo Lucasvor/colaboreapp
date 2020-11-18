@@ -100,7 +100,9 @@ class _EventoFormState extends State<EventoForm> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (_) => EventoViewForm(),
+                                            builder: (_) => EventoViewForm(
+                                              eventos: widget.eventos[index],
+                                            ),
                                           ),
                                         );
                                       },
