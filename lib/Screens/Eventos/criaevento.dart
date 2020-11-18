@@ -44,7 +44,7 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
             padding: EdgeInsets.symmetric(vertical: 40, horizontal: 10),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Column(
@@ -65,100 +65,90 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
                         ),
                       ],
                     ),
-                    FittedBox(
-                      fit: BoxFit.cover,
-                      child: AutoSizeText(
-                        'Crie um Evento',
-                        textAlign: TextAlign.center,
-                        minFontSize: 25,
-                        maxFontSize: 30,
-                        style: TextStyle(
-                            color: kPrimaryColorGreen,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'avenir_next_regular.otf'),
+                    AutoSizeText(
+                      'Crie seu Evento!',
+                      textAlign: TextAlign.start,
+                      minFontSize: 24,
+                      maxFontSize: 30,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Avenir',
                       ),
                     ),
                   ],
                 ),
-                TextField(
-                  controller: tituloController,
-                  maxLines: null,
-                  style: TextStyle(fontSize: 24),
-                  decoration: new InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: kPrimaryColorGreen, width: 1.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red, width: 1.0),
-                      ),
-                      labelText: 'Dê um nome para o evento',
-                      hintText: 'Titulo.',
-                      suffixIcon: descricaoController.text.length > 0
-                          ? IconButton(
-                              icon: Icon(
-                                Icons.close,
-                                color: kPrimaryColorGreen,
-                              ),
-                              onPressed: () {
-                                descricaoController.text = '';
-                              })
-                          : null),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
+                  child: TextField(
+                    controller: tituloController,
+                    maxLines: null,
+                    style: TextStyle(fontSize: 18),
+                    decoration: new InputDecoration(
+                        labelText: 'Dê um nome para o evento',
+                        hintText: 'Titulo',
+                        suffixIcon: tituloController.text.length > 0
+                            ? IconButton(
+                                icon: Icon(
+                                  Icons.close,
+                                  color: kPrimaryColorGreen,
+                                ),
+                                onPressed: () {
+                                  tituloController.text = '';
+                                })
+                            : null),
+                  ),
                 ),
-                TextField(
-                  controller: descricaoController,
-                  maxLines: null,
-                  style: TextStyle(fontSize: 24),
-                  decoration: new InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: kPrimaryColorGreen, width: 1.0),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.red, width: 1.0),
-                      ),
-                      labelText: 'Preencha com a descrição do evento',
-                      hintText: 'Conte um pouco do evento.',
-                      suffixIcon: descricaoController.text.length > 0
-                          ? IconButton(
-                              icon: Icon(
-                                Icons.close,
-                                color: kPrimaryColorGreen,
-                              ),
-                              onPressed: () {
-                                descricaoController.text = '';
-                              })
-                          : null),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(35, 0, 35, 0),
+                  child: TextField(
+                    controller: descricaoController,
+                    maxLines: null,
+                    style: TextStyle(fontSize: 18),
+                    decoration: new InputDecoration(
+                        labelText: 'Descrição do evento',
+                        hintText: 'Conte um pouco do evento.',
+                        suffixIcon: descricaoController.text.length > 0
+                            ? IconButton(
+                                icon: Icon(
+                                  Icons.close,
+                                  color: kPrimaryColorGreen,
+                                ),
+                                onPressed: () {
+                                  descricaoController.text = '';
+                                })
+                            : null),
+                  ),
                 ),
                 RoundedButton(
-                    text: "Criar Evento",
-                    press: () async {
-                      try {
-                        if (descricaoController.text.length > 10) {
-                          var firestoreOng = FirestoreOngs();
-                          firestoreOng.makeEvento(new Evento(
-                              ong: widget.ong.nome,
-                              data: new DateTime.now(),
-                              mensagem: descricaoController.text));
-                          Navigator.of(context).pop();
-                        } else {
-                          Flushbar(
-                            title: "Erro",
-                            message:
-                                "A mensagem da descrição precisa ter mais de 10 caracteres para ser válido.",
-                            duration: Duration(seconds: 3),
-                            backgroundColor: HexColor("e63946"),
-                          )..show(context);
-                        }
-                      } catch (e) {
+                  text: "CRIAR EVENTO",
+                  press: () async {
+                    try {
+                      if (descricaoController.text.length > 10) {
+                        var firestoreOng = FirestoreOngs();
+                        firestoreOng.makeEvento(new Evento(
+                            ong: widget.ong.nome,
+                            data: new DateTime.now(),
+                            mensagem: descricaoController.text));
+                        Navigator.of(context).pop();
+                      } else {
                         Flushbar(
                           title: "Erro",
-                          message: e.toString(),
+                          message:
+                              "A mensagem da descrição precisa ter mais de 10 caracteres para ser válido.",
                           duration: Duration(seconds: 3),
                           backgroundColor: HexColor("e63946"),
                         )..show(context);
                       }
-                    }),
+                    } catch (e) {
+                      Flushbar(
+                        title: "Erro",
+                        message: e.toString(),
+                        duration: Duration(seconds: 3),
+                        backgroundColor: HexColor("e63946"),
+                      )..show(context);
+                    }
+                  },
+                ),
               ],
             ),
           ),

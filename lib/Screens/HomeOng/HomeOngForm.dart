@@ -63,7 +63,7 @@ class _HomeOngFormState extends State<HomeOngForm> {
             width: double.infinity,
             height: size.height,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 70, horizontal: 20),
               child: Column(
                 children: <Widget>[
                   RichText(
@@ -76,8 +76,17 @@ class _HomeOngFormState extends State<HomeOngForm> {
                       ),
                       children: <TextSpan>[
                         TextSpan(
-                          text: 'Bem-vindo',
+                          text: 'Bem-',
                           style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 35,
+                            fontFamily: 'Avenir',
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'vindo',
+                          style: TextStyle(
+                            color: Colors.green[300],
                             fontWeight: FontWeight.bold,
                             fontSize: 35,
                             fontFamily: 'Avenir',
@@ -99,6 +108,7 @@ class _HomeOngFormState extends State<HomeOngForm> {
                       ),
                     ),
                   ),
+                  Row(),
                   Container(
                     height: size.height * 0.3,
                     child: Row(
@@ -106,10 +116,10 @@ class _HomeOngFormState extends State<HomeOngForm> {
                       children: <Widget>[
                         Expanded(
                           child: Container(
-                            height: size.height * 0.3,
-                            margin: EdgeInsets.all(20),
+                            height: size.height * 0.16,
+                            margin: EdgeInsets.all(15),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(12),
                               child: FlatButton(
                                 onPressed: () {
                                   Navigator.push(
@@ -144,10 +154,10 @@ class _HomeOngFormState extends State<HomeOngForm> {
                         ),
                         Expanded(
                           child: Container(
-                            height: size.height * 0.3,
-                            margin: EdgeInsets.all(20),
+                            height: size.height * 0.16,
+                            margin: EdgeInsets.all(12),
                             child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(15),
                               child: FlatButton(
                                 onPressed: () async {
                                   var trans = await firestoreOngs
@@ -189,20 +199,23 @@ class _HomeOngFormState extends State<HomeOngForm> {
                     width: size.width * 0.3,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: RoundedButton(
-                        color: Colors.red,
-                        text: 'Sair',
-                        textColor: Colors.white,
-                        press: () async {
-                          try {
-                            await widget.userRepository.singOut();
-                            BlocProvider.of<AuthBloc>(context).add(
-                              AuthSplash(),
-                            );
-                          } catch (e) {
-                            print(e);
-                          }
-                        },
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RoundedButton(
+                          color: Colors.red,
+                          text: 'Sair',
+                          textColor: Colors.white,
+                          press: () async {
+                            try {
+                              await widget.userRepository.singOut();
+                              BlocProvider.of<AuthBloc>(context).add(
+                                AuthSplash(),
+                              );
+                            } catch (e) {
+                              print(e);
+                            }
+                          },
+                        ),
                       ),
                     ),
                   ),
