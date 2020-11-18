@@ -173,6 +173,7 @@ class _CadastroState extends State<CadastroFormOng> {
                                 Navigator.of(context).pop();
                               },
                               icon: Icon(Icons.arrow_back),
+                              alignment: Alignment.topLeft,
                             ),
                           ]),
                       SizedBox(
@@ -319,6 +320,9 @@ class _CadastroState extends State<CadastroFormOng> {
                         keyboardType: TextInputType.text,
                         autovalidate: true,
                       ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
                       TextFormField(
                         controller: infoController,
                         decoration: InputDecoration(
@@ -335,6 +339,9 @@ class _CadastroState extends State<CadastroFormOng> {
                                   )
                                 : null),
                         keyboardType: TextInputType.text,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
                       ),
                       TextFormField(
                         controller: enderecoController,
@@ -353,6 +360,9 @@ class _CadastroState extends State<CadastroFormOng> {
                                 : null),
                         keyboardType: TextInputType.text,
                       ),
+                      SizedBox(
+                        height: size.height * 0.04,
+                      ),
                       TextFormField(
                         controller: imageURLController,
                         decoration: InputDecoration(
@@ -369,6 +379,9 @@ class _CadastroState extends State<CadastroFormOng> {
                                   )
                                 : null),
                         keyboardType: TextInputType.text,
+                      ),
+                      SizedBox(
+                        height: size.height * 0.04,
                       ),
                       // TextFormField(
                       //   controller: latitudeController,

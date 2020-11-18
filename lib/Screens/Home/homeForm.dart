@@ -275,6 +275,55 @@ class _HomeFormState extends State<HomeForm> {
                     ),
                   ),
                   containerOngs, // cards das ongs
+                  Expanded(
+                    child: Container(
+                      height: size.height * 0.2,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              height: size.height * 0.15,
+                              margin: EdgeInsets.fromLTRB(110, 0, 110, 0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: FlatButton(
+                                  onPressed: () async {
+                                    var firestoreong = FirestoreOngs();
+                                    var listEventos =
+                                        await firestoreong.getEventos();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => EventoForm(
+                                          eventos: listEventos,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  color: kPrimaryColorGreen,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: <Widget>[
+                                      SvgPicture.asset(
+                                        "assets/images/schedule.svg",
+                                        height: size.height * 0.1,
+                                      ),
+                                      Text(
+                                        'Eventos',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
                   Container(
                     height: size.height * 0.2,
                     child: Row(
@@ -358,55 +407,6 @@ class _HomeFormState extends State<HomeForm> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      height: size.height * 0.2,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              height: size.height * 0.2,
-                              margin: EdgeInsets.all(20),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: FlatButton(
-                                  onPressed: () async {
-                                    var firestoreong = FirestoreOngs();
-                                    var listEventos =
-                                        await firestoreong.getEventos();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (_) => EventoForm(
-                                          eventos: listEventos,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  color: kPrimaryColorGreen,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      SvgPicture.asset(
-                                        "assets/images/schedule.svg",
-                                        height: size.height * 0.1,
-                                      ),
-                                      Text(
-                                        'Eventos',
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),
