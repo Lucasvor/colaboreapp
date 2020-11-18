@@ -28,53 +28,80 @@ class _EventoViewFormState extends State<EventoViewForm> {
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 40, horizontal: 10),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
+            Column(
               children: <Widget>[
-                IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: kPrimaryColorGreen,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: kPrimaryColorGreen,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            FittedBox(
-              fit: BoxFit.cover,
-              child: AutoSizeText.rich(
-                TextSpan(
-                  text: '${widget.eventos.ong}\n\n',
+                AutoSizeText(
+                  '${widget.eventos.ong}',
+                  maxFontSize: 34,
+                  minFontSize: 24,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 15,
                     fontFamily: 'Avenir',
-                    color: kPrimaryColorGreen, //qualquer
+                    color: kPrimaryColorGreen,
                   ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: '${widget.eventos.titulo}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        fontFamily: 'Avenir',
-                      ),
-                    ),
-                  ],
-                  //
                 ),
-                textAlign: TextAlign.center,
-                minFontSize: 25,
-                maxFontSize: 30,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold, fontFamily: 'Avenir'),
-              ),
+                AutoSizeText(
+                  '${widget.eventos.titulo}',
+                  maxFontSize: 34,
+                  minFontSize: 26,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                    fontFamily: 'Avenir',
+                    color: kPrimaryColorGreen,
+                  ),
+                ),
+                Divider(
+                  color: Colors.black45,
+                ),
+              ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Expanded(
+                  child: AutoSizeText(
+                    '${widget.eventos.mensagem}',
+                    maxFontSize: 24,
+                    minFontSize: 15,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      fontFamily: 'Avenir',
+                      color: Colors.black45,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: size.height * 0.05,
+            )
           ],
         ),
       ),

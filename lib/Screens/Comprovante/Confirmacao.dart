@@ -7,6 +7,7 @@ import 'package:colaboreapp/repositories/UserRepository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../constants.dart';
 import 'Pagamento.dart';
@@ -92,13 +93,46 @@ class _ConfirmacaoFormState extends State<ConfirmacaoForm> {
                 ),
               ],
             ),
-            CachedNetworkImage(
-              width: 300,
-              height: 300,
-              imageUrl: widget.ong.imageUrl,
-              placeholder: (context, url) => new CircularProgressIndicator(),
-              errorWidget: (context, url, error) => new Icon(Icons.error),
-              fit: BoxFit.scaleDown,
+            Container(
+              height: size.height * 0.1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10000.0),
+                      child: CachedNetworkImage(
+                        height: 80,
+                        width: 80,
+                        imageUrl: widget.ong.imageUrl,
+                        placeholder: (context, url) =>
+                            new CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            new Icon(Icons.error),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            AutoSizeText(
+              '${widget.ong.nome}',
+              maxFontSize: 34,
+              minFontSize: 26,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                fontFamily: 'Avenir',
+                color: kPrimaryColorGreen,
+              ),
+            ),
+            SvgPicture.asset(
+              "assets/images/Appreciation-rafiki.svg",
+              height: 200,
+              width: 200,
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),

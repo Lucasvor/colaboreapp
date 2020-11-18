@@ -53,7 +53,10 @@ class _EventoFormState extends State<EventoForm> {
                 minFontSize: 25,
                 maxFontSize: 30,
                 style: TextStyle(
-                    fontWeight: FontWeight.bold, fontFamily: 'Avenir'),
+                  color: kPrimaryColorGreen,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Avenir',
+                ),
               ),
             ),
             Expanded(
@@ -78,34 +81,35 @@ class _EventoFormState extends State<EventoForm> {
                                 ),
                               )
                             : Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                                child: Container(
-                                  margin: EdgeInsets.all(5),
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black12,
-                                          spreadRadius: 2,
-                                          blurRadius: 3,
+                                padding:
+                                    const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => EventoViewForm(
+                                          eventos: widget.eventos[index],
                                         ),
-                                      ]),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                    child: FlatButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (_) => EventoViewForm(
-                                              eventos: widget.eventos[index],
-                                            ),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    margin: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black12,
+                                            spreadRadius: 2,
+                                            blurRadius: 3,
                                           ),
-                                        );
-                                      },
+                                        ]),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -118,12 +122,15 @@ class _EventoFormState extends State<EventoForm> {
                                             height: 80,
                                           ),
                                           Container(
+                                            width: double.infinity,
                                             decoration: BoxDecoration(
                                               color: kPrimaryColorGreen,
                                             ),
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 10, horizontal: 20),
-                                            child: Column(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
                                               children: <Widget>[
                                                 Text(
                                                   widget.eventos[index].ong ??
@@ -137,7 +144,7 @@ class _EventoFormState extends State<EventoForm> {
                                                 ),
                                                 Text(
                                                   widget.eventos[index]
-                                                          .mensagem ??
+                                                          .titulo ??
                                                       "",
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
@@ -152,11 +159,11 @@ class _EventoFormState extends State<EventoForm> {
                                         ],
                                       ),
                                     ),
+                                    // child: Text(
+                                    //   '${widget.eventos[index].mensagem} da ong: ${widget.eventos[index].ong}',
+                                    //   textAlign: TextAlign.center,
+                                    // ),
                                   ),
-                                  // child: Text(
-                                  //   '${widget.eventos[index].mensagem} da ong: ${widget.eventos[index].ong}',
-                                  //   textAlign: TextAlign.center,
-                                  // ),
                                 ),
                               );
                       },
