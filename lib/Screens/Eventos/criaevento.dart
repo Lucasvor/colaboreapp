@@ -123,11 +123,13 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
                   text: "CRIAR EVENTO",
                   press: () async {
                     try {
-                      if (descricaoController.text.length > 10) {
+                      if (descricaoController.text.length > 10 &&
+                          tituloController.text.length > 5) {
                         var firestoreOng = FirestoreOngs();
                         firestoreOng.makeEvento(new Evento(
                             ong: widget.ong.nome,
                             data: new DateTime.now(),
+                            titulo: tituloController.text,
                             mensagem: descricaoController.text));
                         Navigator.of(context).pop();
                       } else {
