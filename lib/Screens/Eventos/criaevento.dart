@@ -137,8 +137,7 @@ class _CriaEventoFormState extends State<CriaEventoForm> {
                         Navigator.of(context).pop();
                         Flushbar(
                           title: "Sucesso",
-                          message:
-                              "A mensagem da descrição precisa ter mais de 10 caracteres para ser válido.",
+                          message: "Seu evento foi criado com sucesso.",
                           duration: Duration(seconds: 3),
                           backgroundColor: HexColor("91C7A6"),
                         )..show(widget.contextA);
