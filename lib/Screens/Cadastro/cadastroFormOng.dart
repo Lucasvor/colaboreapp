@@ -370,40 +370,40 @@ class _CadastroState extends State<CadastroFormOng> {
                                 : null),
                         keyboardType: TextInputType.text,
                       ),
-                      TextFormField(
-                        controller: latitudeController,
-                        decoration: InputDecoration(
-                            labelText: "Latitude",
-                            suffixIcon: latitudeController.text.length > 0
-                                ? IconButton(
-                                    icon: Icon(
-                                      Icons.close,
-                                      color: kPrimaryColorGreen,
-                                    ),
-                                    onPressed: () {
-                                      latitudeController.text = '';
-                                    },
-                                  )
-                                : null),
-                        keyboardType: TextInputType.text,
-                      ),
-                      TextFormField(
-                        controller: longitudeController,
-                        decoration: InputDecoration(
-                            labelText: "Longitude",
-                            suffixIcon: longitudeController.text.length > 0
-                                ? IconButton(
-                                    icon: Icon(
-                                      Icons.close,
-                                      color: kPrimaryColorGreen,
-                                    ),
-                                    onPressed: () {
-                                      longitudeController.text = '';
-                                    },
-                                  )
-                                : null),
-                        keyboardType: TextInputType.text,
-                      ),
+                      // TextFormField(
+                      //   controller: latitudeController,
+                      //   decoration: InputDecoration(
+                      //       labelText: "Latitude",
+                      //       suffixIcon: latitudeController.text.length > 0
+                      //           ? IconButton(
+                      //               icon: Icon(
+                      //                 Icons.close,
+                      //                 color: kPrimaryColorGreen,
+                      //               ),
+                      //               onPressed: () {
+                      //                 latitudeController.text = '';
+                      //               },
+                      //             )
+                      //           : null),
+                      //   keyboardType: TextInputType.text,
+                      // ),
+                      // TextFormField(
+                      //   controller: longitudeController,
+                      //   decoration: InputDecoration(
+                      //       labelText: "Longitude",
+                      //       suffixIcon: longitudeController.text.length > 0
+                      //           ? IconButton(
+                      //               icon: Icon(
+                      //                 Icons.close,
+                      //                 color: kPrimaryColorGreen,
+                      //               ),
+                      //               onPressed: () {
+                      //                 longitudeController.text = '';
+                      //               },
+                      //             )
+                      //           : null),
+                      //   keyboardType: TextInputType.text,
+                      // ),
                       RoundedButton(
                         text: "Continuar",
                         press: () {
@@ -541,10 +541,10 @@ class _CadastroState extends State<CadastroFormOng> {
                                   info: infoController.text,
                                   endereco: enderecoController.text,
                                   imageUrl: imageURLController.text,
-                                  latitude:
-                                      double.parse(latitudeController.text),
-                                  longitude:
-                                      double.parse(longitudeController.text),
+                                  latitude: 0,
+                                  //double.parse(latitudeController.text),
+                                  longitude: 0,
+                                  //double.parse(longitudeController.text),
                                   senha: senhaController.text,
                                   valorRecebido: 0),
                             );
