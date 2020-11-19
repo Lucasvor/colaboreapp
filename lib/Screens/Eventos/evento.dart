@@ -132,25 +132,29 @@ class _EventoFormState extends State<EventoForm> {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                               children: <Widget>[
-                                                Text(
-                                                  widget.eventos[index].ong ??
-                                                      "",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight: FontWeight.bold,
+                                                Expanded(
+                                                                                                  child: Text(
+                                                    widget.eventos[index].ong ??
+                                                        "",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 16.0,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
                                                   ),
                                                 ),
-                                                Text(
-                                                  widget.eventos[index]
-                                                          .titulo ??
-                                                      "",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0,
-                                                    fontWeight: FontWeight.bold,
+                                                Expanded(
+                                                                                                  child: Text(
+                                                    widget.eventos[index]
+                                                            .titulo ??
+                                                        "",
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 16.0,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
                                                   ),
                                                 ),
                                               ],

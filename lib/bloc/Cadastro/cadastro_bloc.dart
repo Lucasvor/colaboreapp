@@ -149,6 +149,7 @@ class CadastroBloc extends Bloc<CadastroEvent, CadastroState> {
         dataRegistro: dataRegistro,
         categoria: categoria,
         imageUrl: imageUrl,
+        idDocument: 'teste',
         info: info,
         cnpj: cnpj,
         endereco: endereco,

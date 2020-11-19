@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:colaboreapp/Model/ong.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
@@ -14,6 +16,7 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
 
   bool _serviceEnabled;
   Location location = new Location();
+  
   PermissionStatus _permissionGranted;
 
   @override
@@ -52,6 +55,7 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
   Stream<MapaState> mapPegaPosicao() async* {
     try{
     yield MapaPegandoPosicaoState();
+    //location.changeSettings(accuracy: LocationAccuracy.low);
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
       _serviceEnabled = await location.requestService();
@@ -59,6 +63,7 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
         return;
       }
     }
+    if(Platform.isAndroid){
     _permissionGranted = await location.hasPermission();
     if (_permissionGranted == PermissionStatus.denied) {
       _permissionGranted = await location.requestPermission();
@@ -66,6 +71,13 @@ class MapaBloc extends Bloc<MapaEvent, MapaState> {
         return;
       }
     }
+    }
+
+    var result = await location.getLocation().catchError(
+        (e) => print("Unable to find your position."), 
+        test: (e) => e is PlatformException
+      ).catchError((e) => print("$e"));
+
     yield MapaPegaPosicaoState(await location.getLocation());
     }catch(e){
       print(e);
